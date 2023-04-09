@@ -29,9 +29,9 @@ steps:
         from_secret: ssh_rsa
       port: 22
       target: /opt/baota/docker-baota/www/wwwroot/admin.joggle.cn
-      source: ./*
+      source: ./
       # --strip-component=1 代表解压出来的文件,剥离前一个路径
-      strip_components: 1
+      strip_components: 0
     when:
       branch:
         - test
