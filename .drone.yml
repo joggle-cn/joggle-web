@@ -11,11 +11,14 @@ steps:
       - name: yarn-cache
         path: /usr/local/share/.cache
     commands:
-#      - npm config set registry https://registry.npm.taobao.org
-#      - yarn install
-#      - yarn cache dir
-#      - yarn run build:${DRONE_BRANCH}
-      - sed -ie 's/http:\\/\\/joggle-server:8081/http:\\/\\/192.168.1.6:31117/g' js/faceinner.ajax.js
+      - echo "修复api地址"
+      - if [ "${DRONE_BRANCH}" = "test" ];then sed -ie 's/http:\\/\\/joggle-server:8081/http:\\/\\/192.168.1.6:31117/g' js/faceinner.ajax.js; fi
+      - if [ "${DRONE_BRANCH}" = "prod" ];then sed -ie 's/http:\\/\\/joggle-server:8081/https:\\/\\/api.joggle.cn:1443/g' js/faceinner.ajax.js; fi
+    when:
+      branch:
+        - test
+        - prod
+
 
   - name: scp to test
     image: appleboy/drone-scp
