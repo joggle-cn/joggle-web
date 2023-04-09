@@ -1,0 +1,77 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: build
+    image: node:16-alpine
+    volumes:
+      - name: node-cache
+        path: /drone/src/node_modules
+      - name: yarn-cache
+        path: /usr/local/share/.cache
+    commands:
+#      - npm config set registry https://registry.npm.taobao.org
+#      - yarn install
+#      - yarn cache dir
+#      - yarn run build:${DRONE_BRANCH}
+      - sed -ie 's/http:\\/\\/joggle-server:8081/http:\\/\\/192.168.1.6:31117/g' js/faceinner.ajax.js
+
+  - name: scp to test
+    image: appleboy/drone-scp
+    volumes:
+      - name: ssh-rsa
+        path: /root/.ssh
+    settings:
+      host: 192.168.1.6
+      username: root
+      key:
+        from_secret: ssh_rsa
+      port: 22
+      target: /opt/baota/docker-baota/www/wwwroot/admin.joggle.cn
+      source: ./*
+      # --strip-component=1 代表解压出来的文件,剥离前一个路径
+      strip_components: 1
+    when:
+      branch:
+        - test
+
+  - name: deploy-to-oss
+    image: trylife/aliyun-ossutil:latest
+    volumes:
+      - name: oss-config
+        path: /root/.ossutilconfig
+    commands:
+      # drone->repo->settings->secrets-> 增加秘钥
+      # 秘钥还不是那么安全可以随意的被打印出来
+      # 所以秘钥的授权限制了IP，只能执行在Drone服务器上
+      # 默认配置文件地址 ~/.ossutilconfig
+      - pwd
+      - ossutil -c /root/.ossutilconfig cp -ruf ./dist/ oss://bullet1/
+    when:
+      branch:
+        - prod
+volumes:
+  - name: ssh-rsa
+    host:
+      path: /root/.ssh
+  - name: oss-config
+    host:
+      path: /root/.ossutilconfig
+  - name: node-cache
+    host:
+      path: /opt/build/joggle-web/node_modules
+  - name: yarn-cache
+    host:
+      path: /opt/build/joggle-web/.yarn_cache
+  - name: dockerSock
+    host:
+      path: /var/run/docker.sock
+
+trigger:
+  event:
+    - push
+    - custom
+  branch:
+    - prod
+    - test
