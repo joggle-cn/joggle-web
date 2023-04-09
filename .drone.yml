@@ -57,7 +57,7 @@ volumes:
       path: /root/.ssh
   - name: oss-config
     host:
-      path: /root/.ossutilconfig
+      path: /root/.ossutilconfigbullet
   - name: node-cache
     host:
       path: /opt/build/joggle-web/node_modules
