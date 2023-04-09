@@ -47,7 +47,7 @@ steps:
       # 所以秘钥的授权限制了IP，只能执行在Drone服务器上
       # 默认配置文件地址 ~/.ossutilconfig
       - pwd
-      - ossutil -c /root/.ossutilconfig cp -ruf ./dist/ oss://bullet1/
+      - ossutil -c /root/.ossutilconfig cp -ruf ./ oss://bullet1/
     when:
       branch:
         - prod
