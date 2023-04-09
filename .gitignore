@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.github/
+*.iml
+*/*.iml
+*/*/*.iml
+data
+/logs
+target
+.run/*
+LOGGING_PATH_IS_UNDEFINED
