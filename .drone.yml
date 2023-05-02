@@ -40,7 +40,7 @@ steps:
         - test
 
   - name: deploy-to-oss
-    image: trylife/aliyun-ossutil:latest
+    image: metrodatatech/aliyun-ossutil
     volumes:
       - name: oss-config
         path: /root/.ossutilconfig
