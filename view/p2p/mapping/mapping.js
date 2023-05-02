@@ -92,7 +92,8 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
                 });
             }else{
                 $scope.entity = {
-                    clientProxyHost: "127.0.0.1",
+                    clientMtu: 1350,
+                    clientProxyHost: "0.0.0.0",
                     serverLocalHost: "127.0.0.1"
                 }
             }
