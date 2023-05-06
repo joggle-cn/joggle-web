@@ -520,7 +520,19 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
             $("#whiteIpsDialog").modal({
                 backdrop: false
             });
-
+        }
+        // 设备检查更新
+        $scope.checkUpdate = function(item){
+            let params = {
+                deviceId: item.id,
+            }
+            faceinner.postJson(api['device.check.update'], params, function(res){
+                if (res.code == 'S00') {
+                    layer.msg("提交检查更新消息成功。" )
+                    return
+                }
+                layer.msg(res.msg);
+            });
         }
         /** 保存  */
         $scope.submitWhiteIps = function(){

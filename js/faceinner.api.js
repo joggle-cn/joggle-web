@@ -68,6 +68,7 @@ let api = {
     "device.peer.detail": '/api/device/peers/detail',
     "device.white.ips": '/api/device/white-ips',
     "device.white.ips.detail": '/api/device/white-ips/detail',
+    "device.check.update": '/api/user/device/check-update',
 
 
     "user.package.list": '/api/resource/package/list',
