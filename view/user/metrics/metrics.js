@@ -9,12 +9,11 @@ define(['app','jquery','layer','pagintation', 'css!./metrics.css'], function (ap
 
 	var callback = ["$scope","$routeParams",'$location',  function ($scope, $routeParams, $location) {
         $scope.current = $routeParams.current;
-        $scope.page = {
-            current: 1,
-        }
+
         $scope.orderNo = $routeParams.out_trade_no;
         $scope.params ={
-            serverTunnelId: '',
+            current: $routeParams.current?$routeParams.current:1,
+            serverTunnelId: $routeParams.serverTunnelId?parseInt($routeParams.serverTunnelId):1,
         }
 
 
@@ -26,8 +25,12 @@ define(['app','jquery','layer','pagintation', 'css!./metrics.css'], function (ap
             }
         });
 
+        $scope.searchMetricsList = function () {
+            $scope.params.current = 1;
+            queryMetricsList()
+        }
         // 流量明细
-        queryMetricsList(1);
+        queryMetricsList( );
 
         // //获取子控制器当中的跳转页数
         // $scope.$watch("current", function(event,val){
@@ -41,8 +44,7 @@ define(['app','jquery','layer','pagintation', 'css!./metrics.css'], function (ap
          * 流量明细
          * @param newVal
          */
-        function queryMetricsList(page){
-            $scope.params.current = page;
+        function queryMetricsList( ){
             faceinner.get(api["user.metrics.list"], $scope.params, function(res){
                 if (res.code == 'S00') {
                     $scope.$apply(function() {
@@ -58,14 +60,16 @@ define(['app','jquery','layer','pagintation', 'css!./metrics.css'], function (ap
                             totalPages: res.data.pages,
                             startPage: res.data.current,
                             visiblePages: 10,
-                            // href: "#/user/metrics/list?current={{number}}",
+                            href: "#/user/metrics/list?current={{number}}&serverTunnelId="+$scope.params.serverTunnelId,
                             first:"首页",
                             prev:"上一页",
                             next :"下一页",
                             last :"尾页",
                             hideOnlyOnePage : true,
                             onPageClick :function(event,page){
-                                queryMetricsList(page)
+                                // console.log(event)
+                                // console.log(page)
+                                // queryMetricsList(page)
                             }
                         });
                     });

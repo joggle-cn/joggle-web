@@ -29,7 +29,7 @@
 <!--                            <span class="input-group-addon">关键字</span>-->
 <!--                            <input type="text" ng-model="params.keyword" class="form-control" aria-label="Text input with multiple buttons">-->
 <!--                        </div>-->
-                        <button id="bindButton" ng-click="queryMetricsList(1)" type="button"   class="btn btn-success">搜索</button>
+                        <button id="bindButton" ng-click="searchMetricsList()" type="button"   class="btn btn-success">搜索</button>
 
                     </div>
                 </div>
@@ -39,13 +39,13 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th width="60">#</th>
+                      <th width="40">#</th>
                       <th width="100">时间</th>
                       <th width="140">通道</th>
                       <th width="200">设备</th>
                       <th width="80">隧道ID</th>
-                      <th width="120">流量</th>
-                      <th width="80">进/出情况</th>
+                      <th width="100">流量(≈)</th>
+                      <th width="120">进/出情况</th>
                       <th width="120">链接数</th>
                     </tr>
                   </thead>
@@ -57,8 +57,9 @@
                       <td>
                           <span class="label label-info">{{item.deviceNo}}</span></td>
                       <td>{{item.mappingId}}</td>
-                      <td style="text-align: right">{{item.flowStr}}</td>
-                      <td>{{item.bytesIn}}/{{item.bytesOut}}</td>
+                      <td style="text-align: left">{{item.flowStr}}</td>
+                      <td><i class="fa fa-caret-down" style="color: #14b414"></i> {{item.bytesInStr}} /
+                          <i class="fa fa-caret-up" style="color: #1489ff"></i> {{item.bytesOutStr}}</td>
                       <td>{{item.link}}</td>
                     </tr>
                   </tbody>
