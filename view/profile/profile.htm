@@ -1,5 +1,5 @@
 <div style="margin-top:30px; "></div>
-<div class="container">
+<div class="container user-profile">
 
 	<div class="row">
 		<div class="col-xs-12">
@@ -14,69 +14,77 @@
         <div class="col-md-6">
 			<form class="form-horizontal">
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right"><span ng-bind="res.t('register.email')"></span>:</label>
+					<label class="col-sm-3 control-label" style="text-align: right"><span ng-bind="res.t('register.email')"></span>:</label>
 					<div class="col-sm-9">
-						<div type="email" ng-bind="user.email"
+						<div class="form-control" type="email" ng-bind="user.email"
 							 placeholder="{{res.t('register.email')}}"></div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right"><span ng-bind="res.t('register.nickname')"></span>:</label>
+					<label class="col-sm-3 control-label" style="text-align: right"><span ng-bind="res.t('register.nickname')"></span>:</label>
 					<div class="col-sm-9">
-						<span type="text" ng-bind="user.nickname" ></span>
+						<span class="form-control" type="text" ng-bind="user.nickname" ></span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right"><span>套餐</span>:</label>
+					<label class="col-sm-3 control-label" style="text-align: right"><span>套餐</span>:</label>
 					<div class="col-sm-9">
-						<span class="label label-success" ng-bind="user.resourcePackageName"></span>
-<!--						<a href="#/user/package" class="btn btn-default">套餐权益</a>-->
-						<a href="#/user/package" class="btn btn-default">升级套餐</a>
-						<div ng-if="user.packageEndTime != null">到期时间：{{user.packageEndTime}}</div>
+						<div class="form-control" style="padding-top: 0;" >
+							<span class="label label-success" ng-bind="user.resourcePackageName"></span>
+							<a href="#/user/package" class="btn btn-default">升级套餐</a>
+	<!--						<a href="#/user/package" class="btn btn-default">套餐权益</a>-->
+							<div ng-if="user.packageEndTime != null">到期时间：{{user.packageEndTime}}</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right">套餐流量:</label>
+					<label class="col-sm-3 control-label" style="text-align: right">套餐流量:</label>
 					<div class="col-sm-9">
-						<span type="text" ng-if="user.userPackageFlow >= 100">{{user.userPackageFlow}} MB</span>
-						<span type="text" ng-if="user.userPackageFlow < 100 && user.userPackageFlow >= 50" style="color: #ff7700">{{user.userPackageFlow}} MB</span>
-						<span type="text" ng-if="user.userPackageFlow < 50" style="color: red">{{user.userPackageFlow}} MB</span>
-						<span ng-if="user.resourcePackageLevel > 0"> (每月1日0点恢复流量套餐标准流量)</span>
+						<div class="form-control" >
+							<span type="text" ng-if="user.userPackageFlow >= 100">{{user.userPackageFlow}} MB</span>
+							<span type="text" ng-if="user.userPackageFlow < 100 && user.userPackageFlow >= 50" style="color: #ff7700">{{user.userPackageFlow}} MB</span>
+							<span type="text" ng-if="user.userPackageFlow < 50" style="color: red">{{user.userPackageFlow}} MB</span>
+							<span ng-if="user.resourcePackageLevel > 0"> (每月1日0点恢复流量套餐标准流量)</span>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right">充值流量:</label>
+					<label class="col-sm-3 control-label" style="text-align: right">充值流量:</label>
 					<div class="col-sm-9">
-						<span type="text" ng-if="user.userFlow >= 100">{{user.userFlow}} MB</span>
-						<span type="text" ng-if="user.userFlow < 100 && user.userFlow >= 50" style="color: #ff7700">{{user.userFlow}} MB</span>
-						<span type="text" ng-if="user.userFlow < 50" style="color: red">{{user.userFlow}} MB</span>
+						<div class="form-control"  style="padding-top: 0;" >
+							<span type="text" ng-if="user.userFlow >= 100">{{user.userFlow}} MB</span>
+							<span type="text" ng-if="user.userFlow < 100 && user.userFlow >= 50" style="color: #ff7700">{{user.userFlow}} MB</span>
+							<span type="text" ng-if="user.userFlow < 50" style="color: red">{{user.userFlow}} MB</span>
 
-			            <a href="#/user/flow/cash" class="btn btn-default">购买流量</a>
-			            <a href="#/user/metrics/list" class="btn btn-default">流量明细</a>
-
+							<a href="#/user/flow/cash" class="btn btn-default">购买流量</a>
+							<a href="#/user/metrics/list" class="btn btn-default">流量明细</a>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right">余额:</label>
+					<label class="col-sm-3 control-label" style="text-align: right">余额:</label>
 					<div class="col-sm-9">
-						<div type="text" ng-bind="user.balance" ></div>
+						<div class="form-control" ng-bind="user.balance" ></div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right"><span>实名认证</span>:</label>
+					<label class="col-sm-3 control-label" style="text-align: right"><span>实名认证</span>:</label>
 					<div class="col-sm-9">
-						<span class="label label-success" ng-if="user.userCertification==1">通过</span>
-						<span class="label label-default" ng-if="user.userCertification==0">未认证</span>
-						<span class="label label-danger" ng-if="user.userCertification==2">认证拒绝</span>
-						<span ng-if="user.userCertification==2" ng-bind="user.ucResultMsg"></span>
-						<br/><br/>
-						<a href="#/user/certification" ng-if="user.userCertification != 1" class="btn btn-default">实名认证</a>
+						<div class="form-control" >
+							<span class="label label-success" ng-if="user.userCertification==1">通过</span>
+							<span class="label label-default" ng-if="user.userCertification==0">未认证</span>
+							<span class="label label-danger" ng-if="user.userCertification==2">认证拒绝</span>
+							<span ng-if="user.userCertification==2" ng-bind="user.ucResultMsg"></span>
+						</div>
+						<div class="form-control" ng-if="user.userCertification != 1" >
+							<a href="#/user/certification" class="btn btn-default">实名认证</a>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3" style="text-align: right" >上次登录时间:</label>
+					<label class="col-sm-3 control-label" style="text-align: right" >上次登录时间:</label>
 					<div class="col-sm-9">
-						<div type="text" ng-bind="user.loginTime" ></div>
+						<div class="form-control" ng-bind="user.loginTime" ></div>
 					</div>
 				</div>
 			</form>
@@ -84,7 +92,7 @@
 
         <div class="col-md-6">
 
-			<a href="" ng-click="modifyPasswordDialog()">修改密码</a>
+			<a class="btn btn-default" ng-click="modifyPasswordDialog()">修改密码</a>
         </div>
 
     </div>

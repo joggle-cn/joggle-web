@@ -136,25 +136,27 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
 		        id : $scope.entity.id,
 		        domain : $scope.entity.domain,
                 protocol : $scope.entity.protocol,
-		        port : $scope.entity.port,
 		        remotePort : $scope.entity.remotePort,
                 host : $scope.entity.host,
+                port : $scope.entity.port,
                 hostname : $scope.entity.hostname,
                 auth : $scope.entity.auth,
                 deviceId: deviceId,
 		        description : $scope.entity.description,
                 status : $scope.entity.status?1:0,
             }
-
-
-
-
+            if (params.port == '' || params.port == 0|| params.port == null) {
+                layer.msg("Host端口不能空");
+                return
+            }
             faceinner.post(api['user.device.mapping'],params , function(res) {
                 if (res.code == 'S00') {
                     $("#addMapping").modal('hide');
                     flushData();
                 } else{
                     layer.msg(res.msg);
+                    $("#addMapping").modal('hide');
+                    flushData();
                 }
             });
 
