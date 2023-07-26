@@ -33,7 +33,7 @@
 							<span class="label label-success" ng-bind="user.resourcePackageName"></span>
 							<a href="#/user/package" class="btn btn-default">升级套餐</a>
 	<!--						<a href="#/user/package" class="btn btn-default">套餐权益</a>-->
-							<div ng-if="user.packageEndTime != null">到期时间：{{user.packageEndTime}}</div>
+							<span ng-if="user.packageEndTime != null">到期时间：{{user.packageEndTime}}</span>
 						</div>
 					</div>
 				</div>
