@@ -5,7 +5,7 @@
  * @author marker
  * @date 2016-06-05
  */
-define(['app','layer','css!./profile.css'], function (app,layer) {// 加载依赖js,
+define(['app','layer','bootstrap-switch','css!./profile.css'], function (app,layer) {// 加载依赖js,
 
 	return ['$rootScope','$scope','$location','userService', '$AjaxService',
 	        function ($rootScope, $scope, $location, userService, $AjaxService, $session) {
@@ -18,6 +18,14 @@ define(['app','layer','css!./profile.css'], function (app,layer) {// 加载依�
 				$scope.$apply(function() {
 					$rootScope.user = res.data;
 				});
+
+				$("#systemNoticeSwitch").bootstrapSwitch({
+					state: $rootScope.user.systemNotice,
+					onSwitchChange:function (event, state) {
+						$rootScope.user.systemNotice = state;
+					}
+				});
+				$("#systemNoticeSwitch").bootstrapSwitch('state', $scope.user.systemNotice, true);
 			}
 		});
 
