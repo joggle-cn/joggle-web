@@ -20,15 +20,37 @@ define(['app','layer','bootstrap-switch','css!./profile.css'], function (app,lay
 				});
 
 				$("#systemNoticeSwitch").bootstrapSwitch({
+					size: 'mini',
+					onText : "开",      // 设置ON文本
+					offText : "关",    // 设置OFF文本
+					onColor : "success",// 设置ON文本颜色(info/success/warning/danger/primary)
+					// offColor : "warning",  // 设置OFF文本颜色 (info/success/warning/danger/primary)
 					state: $rootScope.user.systemNotice,
 					onSwitchChange:function (event, state) {
 						$rootScope.user.systemNotice = state;
+						$scope.submitSystemNotice();
 					}
 				});
 				$("#systemNoticeSwitch").bootstrapSwitch('state', $scope.user.systemNotice, true);
 			}
 		});
 
+
+		/**
+		 * 提交系统通知配置
+		 */
+		$scope.submitSystemNotice = function () {
+			let params = {
+				status: $rootScope.user.systemNotice ? 1 : 0,
+			}
+			faceinner.postJson('/api/user/notice/switch', params, function (res) {
+				if (res.code == 'S00') {
+					$rootScope.user.systemNotice ?layer.msg('系统通知已打开'):layer.msg('系统通知已关闭');
+				} else {
+					layer.msg(res.msg);
+				}
+			});
+		}
 
 		$scope.save= function() {
 
