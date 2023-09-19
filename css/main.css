@@ -34,8 +34,8 @@ a{font-size: 13px;}
 	color: #fff; font-size: 14px;
 	text-shadow: none;
 }
-.bs-docs-nav .nav>li>a:hover, .nav>li>a:focus, .bs-docs-nav .nav>li>a:hover, .nav>li>a:active{
-	background: #49a44d;
+.userInfo .nav>li>a:hover, .userInfo .nav>li>a:focus, .bs-docs-nav .nav>li>a:hover, .userInfo .nav>li>a:active{
+	background: #46a44a;
 }
 
 

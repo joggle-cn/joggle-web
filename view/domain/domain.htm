@@ -15,80 +15,136 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-4" ng-repeat="item in list">
-			<div class="item-wrap">
-				<div class="row">
-					<div class="col-xs-12">
-						<div style="">
-							<p class="item-text" style="font-size: 20px;line-height: 20px;">
-								<span class="domain_leftline"></span>
-								{{item.domainFull}}
-							</p>
-							<p class="item-text" style="color: #8c8c8c">
-								<i class="fa fa-clock-o"></i> {{item.dueTime}}
-								<span class="label label-danger" ng-show="item.packageRights">VIP权益</span>
+		<div class="col-md-12">
 
-							</p>
+			<div class="bs-example bs-example-tabs" >
+				<ul id="domainTabs" class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a ng-click="selectTab(1)" role="tab" data-toggle="tab">自定义域名</a></li>
+					<li role="presentation" class=""><a ng-click="selectTab(2)" role="tab" data-toggle="tab">购买的域名</a></li>
 
+				</ul>
+				<div class="tab-content" style="padding: 20px">
+					<!-- 自定义的域名 -->
+					<div role="tabpanel" class="tab-pane " ng-class="{active: isSelected(1)}">
+						<div>
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th width="60">#</th>
+									<th width="170">域名</th>
+									<th width="200">创建时间</th>
+									<th width="160">证书</th>
+									<th width="160">证书到期时间</th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="item in page.records">
+									<th scope="row">{{$index + 1}}</th>
+									<td>
+										<a   >{{item.domain}}</a>
+									</td>
+									<td ng-bind="item.createTime"></td>
+									<td> - </td>
+									<td>{{item.createTime}}</td>
+									<td>
+										 <a href ng-click="openDomainCertDialog(item)" >管理证书</a>
+										 <a href ng-click="deleteDomain(item)">删除</a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
 						</div>
+						<div class="text-center">
+							<ul id="pagination" class="pagination"></ul>
+						</div>
+
 					</div>
-					<div class="col-xs-4">
-						<a class="btn btn-default" href="#/user/domain/pay?domainId={{item.id}}"  >续费</a>
+					<!-- 购买的域名 -->
+					<div role="tabpanel" class="tab-pane" ng-class="{active: isSelected(2)}">
+						<div class="row">
+							<div class="col-md-4" ng-repeat="item in list">
+								<div class="item-wrap">
+									<div class="row">
+										<div class="col-xs-12">
+											<div style="">
+												<p class="item-text" style="font-size: 20px;line-height: 20px;">
+													<span class="domain_leftline"></span>
+													{{item.domainFull}}
+												</p>
+												<p class="item-text" style="color: #8c8c8c">
+													<i class="fa fa-clock-o"></i> {{item.dueTime}}
+													<span class="label label-danger" ng-show="item.packageRights">VIP权益</span>
+
+												</p>
+
+											</div>
+										</div>
+										<div class="col-xs-4">
+											<a class="btn btn-default" href="#/user/domain/pay?domainId={{item.id}}"  >续费</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
+
+
+
 
 
 	</div>
 
 
+	<!-- 域名证书 弹框 -->
+	<div id="domainCertDialog" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">配置域名证书</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">域名</label>
+							<div class="col-sm-9">
+								<div ng-bind="currentDomain.domain" class="form-control" ></div>
+							</div>
+							<div class="col-sm-3">
 
-	<div style="display: none">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">我的设备</h3>
-			</div>
-			<div class="panel-body">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">证书私钥</label>
+							<div class="col-sm-9">
+								<textarea ng-model="domainCertInfo.certKey" rows="8" class="form-control" placeholder="请输入证书私钥"></textarea>
+							</div>
+							<div class="col-sm-3">
 
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">PEM证书</label>
+							<div class="col-sm-9">
+								<textarea ng-model="domainCertInfo.certPem" rows="8" class="form-control" placeholder="请输入PEM证书"></textarea>
+							</div>
+							<div class="col-sm-3">
 
-
-				<table class="table table-hover">
-					<thead>
-					<tr>
-						<th>序号</th>
-						<th>设备名称</th>
-						<th>设备标识</th>
-						<th>IP地址</th>
-						<th>上线时间</th>
-						<th>状态</th>
-						<th width="200">操作</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="item in list">
-						<td>{{item.id}}</td>
-						<td>{{item.name}}</td>
-						<td>{{item.deviceId}}</td>
-						<td>{{item.intranetIp}}</td>
-						<td>{{item.onlineTimeStr}}</td>
-						<td>
-							<span class="label label-success" ng-if="item.status == 1">在线</span>
-							<span class="label label-default" ng-if="item.status != 1">离线</span>
-						</td>
-						<td>
-							<a href="#/user/device/{{item.id}}/mapping" class="btn btn-default">配置</a>
-							<a ng-click="editDevice(item)" class="btn btn-info">编辑</a>
-							<a ng-click="delDevice(item)" class="btn btn-danger">删除</a>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-	</div>
+							</div>
+						</div>
+					</form>
+					<p>注意：配置证书后，预计1分钟左右生效。</p>
+				</div>
+				<div class="modal-footer">
+					<a ng-click="submitDomainCert()" class="btn btn-default">保存</a>
+					<a ng-click="closeDomainCertDialog()"  class="btn btn-default">取消</a>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 </div>
 
