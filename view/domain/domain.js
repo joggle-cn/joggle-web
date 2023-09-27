@@ -11,7 +11,7 @@ define(['app', 'jquery', 'layer','pagintation', 'css!./domain.css'], function (a
     var callback = ["$scope", function ($scope) {
 
         $scope.active = 'domain';
-
+        $scope.userDomain = {};
 
         $scope.tab = 1;/*设置默认*/
         $scope.selectTab = function (setTab) {/*设置tab点击事件*/
@@ -77,6 +77,29 @@ define(['app', 'jquery', 'layer','pagintation', 'css!./domain.css'], function (a
         /** 关闭ip白名单弹框 */
         $scope.closeDomainCertDialog = function () {
             $("#domainCertDialog").modal('hide');
+        }
+
+        $scope.openUserDomainDialog = function ( ) {
+            $scope.selectTab(1);
+            $("#UserDomainDialog").modal({
+                backdrop: false
+            });
+        }
+        /** 关闭ip白名单弹框 */
+        $scope.closeUserDomainDialog = function () {
+            $("#UserDomainDialog").modal('hide');
+        }
+
+        /** 保存  */
+        $scope.submitUserDomain = function () {
+            faceinner.postJson('/api/user/domain', $scope.userDomain, function (res) {
+                if (res.code === 'S00') {
+                    $("#UserDomainDialog").modal('hide');
+                    renderCustomDomain(1);
+                } else {
+                    layer.msg(res.msg);
+                }
+            });
         }
 
         $scope.openDomainCertDialog = function (item) {
