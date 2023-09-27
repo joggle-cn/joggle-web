@@ -33,7 +33,7 @@ define(['app', 'jquery', 'layer','pagintation', 'css!./domain.css'], function (a
             return this.tab === checkedTab;
         }
 
-        $scope.selectTab(1);
+        $scope.selectTab(2);
 
         function renderCustomDomain(page) {
             let params = {
