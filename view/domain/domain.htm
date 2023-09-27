@@ -20,8 +20,8 @@
 					<li role="presentation" class="active"><a ng-click="selectTab(2)" role="tab" data-toggle="tab">购买的域名</a></li>
 					<li role="presentation" class=""><a ng-click="selectTab(1)" role="tab" data-toggle="tab">自定义域名</a></li>
 
-					<li class="navbar-right" ng-show="tab === 1"><a href="" ng-click="openUserDomainDialog()" style="color: #d20c0c; font-weight: bold" >新增自定义域名</a></li>
-					<li class="navbar-right" ng-show="tab === 2"><a href="#/user/domain/buy" style="color: #d20c0c; font-weight: bold" >购买域名</a></li>
+					<li class="navbar-right" ng-show="tab === 1"><a href="" ng-click="openUserDomainDialog()" style="color: #d20c0c; font-weight: bold" >创建自定义域名</a></li>
+					<li class="navbar-right" ng-show="tab === 2"><a href="#/user/domain/buy" style="color: #d20c0c; font-weight: bold" >购买官方二级域名</a></li>
 				</ul>
 
 				<div class="tab-content" style="padding: 20px">
@@ -43,10 +43,13 @@
 								<tr ng-repeat="item in page.records">
 									<th scope="row">{{$index + 1}}</th>
 									<td>
-										<a   >{{item.domain}}</a>
+										<a href="https://{{item.domain}}" target="_blank">{{item.domain}}</a>
 									</td>
 									<td ng-bind="item.createTime"></td>
-									<td> - </td>
+									<td>
+										<span ng-if="item.isCert == true" class="label label-success">已配置</span>
+										<span ng-if="item.isCert == false">-</span>
+									</td>
 									<td>{{item.createTime}}</td>
 									<td>
 										 <a href ng-click="openDomainCertDialog(item)" >管理证书</a>
@@ -154,7 +157,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">新增自定义域名</h4>
+					<h4 class="modal-title">创建自定义域名</h4>
 				</div>
 				<div class="modal-body">
 					<form class="form-horizontal">
@@ -162,7 +165,7 @@
 							<label class="col-sm-2 control-label">说明</label>
 							<div class="col-sm-9">
 								<div class="form-control" style="height: 120px; font-weight: bold; color: #e53e3e">
- 									新增自定义域名平台将验证域名的所有权，需要配置域名TXT解析记录
+ 									创建自定义域名平台将验证域名的所有权，需要配置域名TXT解析记录
 									<br/> 域名：<i style="color:#14b414;">accept_joggle</i>.xxx.com
 									<br/>解析值：{{user.activateCode}}
 									<br/>
