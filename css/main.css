@@ -37,7 +37,9 @@ a{font-size: 13px;}
 .userInfo .nav>li>a:hover, .userInfo .nav>li>a:focus, .bs-docs-nav .nav>li>a:hover, .userInfo .nav>li>a:active{
 	background: #46a44a;
 }
-
+.navbar-collapse .nav>li>a:focus {
+	background: #46a44a;
+}
 
 .bs-docs-nav .dropdown.open{
 	background: white;
