@@ -85,6 +85,12 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
                                     $scope.entity.status = state;
                                 }
                             });
+                            $("#compressEnableCheckbox").bootstrapSwitch({
+                                state: $scope.entity.configCompress == 1,
+                                onSwitchChange:function (event, state) {
+                                    $scope.entity.configCompress = state;
+                                }
+                            });
                         });
                     }else{
                         layer.msg(res.msg);
@@ -112,7 +118,14 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
                         $scope.entity.status = state;
                     }
                 });
+                $("#compressEnableCheckbox").bootstrapSwitch({
+                    state: $scope.entity.configCompress == 1,
+                    onSwitchChange:function (event, state) {
+                        $scope.entity.configCompress = state;
+                    }
+                });
                 $("#devicePeerEnableCheckbox").bootstrapSwitch('state', $scope.entity.status, true);
+                $("#compressEnableCheckbox").bootstrapSwitch('state', $scope.entity.configCompress, true);
             })
 
 
@@ -135,6 +148,7 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
          */
         $scope.submitP2pMapping = function(){
             $scope.entity.status = $scope.entity.status?1:0;
+            $scope.entity.configCompress = $scope.entity.configCompress?1:0;
 
             if(!$scope.entity.id){
                 faceinner.postJson(api['device.peer.save'], $scope.entity , function(res) {
