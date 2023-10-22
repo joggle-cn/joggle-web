@@ -13,7 +13,22 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
             current: 1,
         }
         $scope.entity ={
+            configEncryption: "none",
         }
+        $scope.encOptions = [
+            {"encrypt": "none", "desc": "不加密"},
+            {"encrypt": "aes", "desc": "aes算法加密"},
+            {"encrypt": "aes-128", "desc": "aes-128加密"},
+            {"encrypt": "aes-192", "desc": "aes-192加密"},
+            {"encrypt": "salsa20", "desc": "salsa20加密"},
+            {"encrypt": "blowfish", "desc": "blowfish加密"},
+            {"encrypt": "twofish", "desc": "twofish加密"},
+            {"encrypt": "cast5", "desc": "cast5加密"},
+            {"encrypt": "3des", "desc": "3des加密"},
+            {"encrypt": "tea", "desc": "tea加密"},
+            {"encrypt": "xtea", "desc": "xtea加密"},
+            {"encrypt": "xor", "desc": "xor加密"},
+            {"encrypt": "sm4",  "desc": "sm4国密加密"}]
 
 
         // 确认支付信息
@@ -85,12 +100,6 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
                                     $scope.entity.status = state;
                                 }
                             });
-                            $("#compressEnableCheckbox").bootstrapSwitch({
-                                state: $scope.entity.configCompress == 1,
-                                onSwitchChange:function (event, state) {
-                                    $scope.entity.configCompress = state;
-                                }
-                            });
                         });
                     }else{
                         layer.msg(res.msg);
@@ -99,6 +108,8 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
             }else{
                 $scope.entity = {
                     clientMtu: 1350,
+                    configInterval: 40,
+                    configEncryption: 'none',
                     clientProxyHost: "0.0.0.0",
                     serverLocalHost: "127.0.0.1"
                 }
@@ -133,10 +144,33 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
                 backdrop: false
             });
 
+            $('#collapseConfig').collapse({
+                toggle: false
+            })
 
 
 
         }
+
+
+        $("#compressEnableCheckbox").bootstrapSwitch({
+            state: $scope.entity.configCompress == 1,
+            onSwitchChange:function (event, state) {
+                $scope.entity.configCompress = state;
+            }
+        });
+
+        $('#collapseConfig').on('shown.bs.collapse', function () {
+            // do something…
+            $("#compressEnableCheckbox").bootstrapSwitch('state', $scope.entity.configCompress, true);
+        })
+
+
+        // 高级配置
+        $scope.toggleConfig = function ( ) {
+            $("#collapseConfig").collapse('toggle');
+        }
+
 
         // 关闭弹框
         $scope.closeP2pMappingDialog = function ( ) {

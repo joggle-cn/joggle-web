@@ -26,23 +26,23 @@
                   <thead>
                     <tr>
                       <th width="60">#</th>
-                      <th width="200">备注</th>
                       <th width="400">服务模型</th>
                       <th width="80">状态</th>
                       <th width="165">操作时间</th>
+                        <th width="200">备注</th>
                       <th>操作</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr ng-repeat="item in page.records">
                       <th scope="row">{{$index + 1}}</th>
-                      <td>{{item.remark}} </td>
-                      <td>tcp://{{item.serverLocalHost}}:{{item.serverLocalPort}} == tcp://{{item.clientDeviceIp}}:{{item.clientProxyPort}}</td>
+                      <td>tcp://{{item.serverLocalHost}}:{{item.serverLocalPort}} <-> tcp://{{item.clientDeviceIp}}:{{item.clientProxyPort}}</td>
                       <td>
                         <span ng-if="item.status == 1" class="label label-success">{{item.statusName}}</span>
                         <span ng-if="item.status != 1" class="label label-default">{{item.statusName}}</span>
                       </td>
                       <td>{{item.updateTime}}</td>
+                        <td>{{item.remark}} </td>
                       <td>
                         <a href ng-click="createP2pMapping(item.id)">编辑</a>
                         <a href ng-click="deleteP2pMapping(item.id)">删除</a>
@@ -118,21 +118,6 @@
                             <input type="text" ng-model="entity.clientProxyPort" class="form-control" placeholder="客户侧本地端口,例如12330">
                         </div>
                     </div>
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">MTU</label>
-                        <div class="col-sm-8">
-                            <input type="number" ng-model="entity.clientMtu" class="form-control" placeholder="默认：1350">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="compressEnableCheckbox" class="col-sm-3 control-label" >压缩传输</label>
-                        <div class="col-sm-8">
-                            <div class="switch">
-                                <input id="compressEnableCheckbox" type="checkbox" checked />
-                            </div>
-                        </div>
-                    </div>
 
 					<div class="form-group">
                         <label class="col-sm-3 control-label">备注</label>
@@ -149,7 +134,54 @@
                             </div>
                         </div>
                     </div>
-				</form>
+
+                    <a class="btn btn-link" role="button" data-toggle="collapse" ng-click="toggleConfig()"  >
+                        高级参数配置
+                    </a>
+                    <div class="collapse" id="collapseConfig">
+                        <div class="well" style="padding-left: 0; padding-right: 0">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">MTU</label>
+                                <div class="col-sm-8">
+                                    <input type="number" ng-model="entity.clientMtu" class="form-control" placeholder="默认：1350">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">轮训周期</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="number" ng-model="entity.configInterval" class="form-control" placeholder="默认：40">
+                                        <div class="input-group-addon">毫秒</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="compressEnableCheckbox" class="col-sm-3 control-label" >压缩传输</label>
+                                <div class="col-sm-8">
+                                    <div class="switch">
+                                        <input id="compressEnableCheckbox" type="checkbox" checked />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">加密方式</label>
+                                <div class="col-sm-8">
+                                    <div class="switch">
+                                        <select class="form-control" ng-model="entity.configEncryption" ng-options="item.encrypt as item.encrypt +'  ['+item.desc+']' for item in encOptions">
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </form>
 
 			</div>
 			<div class="modal-footer">
