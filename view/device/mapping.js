@@ -89,7 +89,7 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
         }
 
         /**
-         * 编辑设备
+         * 编辑设备映射
          */
         $scope.addMapping = function(item, type){
             if ($rootScope.user.userCertification != 1) {
@@ -101,6 +101,15 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
             }
             item.type = type;
             $scope.entity = item;
+
+            let params = { }
+            faceinner.get('/api/user/domain/options', params, function(res){
+                if (res.code == 'S00') {
+                    $scope.$apply(function() {
+                        $scope.userDomainList = res.data;
+                    });
+                }
+            });
 
             $("#addMapping").modal({
                 backdrop: false
@@ -139,7 +148,7 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
 		        remotePort : $scope.entity.remotePort,
                 host : $scope.entity.host,
                 port : $scope.entity.port,
-                hostname : $scope.entity.hostname,
+                userDomainId : $scope.entity.userDomainId,
                 auth : $scope.entity.auth,
                 deviceId: deviceId,
 		        description : $scope.entity.description,

@@ -226,14 +226,11 @@
 						<div class="col-sm-4"></div>
 					</div>
                     <div class="form-group" ng-show="entity.protocol == 1 || entity.protocol == 3">
-                        <label for="b" class="col-sm-2 control-label">自定义域名</label>
+                        <label for="b" class="col-sm-2 control-label">绑定域名</label>
                         <div class="col-sm-6">
-                            <div>
-                                <input ng-model="entity.hostname" type="text" class="form-control"
-                                        ng-show="entity.id"  >
-                                <input ng-model="entity.hostname" type="text" class="form-control"
-                                       ng-show="!entity.id">
-                            </div>
+							<select class="form-control" ng-model="entity.userDomainId" ng-options="item.id as item.name + (item.bind?'<已绑定>':'') for item in userDomainList">
+								<option value="">======= 不绑定 =======</option>
+							</select>
                         </div>
                         <div class="col-sm-4"></div>
                     </div>
