@@ -7,16 +7,18 @@ steps:
     image: node:16-alpine
     pull: if-not-exists
     volumes:
-      - name: node-cache
-        path: /drone/src/node_modules
+      - name: joggle-web-out
+        path: /drone/out
       - name: yarn-cache
         path: /usr/local/share/.cache
     commands:
       - echo "修复api地址"
+      - if [ "${DRONE_BRANCH}" = "dev" ]; echo 'scp to dev' && scp -r ./ /drone/out; fi
       - if [ "${DRONE_BRANCH}" = "test" ];then sed -ie 's/http:\\/\\/joggle-server:8081/\\/\\/admin.joggle.cn/g' js/faceinner.ajax.js; fi
       - if [ "${DRONE_BRANCH}" = "prod" ];then sed -ie 's/http:\\/\\/joggle-server:8081/https:\\/\\/api.joggle.cn:1443/g' js/faceinner.ajax.js; fi
     when:
       branch:
+        - dev
         - test
         - prod
 
@@ -64,9 +66,9 @@ volumes:
   - name: oss-config
     host:
       path: /root/.ossutilconfigbullet
-  - name: node-cache
+  - name: joggle-web-out
     host:
-      path: /opt/build/joggle-web/node_modules
+      path: /opt/build/joggle-web
   - name: yarn-cache
     host:
       path: /opt/build/joggle-web/.yarn_cache
