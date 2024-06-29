@@ -43,7 +43,7 @@ steps:
       branch:
         - test
 
-  - name: [prod]deploy-to-oss
+  - name: deploy-to-oss
     image: metrodatatech/aliyun-ossutil
     pull: if-not-exists
     volumes:
