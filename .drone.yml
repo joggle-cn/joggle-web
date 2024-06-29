@@ -3,8 +3,8 @@ type: docker
 name: default
 
 steps:
-  - name: build
-    image: appleboy/drone-scp
+  - name: fix IP
+    image: wuweiit/alpine:3.20.
     pull: if-not-exists
     volumes:
       - name: joggle-web-out
@@ -43,7 +43,7 @@ steps:
       branch:
         - test
 
-  - name: deploy-to-oss
+  - name: [prod]deploy-to-oss
     image: metrodatatech/aliyun-ossutil
     pull: if-not-exists
     volumes:
