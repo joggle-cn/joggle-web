@@ -1,7 +1,10 @@
 kind: pipeline
 type: docker
 name: default
-
+# CI设计
+# dev 拷贝到特定目录
+# test admin.joggle.cn运行环境
+# prod 生产环境
 steps:
   - name: fix IP
     image: nas.mrcms.cn:8082/wuweiit/alpine:3.20.2
