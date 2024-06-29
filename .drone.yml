@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: fix IP
-    image: wuweiit/alpine:3.20.
+    image: wuweiit/alpine:3.20.1
     pull: if-not-exists
     volumes:
       - name: joggle-web-out
