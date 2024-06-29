@@ -83,3 +83,4 @@ trigger:
   branch:
     - prod
     - test
+    - dev
