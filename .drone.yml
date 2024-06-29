@@ -12,6 +12,7 @@ steps:
       - name: yarn-cache
         path: /usr/local/share/.cache
     commands:
+      - rm -rf .git
       - echo "修复api地址"
       - if [ "${DRONE_BRANCH}" = "dev" ];then echo 'scp to dev' && scp -r ./ /drone/out; fi
       - if [ "${DRONE_BRANCH}" = "test" ];then sed -ie 's/http:\\/\\/joggle-server:8081/\\/\\/admin.joggle.cn/g' js/faceinner.ajax.js; fi
