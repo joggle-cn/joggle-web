@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: fix IP
-    image: nas.mrcms.cn:8082/wuweiit/alpine
+    image: nas.mrcms.cn:8082/wuweiit/alpine:3.20.2
     pull: if-not-exists
     volumes:
       - name: joggle-web-out
