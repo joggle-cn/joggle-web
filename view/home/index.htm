@@ -1,25 +1,79 @@
 <!-- Docs page layout -->
+<style>
+    .swiper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+</style>
 <div class="" id="index">
 
     <div class="jumbotron masthead">
         <div class="container" style="position: relative">
-            <div class="row" style="position: absolute;  width: 100%; top: 7px">
+            <div class="row" style="  width: 100%; top: 7px">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div id="contain2er" style="width: 100%; height: 400px; position: relative; z-index: 0">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" style="position: relative; width: 100%; height: 400px; z-index: 0">
+                                <div style="z-index: 11;  padding-bottom: 60px">
+                                    <h1>Joggle</h1>
+                                    <h2 class="site-title" ng-bind="res.t('home.banner.title')"></h2>
+                                    <p class="masthead-button-links">
+                                        <a class="btn btn-lg btn-primary btn-shadow" href="#/document" >立即阅读Joggle文档</a>
+                                    </p>
+                                    <p class="masthead-links">
+                                        <a >免费、开源、多用户、多协议支持、跨平台</a>
+                                    </p>
+                                </div>
+                                <div style="position: absolute;width: 100%; height: 400px;  z-index: 0">
 
+                                    <div id="echarts_flow_hour2" style="width: 100%; height: 400px;  z-index: 0" >
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div id="contain2er" style="width: 100%; height: 400px;  z-index: 0">
+
+                                </div>
+                                <div style="z-index: 1; position: absolute;top: 10px">
+                                    <h3>Joggle全网流量[30天]</h3>
+                                </div>
+
+                            </div>
+                            <div class="swiper-slide">
+                                <div id="echarts_flow_hour" style="width: 100%; height: 400px;  z-index: 0">
+
+                                </div>
+                                <div style="z-index: 1; position: absolute;top: 10px">
+                                    <h3>Joggle全网流量[24小时]</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div style="z-index: 11; position: relative; padding-bottom: 60px">
-                <h1>Joggle</h1>
-                <h2 class="site-title" ng-bind="res.t('home.banner.title')"></h2>
-                <p class="masthead-button-links">
-                    <a class="btn btn-lg btn-primary btn-shadow" target="_blank" href="https://www.joggle.cn/doc/index.html" >立即阅读Joggle文档</a>
-                </p>
-                <p class="masthead-links">
-                    <a >免费、开源、多用户、多协议支持、跨平台</a>
-                </p>
-            </div>
+
         </div>
     </div>
 
