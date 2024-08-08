@@ -28,7 +28,7 @@ steps:
 
 
   - name: scp to test
-    image: appleboy/drone-scp
+    image: nas.mrcms.cn:8082/appleboy/drone-scp
     pull: if-not-exists
     volumes:
       - name: ssh-rsa
