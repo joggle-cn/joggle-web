@@ -17,8 +17,8 @@ steps:
     commands:
       - rm -rf .git
       - echo "修复api地址"
-      - if [ "${DRONE_BRANCH}" = "dev"  ];then sed -ie 's/http:\\/\\/joggle-server:8081//g' js/faceinner.ajax.js && echo 'scp to dev' && scp -r ./ /drone/out; fi
-      - if [ "${DRONE_BRANCH}" = "test" ];then sed -ie 's/http:\\/\\/joggle-server:8081/\\/\\/admin.joggle.cn/g' js/faceinner.ajax.js; fi
+      - if [ "${DRONE_BRANCH}" = "dev"  ];then sed -ie 's/http:\\/\\/joggle-server:8081//g' js/faceinner.ajax.js ; fi
+      - if [ "${DRONE_BRANCH}" = "test" ];then sed -ie 's/http:\\/\\/joggle-server:8081/\\/\\/admin.joggle.cn/g' js/faceinner.ajax.js && echo 'scp to test' && scp -r ./ /drone/out; fi
       - if [ "${DRONE_BRANCH}" = "prod" ];then sed -ie 's/http:\\/\\/joggle-server:8081/https:\\/\\/api.joggle.cn:1443/g' js/faceinner.ajax.js; fi
     when:
       branch:
