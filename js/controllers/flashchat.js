@@ -15,8 +15,10 @@ define(['app','webchat','jquery','umeditor','handlebars'], function (app, WebCha
 		}
 		var editor = $window.editor = UM.getEditor('myEditor');
 		
-		//
-		var target = "wss://" + faceinner.getHost() + "/ws/websocket/chat";
+		var serveraddr = faceinner.server.replace("http","ws");
+
+		// var target = "wss://" + faceinner.server + "/ws/websocket/chat";
+		var target = serveraddr + "/ws/websocket/chat";
 		var ws;
 		if ('WebSocket' in window) {
 		    ws = new WebSocket(target);
