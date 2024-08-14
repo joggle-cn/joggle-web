@@ -48,7 +48,7 @@ steps:
         - test
 
   - name: deploy-to-oss
-    image: metrodatatech/aliyun-ossutil
+    image: nas.mrcms.cn:8082/fanyinghao/ossutil:1.6.6
     pull: if-not-exists
     volumes:
       - name: oss-config
