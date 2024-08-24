@@ -16,19 +16,19 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
             configEncryption: "none",
         }
         $scope.encOptions = [
-            {"encrypt": "none", "desc": "不加密"},
-            {"encrypt": "aes", "desc": "aes算法加密"},
-            {"encrypt": "aes-128", "desc": "aes-128加密"},
-            {"encrypt": "aes-192", "desc": "aes-192加密"},
-            {"encrypt": "salsa20", "desc": "salsa20加密"},
-            {"encrypt": "blowfish", "desc": "blowfish加密"},
-            {"encrypt": "twofish", "desc": "twofish加密"},
-            {"encrypt": "cast5", "desc": "cast5加密"},
-            {"encrypt": "3des", "desc": "3des加密"},
-            {"encrypt": "tea", "desc": "tea加密"},
-            {"encrypt": "xtea", "desc": "xtea加密"},
-            {"encrypt": "xor", "desc": "xor加密"},
-            {"encrypt": "sm4",  "desc": "sm4国密加密"}]
+            {"encrypt": "none", "desc": "不加密 [5786.77 MB/s]"},
+            {"encrypt": "aes", "desc": "aes算法加密 [48.19 MB/s]"},
+            {"encrypt": "aes-128", "desc": "aes-128加密 [48.19 MB/s]"},
+            {"encrypt": "aes-192", "desc": "aes-192加密 [41.78 MB/s]"},
+            {"encrypt": "salsa20", "desc": "salsa20加密 [81.66 MB/s]"},
+            {"encrypt": "blowfish", "desc": "blowfish加密 [45.37 MB/s]"},
+            {"encrypt": "twofish", "desc": "twofish加密 [9.18 MB/s]"},
+            {"encrypt": "cast5", "desc": "cast5加密 [39.11 MB/s]"},
+            {"encrypt": "3des", "desc": "3des加密 [7.16 MB/s]"},
+            {"encrypt": "tea", "desc": "tea加密 [80.34 MB/s]"},
+            {"encrypt": "xtea", "desc": "xtea加密 [26.22 MB/s]"},
+            {"encrypt": "xor", "desc": "xor加密 [134.73 MB/s]"},
+            {"encrypt": "sm4",  "desc": "sm4国密加密 [34.69 MB/s]"}]
 
 
         // 确认支付信息
