@@ -154,6 +154,33 @@ return angular.module('app.services', [])
     // 工具
     var utils = {
         _locationData: undefined,
+
+		openWechatPayQrCode: function (codeUrl, initCallback) {
+
+			layer.open({
+				type: 1,
+				// skin: 'layui-layer-nobg',
+				// maxHeight: 960,
+				closeBtn: 0,
+				title: false,
+				shadeClose: true, // 开启遮罩关闭
+				content: '<div style="margin: 20px; text-align: center"><b style="color:red">请使用微信扫描二维码支付订单</b> <br/><br/> <div id="imgQRcode2" style="margin: 0 auto; width: 256px;"></div></div>',
+				success: function(){
+					// 设置参数方式
+					new QRCode('imgQRcode2', {
+						text: codeUrl,
+						width: 256,
+						height: 256,
+						colorDark : '#000000',
+						colorLight : '#ffffff',
+						correctLevel : QRCode.CorrectLevel.H
+					});
+					initCallback();
+				}
+			});
+
+
+		},
 		/**
          * 获取地理位置
          * */
