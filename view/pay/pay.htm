@@ -94,7 +94,7 @@
 					<label class="col-sm-3" style="text-align: right">到期时间:</label>
 					<div class="col-sm-9">
 						<div>
-							{{dueTime | showDate}}
+							{{dueTime | showDate}} <span ng-show="dueTime == null" class="label label-danger">VIP永久不到期</span>
 						</div>
 					</div>
 				</div>
