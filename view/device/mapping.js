@@ -545,6 +545,22 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
                 layer.msg(res.msg);
             });
         }
+        /**
+         * 扫描内网服务清单
+         * @param item
+         */
+        $scope.deviceScan = function(item){
+            let params = {
+                deviceNo: item.deviceNo,
+            }
+            faceinner.postJson(api['user.device.scan'], params, function(res){
+                if (res.code == 'S00') {
+                    layer.msg("提交扫描任务成功。" )
+                    return
+                }
+                layer.msg(res.msg);
+            });
+        }
         /** 保存  */
         $scope.submitWhiteIps = function(){
             faceinner.putJson(api['device.white.ips'], $scope.whiteIps , function(res) {

@@ -59,6 +59,7 @@ let api = {
     "user.device.wol": '/api/user/device/wol',
     "user.device.discovery": '/api/user/device/discovery',
     "user.device.switch-line": '/api/user/device/switch-line',
+    "user.device.scan": '/api/user/device/service/start_scan',
 
     "device.options": '/api/user/device/options',
     "device.door.config": '/api/device/door/config/one',
