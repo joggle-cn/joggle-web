@@ -5,7 +5,7 @@
  * @author marker
  * @date 2019-12-26
  */
-define(['app', 'jquery', 'layer','pagintation', 'css!./domain.css'], function (app, $, layer) {//加载依赖js,
+define(['app', 'jquery', 'layer','pagintation','bootstrap-switch', 'css!./domain.css'], function (app, $, layer) {//加载依赖js,
 
 
     var callback = ["$scope", function ($scope) {
@@ -84,6 +84,7 @@ define(['app', 'jquery', 'layer','pagintation', 'css!./domain.css'], function (a
             $("#UserDomainDialog").modal({
                 backdrop: false
             });
+
         }
         /** 关闭ip白名单弹框 */
         $scope.closeUserDomainDialog = function () {
@@ -115,7 +116,18 @@ define(['app', 'jquery', 'layer','pagintation', 'css!./domain.css'], function (a
                     $scope.$apply(function () {
                         $scope.domainCertInfo.certKey = res.data.certKey;
                         $scope.domainCertInfo.certPem = res.data.certPem;
+                        $scope.domainCertInfo.isAutoRenewal = res.data.isAutoRenewal;
                     });
+
+
+                    $("#autoReNewCertBtn").bootstrapSwitch({
+                        state: $scope.domainCertInfo.isAutoRenewal,
+                        onSwitchChange:function (event, state) {
+                            $scope.domainCertInfo.isAutoRenewal = state;
+                        }
+                    });
+                    $("#autoReNewCertBtn").bootstrapSwitch('state', $scope.domainCertInfo.isAutoRenewal, true);
+
                 }
             });
             $("#domainCertDialog").modal({

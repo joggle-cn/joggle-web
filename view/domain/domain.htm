@@ -36,6 +36,7 @@
 									<th width="200">创建时间</th>
 									<th width="160">证书</th>
 									<th width="160">证书到期时间</th>
+									<th width="160">自动续期</th>
 									<th>操作</th>
 								</tr>
 								</thead>
@@ -50,7 +51,11 @@
 										<span ng-if="item.isCert == true" class="label label-success">已配置</span>
 										<span ng-if="item.isCert == false">-</span>
 									</td>
-									<td>{{item.createTime}}</td>
+									<td>{{item.dueTime}}</td>
+									<td>
+										<span ng-if="item.isAutoRenewal == true" class="label label-success">自动续期</span>
+										<span ng-if="item.isAutoRenewal == false">-</span>
+									</td>
 									<td>
 										 <a href ng-click="openDomainCertDialog(item)" >管理证书</a>
 										 <a href ng-click="deleteDomain(item)">删除</a>
@@ -139,8 +144,22 @@
 
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">自动续期</label>
+							<div class="col-sm-9">
+
+								<div class="switch">
+									<input id="autoReNewCertBtn" type="checkbox" checked />
+								</div>
+							</div>
+							<div class="col-sm-3">
+
+							</div>
+						</div>
 					</form>
-					<p>注意：配置证书后，预计1分钟左右生效。</p>
+					<p>注意：<br/>
+						1、配置证书后，预计1分钟左右生效。<br/>
+						2、开启自动续期后，证书到期前10天会自动续期。</p>
 				</div>
 				<div class="modal-footer">
 					<a ng-click="submitDomainCert()" class="btn btn-default">保存</a>
