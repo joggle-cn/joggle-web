@@ -21,6 +21,11 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 	        templateUrl: 'view/home/index.htm'
 	      , controllerUrl: 'view/home/index.js'
 		}))
+		// 产品定价
+		.when('/package', router({
+			templateUrl: 'view/home/package/package.htm'
+			, controllerUrl: 'view/home/package/package.js'
+		}))
 		// 文档
 		.when('/document', router({
 			templateUrl: 'view/document/document.htm'

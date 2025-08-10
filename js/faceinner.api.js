@@ -72,7 +72,7 @@ let api = {
     "device.check.update": '/api/user/device/check-update',
 
 
-    "user.package.list": '/api/resource/package/list',
+    "user.package.list": '/api/open/resource/package/list',
     "user.package.detail": '/api/resource/package/detail',
     "system.ngrokd.check": '/api/system/ngrokd/check',
 
