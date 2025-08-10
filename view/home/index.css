@@ -1,4 +1,11 @@
 
+@media (min-width: 1200px) {
+    #index .container {
+        width: 1700px !important;  /* 或你想要的任何宽度 */
+    }
+}
+
+
 #index .lead{
     line-height: 1.8;
 }
@@ -26,14 +33,36 @@
 
 }
 #index .index-bullet-title{
-    margin: 30px 0;
+    padding: 30px 0;
+    font-weight: bold;
 }
 #index .index-textcenter{
     text-align: center;
+    padding:0;
 }
 #index .index-icon{
     width: 100px;
     margin: 0 auto;
+}
+
+#index .index-icon-sence{
+    width: 280px;
+    margin: 0 auto;
+}
+#index .sence{
+    width: 320px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px;
+}
+#index .sence h4{
+    font-weight: bold;
+    text-align: left;
+}
+#index .sence p{
+    text-align: left;
+    font-size: 16px;
 }
 
 

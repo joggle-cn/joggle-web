@@ -24,9 +24,13 @@
         -webkit-align-items: center;
         align-items: center;
     }
+    @media (min-width: 1200px) {
+         .container {
+            width: 1700px !important;  /* 或你想要的任何宽度 */
+        }
+    }
 </style>
 <div class="" id="index">
-
     <div class="jumbotron masthead">
         <div class="container" style="position: relative">
             <div class="row" style="  width: 100%; top: 7px">
@@ -139,15 +143,7 @@
 
 
     <div class="container index-textcenter">
-        <h2 class="index-bullet-title">什么是Joggle？</h2>
-        <p class="lead">Joggle 是一个款云端管理的内网穿透互联网应用。能够帮助用户快速的将内网应用映射到公网，帮助开发者实现穿透内网调试应用，网站程序映射到公网、映射RDP远程桌面链接家里PC电脑等等，能实现轻量级的网站应用映射。
-            <br/>实现这一切您只需要在您的电脑或者低功耗设备部署Joggle客户端即可。
-        </p>
-        <img src="./resource/images/register/register.jpg" style="width: 100%; margin-top:3em" />
-        <br/>
-        <br/>
-        <hr class="half-rule">
-
+        <h1 class="index-bullet-title" style="font-weight: bold">技术特点</h1>
         <div class="row index-textcenter">
             <div class="col-sm-3 col-xs-6">
                 <div class="index-icon">
@@ -180,14 +176,35 @@
         </div>
     </div>
 
-    <div class="container index-textcenter" style="margin-top: 80px">
-        <h2 class="index-bullet-title">Joggle P2P隧道工作原理</h2>
-        <p class="lead">
-            自主研发的P2P隧道技术，突破NAT限制，将两个局域网建立通讯桥梁，实现了无需走公网流量点对点链接的网络服务。
-        </p>
-        <img src="./resource/images/register/joggle-p2p.png" alt="joggle p2p原理图" style="width: 100%; margin-top:3em" />
-        <br/>
+
+
+    <div class="container index-textcenter">
+        <h1 class="index-bullet-title" style="font-weight: bold">核心技术优势</h1>
+
+        <div class="row  ">
+            <div class="col-sm-6 col-xs-6">
+                <img style="width:700px" src="./resource/images/home/kcp.jpg" alt="Joggle kcp" class="img-responsive">
+            </div>
+            <div class="col-sm-6  col-xs-6">
+                <div style=" padding-top: 140px">
+                    <div>
+                        <h1 style="font-weight: bold">端到端网络映射</h1>
+                        <p style="font-size: 24px; color: #858585">深度集成KCP协议，全面实现可靠、稳定、高性能的端到端网络映射。 自主研发的P2P隧道技术，突破NAT限制，将两个局域网建立通讯桥梁，实现了无需走公网流量点对点链接的网络服务。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+<!--    <div class="container index-textcenter" style="margin-top: 80px">-->
+<!--        <h2 class="index-bullet-title">Joggle P2P隧道工作原理</h2>-->
+<!--        <p class="lead">-->
+
+<!--        </p>-->
+<!--        <img src="./resource/images/register/joggle-p2p.png" alt="joggle p2p原理图" style="width: 100%; margin-top:3em" />-->
+<!--        <br/>-->
+<!--    </div>-->
 
     <div class="container index-textcenter" style="margin-top: 40px">
         <h2 class="index-bullet-title">Joggle 源代码下载</h2>
@@ -197,6 +214,49 @@
         <a href="https://github.com/joggle-cn/joggle" target="_blank" class="btn btn-outline btn-lg">查看 GitHub 项目主页</a>
     </div>
 
+    <div style="background: rgb(249 250 251 / var(--tw-bg-opacity, 1));">
+        <div class="container index-textcenter case" style="margin-top: 40px; padding-bottom: 40px">
+            <h2 class="index-bullet-title">应用场景</h2>
+            <div class="row index-textcenter" style="padding-top: 20px;">
+                <div class="col-sm-3 col-xs-6  ">
+                    <div class="sence">
+                        <div class="index-icon-sence">
+                            <img src="./resource/images/home/pc-remote.png" alt="远程桌面访问" class="img-responsive">
+                        </div>
+                        <h4>远程桌面访问</h4>
+                        <p>实现流畅的远程桌面控制体验，适用于远程办公场景。</p>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6  ">
+                    <div class="sence">
+                        <div class="index-icon-sence" >
+                            <img src="./resource/images/home/games.png" alt="游戏加速" class="img-responsive">
+                        </div>
+                        <h4>游戏加速</h4>
+                        <p>降低游戏延迟，提供流畅的游戏体验。端到端加速。</p>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6  ">
+                    <div class="sence">
+                        <div class="index-icon-sence" >
+                            <img src="./resource/images/home/sharefile.png" alt="文件共享" class="img-responsive">
+                        </div>
+                        <h4>文件共享</h4>
+                        <p>快速可靠的文件传输服务，支持大文件断点续传。</p>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="sence">
+                        <div class="index-icon-sence" >
+                            <img src="./resource/images/home/monitor.png" alt="监控系统" class="img-responsive">
+                        </div>
+                        <h4>监控系统</h4>
+                        <p>支持实时设备监控，精准把控流量情况，确保网络安全。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container index-textcenter case" style="margin-top: 40px">
         <h2 class="index-bullet-title">成功案例</h2>
