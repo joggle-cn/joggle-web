@@ -32,9 +32,49 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
         }
 
 
+        $scope.tab = 1;/*设置默认*/
+        $scope.selectTab = function (setTab) {/*设置tab点击事件*/
+            this.tab = setTab;
+            if (setTab === 2) {
+                faceinner.get(api["user.domain"], function (res) {
+                    if (res.status == 0) {
+                        $scope.$apply(function () {
+                            $scope.list = res.data;
+                        });
+                    }
+                });
+            }
+            // if (setTab === 1) {
+            //     renderCustomDomain(1);
+            // }
+        };
+        $scope.isSelected = function (checkedTab) {/*页面的切换*/
+            return this.tab === checkedTab;
+        }
+
+        $scope.selectTab(1);
+
 
         $("[name='my-checkbox']").bootstrapSwitch();
 
+        // 端到端
+        $scope.entity ={
+            configEncryption: "none",
+        }
+        $scope.encOptions = [
+            {"encrypt": "none", "desc": "不加密 [5786.77 MB/s]"},
+            {"encrypt": "aes", "desc": "aes算法加密 [48.19 MB/s]"},
+            {"encrypt": "aes-128", "desc": "aes-128加密 [48.19 MB/s]"},
+            {"encrypt": "aes-192", "desc": "aes-192加密 [41.78 MB/s]"},
+            {"encrypt": "salsa20", "desc": "salsa20加密 [81.66 MB/s]"},
+            {"encrypt": "blowfish", "desc": "blowfish加密 [45.37 MB/s]"},
+            {"encrypt": "twofish", "desc": "twofish加密 [9.18 MB/s]"},
+            {"encrypt": "cast5", "desc": "cast5加密 [39.11 MB/s]"},
+            {"encrypt": "3des", "desc": "3des加密 [7.16 MB/s]"},
+            {"encrypt": "tea", "desc": "tea加密 [80.34 MB/s]"},
+            {"encrypt": "xtea", "desc": "xtea加密 [26.22 MB/s]"},
+            {"encrypt": "xor", "desc": "xor加密 [134.73 MB/s]"},
+            {"encrypt": "sm4",  "desc": "sm4国密加密 [34.69 MB/s]"}]
 
 
         function flushData(){
@@ -44,6 +84,7 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
                         $scope.deviceInfo = res.data.deviceInfo;
                         $scope.features = res.data.features;
                         $scope.portList = res.data.portList;
+                        $scope.p2pList = res.data.p2pList;
                         $scope.domainList = res.data.domainList;
                         $scope.deviceUpdate = {
                             id: $scope.deviceInfo.id,
@@ -575,10 +616,141 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
 
 
 
+        // ===========================================================================================
+        // 【端到端】
+        // ===========================================================================================
+
+        $scope.deleteP2pMapping = function (peerId) {
+            faceinner.delete(api['device.peer.save'], {id:peerId} , function(res) {
+                if (res.code == 'S00') {
+                    flushData();
+                }else{
+                    layer.msg(res.msg);
+                }
+            });
+        }
+
+
+        $scope.createP2pMapping = function (peerId) {
+            if (peerId) {
+                faceinner.get(api['device.peer.detail'], {id:peerId} , function(res) {
+                    if (res.code == 'S00') {
+                        $scope.$apply(function() {
+                            $scope.entity = res.data
+                            $("#devicePeerEnableCheckbox").bootstrapSwitch({
+                                state: $scope.entity.status == 1,
+                                onSwitchChange:function (event, state) {
+                                    $scope.entity.status = state;
+                                }
+                            });
+                        });
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                });
+            }else{
+                $scope.entity = {
+                    clientMtu: 1350,
+                    serverDeviceId: $scope.deviceInfo.id,
+                    configInterval: 40,
+                    configEncryption: 'none',
+                    clientProxyHost: "0.0.0.0",
+                    serverLocalHost: "127.0.0.1",
+                    status: 1,
+                    configCompress: 1
+                }
+            }
+            faceinner.get(api["device.options"], {}, function(res){
+                if (res.code == 'S00') {
+                    $scope.$apply(function() {
+                        $scope.list = res.data;
+                    });
+                }
+            });
+
+            $('#createP2pMappingDialog').on('shown.bs.modal', function () {
+                $("#devicePeerEnableCheckbox").bootstrapSwitch({
+                    state: $scope.entity.status == 1,
+                    onSwitchChange:function (event, state) {
+                        $scope.entity.status = state;
+                    }
+                });
+                $("#compressEnableCheckbox").bootstrapSwitch({
+                    state: $scope.entity.configCompress == 1,
+                    onSwitchChange:function (event, state) {
+                        $scope.entity.configCompress = state;
+                    }
+                });
+                $("#devicePeerEnableCheckbox").bootstrapSwitch('state', $scope.entity.status, true);
+                $("#compressEnableCheckbox").bootstrapSwitch('state', $scope.entity.configCompress, true);
+            })
+
+
+            $("#createP2pMappingDialog").modal({
+                backdrop: false
+            });
+
+            $('#collapseConfig').collapse({
+                toggle: false
+            })
 
 
 
+        }
 
+
+        $("#compressEnableCheckbox").bootstrapSwitch({
+            state: $scope.entity.configCompress == 1,
+            onSwitchChange:function (event, state) {
+                $scope.entity.configCompress = state;
+            }
+        });
+
+        $('#collapseConfig').on('shown.bs.collapse', function () {
+            // do something…
+            $("#compressEnableCheckbox").bootstrapSwitch('state', $scope.entity.configCompress, true);
+        })
+
+
+        // 高级配置
+        $scope.toggleConfig = function ( ) {
+            $("#collapseConfig").collapse('toggle');
+        }
+
+
+        // 关闭弹框
+        $scope.closeP2pMappingDialog = function ( ) {
+            $("#createP2pMappingDialog").modal('hide');
+        }
+
+        /**
+         * 保存
+         */
+        $scope.submitP2pMapping = function(){
+            $scope.entity.status = $scope.entity.status?1:0;
+            $scope.entity.configCompress = $scope.entity.configCompress?1:0;
+
+            if(!$scope.entity.id){
+                faceinner.postJson(api['device.peer.save'], $scope.entity , function(res) {
+                    if (res.code == 'S00') {
+                        $("#createP2pMappingDialog").modal('hide');
+                        flushData();
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                });
+            }else{
+                faceinner.putJson(api['device.peer.save'], $scope.entity , function(res) {
+                    if (res.code == 'S00') {
+                        $("#createP2pMappingDialog").modal('hide');
+                        flushData();
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                });
+            }
+
+        }
 
 
     }];

@@ -31,7 +31,7 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
             {"encrypt": "sm4",  "desc": "sm4国密加密 [34.69 MB/s]"}]
 
 
-        // 确认支付信息
+        // 刷新数据
         flushData();
 
         // //获取子控制器当中的跳转页数
