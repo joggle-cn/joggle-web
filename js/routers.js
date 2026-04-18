@@ -332,7 +332,8 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 function router(config){
 
 	// 生成独立URL，保证不缓存页面数据
-	var random = "?t=" + Math.random();
+	// var random = "?t=" + Math.random();
+	var random = "?v=1";
 	config.templateUrl = config.templateUrl + random;
 	return angularAMD.route(config);
 }
