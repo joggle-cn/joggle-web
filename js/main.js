@@ -79,7 +79,8 @@ var options = {
 
     },
     deps: [ 'bootstrap', 'loading','api','ajax']
-    , urlArgs: "time=" + Math.random() // 防止读取缓存，调试用
+    , urlArgs: "time=" + Math.random(), // 防止读取缓存，调试用
+    waitSeconds: 5  // 增加超时时间（可选）
 };
 
 
