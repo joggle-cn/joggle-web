@@ -21,7 +21,7 @@ define(['app','jquery'], function (app, $) {//加载依赖js,
 		    $("#bindButton").attr("disabled",true);
             $scope.info = "正在为您链接校验服务器...";
             $("#progress-bar").css({visibility:"visible"});
-            faceinner.get(api['user.device.validate'], {deviceId: $scope.deviceId}, function(res) {
+            faceinner.postJson(api['user.device.validate'], {deviceNo: $scope.deviceId}, function(res) {
 
                 if (res.code == 'S00') {
                     $scope.$apply(function(){
