@@ -22,8 +22,10 @@ define(['app', 'layer', 'css!./download.css'], function (app, layer) {//加载�
 				,anim: 1 //0-6的动画形式，-1不开启
 				,content: '<div style="padding:50px;">' +
 					'下载地址：<a href="https://pan.baidu.com/s/1Xy5_R_ezPFft9vsZrLNBSA" target="_blank">' +
-					' https://pan.baidu.com/s/1Xy5_R_ezPFft9vsZrLNBSA</a><br/> 密码: wq2e' +
-					'' +
+					' https://pan.baidu.com/s/1Xy5_R_ezPFft9vsZrLNBSA</a><br/> 密码: wq2e<br/><br/>' +
+					'蓝凑云：<br/>' +
+					'https://wwbgw.lanzouv.com/b01bjdhv8h\n' +
+					'密码:a4co<br/>' +
 					'</div>'
 			});
 		}
@@ -43,8 +45,10 @@ define(['app', 'layer', 'css!./download.css'], function (app, layer) {//加载�
 				,anim: 1 //0-6的动画形式，-1不开启
 				,content: '<div style="padding:50px;">' +
 					'下载地址：<a href="https://pan.baidu.com/s/1dy2qzPtN3CmftuHGm3BJgA" target="_blank">' +
-					' https://pan.baidu.com/s/1dy2qzPtN3CmftuHGm3BJgA</a><br/> 密码: h9hf' +
-					'' +
+					' https://pan.baidu.com/s/1dy2qzPtN3CmftuHGm3BJgA</a><br/> 密码: h9hf<br/><br/>' +
+					'蓝凑云：<br/>' +
+					'https://wwbgw.lanzouv.com/b01bjdhv8h\n' +
+					'密码:a4co<br/>' +
 					'</div>'
 			});
 		}
