@@ -1,118 +1,199 @@
 /**
- *
- * 支付 模块
- *
- * @author marker
- * @date 2019-12-26
+ * 购买流量模块
  */
-define(['app','jquery','layer', 'css!./pay.css'], function (app, $, layer) {//加载依赖js,
+define(['app', 'jquery', 'layer', 'css!../../console/subpage.css', 'css!./pay.css'], function (app, $, layer) {
 
+    var callback = ["$scope", "$utils", function ($scope, $utils) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'metrics';
 
-	var callback = ["$scope","$routeParams",'$location', '$utils', function ($scope, $routeParams, $location, $utils) {
-
-        $scope.active = 'domain';
         $scope.payMoney = 0;
-        $scope.amount  = 1; // 天
-        $scope.payType  = 2; // 支付方式
+        $scope.amount = 1;
+        $scope.payType = 2;
+        $scope.isSubmitting = false;
+        $scope.quickAmounts = [1, 2, 3, 6, 12, 24];
+
         $scope.data = {
             salesPrice: 1.60,
             originalPrice: 2.00,
             typeName: "流量"
+        };
+
+        function applyScope(handler) {
+            if ($scope.$root.$$phase) {
+                handler();
+                return;
+            }
+            $scope.$apply(handler);
         }
 
-        $scope.$watch('amount', function(newVal, b){
-
-            $scope.amount  = newVal;
-            calculate();
-        });
-        $scope.$watch('payType', function(newVal, b){
-            $scope.payType  = newVal;
-            calculate();
-        });
-
-
-        /**
-         * 计算价格
-         * @param newVal
-         */
-        function calculate(){
-            let params = {
-                resourceType: 3,
-                amount: $scope.amount,
-                resId: $scope.domainId,
-                payType: $scope.payType,
+        function normalizeAmount(amount) {
+            var value = parseInt(String(amount || '').replace(/^(0+)|[^\d]+/g, ''), 10);
+            if (!value || value < 1) {
+                value = 1;
             }
-            faceinner.postJson(api["user.orders.calculate"], params, function(res){
-                if (res.code == 'S00') {
-                    $scope.$apply(function() {
+            return value;
+        }
+
+        function finishSubmit() {
+            applyScope(function () {
+                $scope.isSubmitting = false;
+            });
+        }
+
+        $scope.normalizeInputAmount = function () {
+            $scope.amount = normalizeAmount($scope.amount);
+        };
+
+        $scope.setAmount = function (size) {
+            $scope.amount = normalizeAmount(size);
+        };
+
+        $scope.isQuickAmount = function (size) {
+            return Number($scope.amount) === Number(size);
+        };
+
+        $scope.selectPayType = function (payType) {
+            $scope.payType = Number(payType);
+        };
+
+        $scope.getPayTypeName = function () {
+            if (Number($scope.payType) === 3) {
+                return '\u5fae\u4fe1\u652f\u4ed8';
+            }
+            if (Number($scope.payType) === 1) {
+                return '\u4f59\u989d\u652f\u4ed8';
+            }
+            return '\u652f\u4ed8\u5b9d';
+        };
+
+        $scope.$watch('amount', function (newVal, oldVal) {
+            if (newVal === oldVal) {
+                return;
+            }
+            var normalized = normalizeAmount(newVal);
+            if (normalized !== Number(newVal)) {
+                $scope.amount = normalized;
+                return;
+            }
+            calculate();
+        });
+
+        $scope.$watch('payType', function (newVal, oldVal) {
+            if (newVal === oldVal) {
+                return;
+            }
+            var normalized = Number(newVal);
+            if (normalized !== 1 && normalized !== 2 && normalized !== 3) {
+                normalized = 2;
+            }
+            if (normalized !== Number(newVal)) {
+                $scope.payType = normalized;
+                return;
+            }
+            $scope.payType = normalized;
+            calculate();
+        });
+
+        function calculate() {
+            var params = {
+                resourceType: 3,
+                amount: normalizeAmount($scope.amount),
+                payType: $scope.payType
+            };
+            faceinner.postJson(api["user.orders.calculate"], params, function (res) {
+                if (res.code === 'S00') {
+                    applyScope(function () {
                         $scope.payMoney = res.data.payAmount;
-                        $scope.dueTime = res.data.dueTime;
+                        if (res.data.amount) {
+                            $scope.amount = res.data.amount;
+                        }
                     });
                 }
             });
         }
 
-
-        /**
-         * 调用支付
-         */
-		$scope.pay = function(){
-            let params = {
-                resourceType: 3,
-                amount: $scope.amount,
-                payType: $scope.payType,
-            }
-            faceinner.postJson(api["user.orders.create"], params, function(res){
+        function loadUserInfo() {
+            faceinner.get(api['user.login.info'], function (res) {
                 if (res.code === 'S00') {
-                    if (params.payType == 2) {// 支付宝
-                        layer.msg('正在跳转支付宝付款网页');
-                        window.location.href = faceinner.server + '/api/open/orders/alipay?orderId=' + res.data;
-                        return
-                    }
-                    if (params.payType == 3) {// 微信
-                        let params2 = {
-                            orderId:  res.data
-                        }
-                        faceinner.postJson('/api/open/orders/wechat', params2, function(res){
-                            if (res.code !== 'S00') {
-                                layer.msg("唤起微信支付二维码失败" + res.msg);
-                                return;
-                            }
-                            $utils.openWechatPayQrCode(res.data, function(){
-                                let count = 0;
-                                let t = setInterval(function () {
-                                    let params = {
-                                        orderId: params2.orderId,
-                                    }
-                                    faceinner.postJson(api["user.orders.confirm"], params, function (res) {
-                                        if (res.code === 'S00') {
-                                            if (res.data.status !== 0) {
-                                                layer.msg("购买成功");
-                                                window.location.reload();
-                                                clearInterval(t);
-                                            }
-                                        }
-                                        count++;
-                                        if (count >= 100) {
-                                            clearInterval(t);
-                                        }
-                                    });
-                                },2000)
-                            })
-                        });
-                        return;
-                    }
-                    layer.msg("购买成功");
-                } else { //错误提示
-                    layer.msg(res.msg);
+                    applyScope(function () {
+                        $scope.user = res.data || {};
+                    });
                 }
             });
-
-
-
         }
- 	}];
-	
 
-	return callback;
+        $scope.pay = function () {
+            if ($scope.isSubmitting) {
+                return;
+            }
+            $scope.isSubmitting = true;
+
+            var params = {
+                resourceType: 3,
+                amount: normalizeAmount($scope.amount),
+                payType: $scope.payType
+            };
+
+            faceinner.postJson(api["user.orders.create"], params, function (res) {
+                if (res.code !== 'S00') {
+                    finishSubmit();
+                    layer.msg(res.msg || '\u4e0b\u5355\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5');
+                    return;
+                }
+
+                if (params.payType === 2) {
+                    finishSubmit();
+                    layer.msg('\u6b63\u5728\u8df3\u8f6c\u652f\u4ed8\u5b9d\u4ed8\u6b3e\u9875\u9762');
+                    window.location.href = faceinner.server + '/api/open/orders/alipay?orderId=' + res.data;
+                    return;
+                }
+
+                if (params.payType === 3) {
+                    finishSubmit();
+                    var wechatParams = { orderId: res.data };
+                    faceinner.postJson('/api/open/orders/wechat', wechatParams, function (wechatRes) {
+                        if (wechatRes.code !== 'S00') {
+                            layer.msg('\u5524\u8d77\u5fae\u4fe1\u652f\u4ed8\u4e8c\u7ef4\u7801\u5931\u8d25\uff1a' + wechatRes.msg);
+                            return;
+                        }
+
+                        $utils.openWechatPayQrCode(wechatRes.data, function () {
+                            var count = 0;
+                            var t = setInterval(function () {
+                                faceinner.postJson(api["user.orders.confirm"], { orderId: wechatParams.orderId }, function (confirmRes) {
+                                    if (confirmRes.code === 'S00' && confirmRes.data.status !== 0) {
+                                        layer.msg('\u8d2d\u4e70\u6210\u529f');
+                                        window.location.href = '#/user/profile';
+                                        window.location.reload();
+                                        clearInterval(t);
+                                        return;
+                                    }
+                                    count++;
+                                    if (count >= 100) {
+                                        clearInterval(t);
+                                    }
+                                });
+                            }, 2000);
+                        });
+                    });
+                    return;
+                }
+
+                finishSubmit();
+                layer.msg('\u8d2d\u4e70\u6210\u529f');
+                window.location.href = '#/user/profile';
+                window.location.reload();
+            });
+        };
+
+        loadUserInfo();
+        calculate();
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
+    }];
+
+    return callback;
 });

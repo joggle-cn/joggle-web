@@ -4,10 +4,12 @@
  * @author marker
  * @date 2022-08-08
  */
-define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.css'], function (app, $, layer, pagintation) {//加载依赖js,
+define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!../../console/subpage.css', 'css!./mapping.css'], function (app, $, layer, pagintation) {//加载依赖js,
 
 
 	var callback = ["$scope","$routeParams",'$location',  function ($scope, $routeParams, $location) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'p2p';
         $scope.current = $routeParams.current;
         $scope.page = {
             current: 1,
@@ -205,6 +207,10 @@ define(['app','jquery','layer','pagintation','bootstrap-switch', 'css!./mapping.
             }
 
         }
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
 
  	}];
 	

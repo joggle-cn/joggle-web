@@ -1,0 +1,217 @@
+<div id="console" class="console-page">
+    <header class="cs-topbar">
+        <div class="cs-shell">
+            <a class="cs-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="cs-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="cs-userbar">
+                <i class="fa fa-bell-o"></i>
+                <i class="fa fa-question-circle-o"></i>
+                <span>{{(user && user.email) || (userInfo && userInfo.email) || 'admin@wuweibi.com'}}</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="cs-layout">
+        <aside class="cs-sidebar">
+            <ul class="cs-menu">
+                <li class="is-active"><a href="#/console"><i class="fa fa-dashboard"></i> 仪表盘</a></li>
+                <li><a href="#/user/profile"><i class="fa fa-user-o"></i> 我的资料</a></li>
+                <li><a href="#/user/orders/list"><i class="fa fa-bars"></i> 我的订单</a></li>
+                <li><a href="#/user/device/bind"><i class="fa fa-magnet"></i> 绑定设备</a></li>
+                <li><a href="#/user/device"><i class="fa fa-server"></i> 我的设备</a></li>
+                <li><a href="#/user/domain/buy"><i class="fa fa-paper-plane-o"></i> 我的资源</a></li>
+                <li><a href="#/user/device/wol"><i class="fa fa-heartbeat"></i> 网络唤醒</a></li>
+                <li><a href="#/p2p/mapping/list"><i class="fa fa-handshake-o"></i> P2P映射管理</a></li>
+                <li><a href="#/user/invite"><i class="fa fa-gift"></i> 邀请用户(领取流量)</a></li>
+            </ul>
+            <div class="cs-menu-logout">
+                <a ng-click="loginout()"><i class="fa fa-power-off"></i> 退出</a>
+            </div>
+        </aside>
+
+        <main class="cs-main">
+            <section class="cs-header-card">
+                <div class="cs-header-copy">
+                    <h1>控制台 / 仪表盘</h1>
+                    <p>欢迎回来，{{(user && user.email) || (userInfo && userInfo.email) || 'admin@wuweibi.com'}}！以下是您账户的整体运行概览。</p>
+                </div>
+                <img src="./resource/images/download/hero-network.png" alt="控制台网络示意图">
+            </section>
+
+            <section class="cs-metric-grid">
+                <article class="cs-metric-card" ng-repeat="card in metricCards">
+                    <div class="cs-metric-top">
+                        <i class="fa {{card.icon}}"></i>
+                        <span>{{card.title}}</span>
+                    </div>
+                    <h3>{{card.value}}<small ng-if="card.unit"> {{card.unit}}</small></h3>
+                    <div class="cs-metric-foot">
+                        <span>{{card.sub}}</span>
+                        <span class="cs-mini-line"></span>
+                    </div>
+                </article>
+            </section>
+
+            <section class="cs-grid cs-grid-top">
+                <article class="cs-panel">
+                    <header>
+                        <h3><i class="fa fa-desktop"></i> 设备状态</h3>
+                        <span class="online-dot"></span>
+                        <small>{{onlineDeviceCount}} 台在线</small>
+                    </header>
+                    <table class="cs-table">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th>状态</th>
+                            <th>地区</th>
+                            <th>最近在线</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in deviceRows">
+                            <td>{{item.name}}</td>
+                            <td><span ng-class="item.online ? 'state-online' : 'state-offline'">{{item.online ? '在线' : '离线'}}</span></td>
+                            <td>{{item.region}}</td>
+                            <td>{{item.lastSeen}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a class="cs-panel-action" href="#/user/device">查看全部设备</a>
+                </article>
+
+                <article class="cs-panel">
+                    <header>
+                        <h3>流量使用情况</h3>
+                        <small>本月</small>
+                    </header>
+                    <div class="cs-flow-top">
+                        <div><span>已使用</span><b>{{flowUsed}} GB</b></div>
+                        <div><span>总流量</span><b>{{flowTotal}} GB</b></div>
+                    </div>
+                    <div class="cs-flow-chart"></div>
+                    <div class="cs-flow-progress">
+                        <span style="width: {{flowUsedPercent}}%;"></span>
+                    </div>
+                    <div class="cs-flow-foot">
+                        <span>剩余 {{flowRemain}} GB ({{flowRemainPercent}}%)</span>
+                        <a href="#/user/metrics/list">查看详情</a>
+                    </div>
+                </article>
+
+                <article class="cs-panel">
+                    <header>
+                        <h3>P2P映射概览</h3>
+                        <a href="#/p2p/mapping/list">查看全部</a>
+                    </header>
+                    <div class="cs-p2p-top">
+                        <div><span>活跃映射</span><b>{{p2pActive}}</b></div>
+                        <div><span>总映射</span><b>{{p2pTotal}}</b></div>
+                    </div>
+                    <ul class="cs-p2p-list">
+                        <li ng-repeat="item in p2pRows">
+                            <div>
+                                <b>{{item.name}}</b>
+                                <span>{{item.target}}</span>
+                            </div>
+                            <em>活跃</em>
+                        </li>
+                    </ul>
+                    <a class="cs-main-btn" href="#/p2p/mapping/list">创建P2P映射</a>
+                </article>
+            </section>
+
+            <section class="cs-grid cs-grid-bottom">
+                <article class="cs-panel">
+                    <header>
+                        <h3>网络唤醒任务</h3>
+                        <a href="#/user/device/wol">查看全部</a>
+                    </header>
+                    <table class="cs-table cs-table-small">
+                        <thead>
+                        <tr>
+                            <th>任务名称</th>
+                            <th>目标设备</th>
+                            <th>状态</th>
+                            <th>执行时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in wolRows">
+                            <td>{{item.name}}</td>
+                            <td>{{item.device}}</td>
+                            <td>
+                                <span ng-class="item.success ? 'state-online' : 'state-fail'">{{item.success ? '成功' : '失败'}}</span>
+                            </td>
+                            <td>{{item.time}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a class="cs-panel-action" href="#/user/device/wol">发送网络唤醒</a>
+                </article>
+
+                <article class="cs-panel">
+                    <header>
+                        <h3>快捷操作</h3>
+                    </header>
+                    <div class="cs-quick-grid">
+                        <a href="#/user/device/bind"><i class="fa fa-link"></i><span>绑定新设备</span></a>
+                        <a href="#/p2p/mapping/list"><i class="fa fa-share-alt"></i><span>创建P2P映射</span></a>
+                        <a href="#/package"><i class="fa fa-shopping-cart"></i><span>购买套餐</span></a>
+                        <a href="#/user/invite"><i class="fa fa-user-plus"></i><span>邀请用户</span></a>
+                    </div>
+                    <div class="cs-invite-banner">
+                        <div>
+                            <b>邀请好友，双方各得流量奖励！</b>
+                            <p>每成功邀请一位新用户，您和好友各获 2GB 流量奖励。</p>
+                        </div>
+                        <a href="#/user/invite">立即邀请</a>
+                    </div>
+                </article>
+
+                <article class="cs-panel">
+                    <header>
+                        <h3>最近订单</h3>
+                        <a href="#/user/orders/list">查看全部</a>
+                    </header>
+                    <table class="cs-table cs-table-small">
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>套餐/产品</th>
+                            <th>金额</th>
+                            <th>状态</th>
+                            <th>时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in orderRows">
+                            <td>{{item.no}}</td>
+                            <td>{{item.product}}</td>
+                            <td>{{item.amount}}</td>
+                            <td><span class="state-online">{{item.status}}</span></td>
+                            <td>{{item.time}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a class="cs-panel-action" href="#/user/orders/list">查看全部订单</a>
+                </article>
+            </section>
+
+            <footer class="cs-footer">
+                Copyright © 2014-2025 pys.joggle.cn All rights reserved.
+                <a target="_blank" href="https://beian.miit.gov.cn/">蜀ICP备14017469号-2</a>
+            </footer>
+        </main>
+    </div>
+</div>

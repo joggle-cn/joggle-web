@@ -1,148 +1,140 @@
-<div style="margin-top:30px; "></div>
-<div class="container user-profile">
+<div id="profile-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-	<div class="row">
-		<div class="col-xs-12">
-			<ol class="breadcrumb">
-				<li><a href="#">首页</a></li>
-				<li><a href="#/user/profile">我的资料</a></li>
-			</ol>
-		</div>
-	</div>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
 
-    <div class="row">
-        <div class="col-md-6">
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right"><span ng-bind="res.t('register.email')"></span>:</label>
-					<div class="col-sm-9">
-						<div class="form-control" type="email" ng-bind="user.email"
-							 placeholder="{{res.t('register.email')}}"></div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right"><span ng-bind="res.t('register.nickname')"></span>:</label>
-					<div class="col-sm-9">
-						<span class="form-control" type="text" ng-bind="user.nickname" ></span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right"><span>套餐</span>:</label>
-					<div class="col-sm-9">
-						<div class="form-control" style="padding-top: 0;" >
-							<span class="label label-success" ng-bind="user.resourcePackageName"></span>
-							<a href="#/user/package" class="btn btn-default">升级套餐</a>
-	<!--						<a href="#/user/package" class="btn btn-default">套餐权益</a>-->
-							<span ng-if="user.packageEndTime != null">到期时间：{{user.packageEndTime}}</span>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right">套餐流量:</label>
-					<div class="col-sm-9">
-						<div class="form-control" >
-							<span type="text" ng-if="user.userPackageFlow >= 100">{{user.userPackageFlow}} MB</span>
-							<span type="text" ng-if="user.userPackageFlow < 100 && user.userPackageFlow >= 50" style="color: #ff7700">{{user.userPackageFlow}} MB</span>
-							<span type="text" ng-if="user.userPackageFlow < 50" style="color: red">{{user.userPackageFlow}} MB</span>
-							<span ng-if="user.resourcePackageLevel > 0"> (每月1日0点恢复流量套餐标准流量)</span>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right">充值流量:</label>
-					<div class="col-sm-9">
-						<div class="form-control"  style="padding-top: 0;" >
-							<span type="text" ng-if="user.userFlow >= 100">{{user.userFlow}} MB</span>
-							<span type="text" ng-if="user.userFlow < 100 && user.userFlow >= 50" style="color: #ff7700">{{user.userFlow}} MB</span>
-							<span type="text" ng-if="user.userFlow < 50" style="color: red">{{user.userFlow}} MB</span>
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>我的资料</h1>
+                    <p>查看账号信息、套餐流量与通知设置。</p>
+                </div>
+                <div class="cs-head-actions">
+                    <a class="cs-ghost-btn" ng-click="modifyPasswordDialog()">修改密码</a>
+                </div>
+            </section>
 
-							<a href="#/user/flow/cash" class="btn btn-default">购买流量</a>
-							<a href="#/user/metrics/list" class="btn btn-default">流量明细</a>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right">余额:</label>
-					<div class="col-sm-9">
-						<div class="form-control" ng-bind="user.balance" ></div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right"><span>实名认证</span>:</label>
-					<div class="col-sm-9">
-						<div class="form-control" >
-							<span class="label label-success" ng-if="user.userCertification==1">通过</span>
-							<span class="label label-default" ng-if="user.userCertification==0">未认证</span>
-							<span class="label label-danger" ng-if="user.userCertification==2">认证拒绝</span>
-							<span ng-if="user.userCertification==2" ng-bind="user.ucResultMsg"></span>
-						</div>
-						<div class="form-control" ng-if="user.userCertification != 1" >
-							<a href="#/user/certification" class="btn btn-default">实名认证</a>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right">系统通知:</label>
-					<div class="col-sm-9">
-
-						<div class="form-control" >
-						<div class="switch">
-							<input id="systemNoticeSwitch" type="checkbox" checked />
-							&nbsp; &nbsp; &nbsp; 打开后，将收到资源到期等邮件提醒
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" style="text-align: right" >上次登录时间:</label>
-					<div class="col-sm-9">
-						<div class="form-control" ng-bind="user.loginTime" ></div>
-					</div>
-				</div>
-			</form>
-        </div>
-
-        <div class="col-md-6">
-
-			<a class="btn btn-default" ng-click="modifyPasswordDialog()">修改密码</a>
-        </div>
-
+            <section class="cs-profile-form">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span ng-bind="res.t('register.email')"></span>:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control" ng-bind="user.email"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span ng-bind="res.t('register.nickname')"></span>:</label>
+                        <div class="col-sm-10">
+                            <span class="form-control" ng-bind="user.nickname"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">套餐:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control">
+                                <span class="label label-success" ng-bind="user.resourcePackageName"></span>
+                                &nbsp;
+                                <a href="#/user/package" class="btn btn-default btn-sm">升级套餐</a>
+                                <span ng-if="user.packageEndTime != null">到期时间：{{user.packageEndTime}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">套餐流量:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control">
+                                <span ng-if="user.userPackageFlow >= 100">{{user.userPackageFlow}} MB</span>
+                                <span ng-if="user.userPackageFlow < 100 && user.userPackageFlow >= 50" style="color: #ff7700">{{user.userPackageFlow}} MB</span>
+                                <span ng-if="user.userPackageFlow < 50" style="color: red">{{user.userPackageFlow}} MB</span>
+                                <span ng-if="user.resourcePackageLevel > 0">(每月1日0点恢复流量到套餐标准流量)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">充值流量:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control">
+                                <span ng-if="user.userFlow >= 100">{{user.userFlow}} MB</span>
+                                <span ng-if="user.userFlow < 100 && user.userFlow >= 50" style="color: #ff7700">{{user.userFlow}} MB</span>
+                                <span ng-if="user.userFlow < 50" style="color: red">{{user.userFlow}} MB</span>
+                                &nbsp;
+                                <a href="#/user/flow/cash" class="btn btn-default btn-sm">购买流量</a>
+                                <a href="#/user/metrics/list" class="btn btn-default btn-sm">流量明细</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">余额:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control" ng-bind="user.balance"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">实名认证:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control">
+                                <span class="label label-success" ng-if="user.userCertification==1">通过</span>
+                                <span class="label label-default" ng-if="user.userCertification==0">未认证</span>
+                                <span class="label label-danger" ng-if="user.userCertification==2">认证拒绝</span>
+                                <span ng-if="user.userCertification==2" ng-bind="user.ucResultMsg"></span>
+                            </div>
+                            <div class="form-control" ng-if="user.userCertification != 1">
+                                <a href="#/user/certification" class="btn btn-default btn-sm">实名认证</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">系统通知:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control">
+                                <div class="switch">
+                                    <input id="systemNoticeSwitch" type="checkbox" checked />
+                                    &nbsp;&nbsp;&nbsp;打开后，将收到资源到期等邮件提醒
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">上次登录时间:</label>
+                        <div class="col-sm-10">
+                            <div class="form-control" ng-bind="user.loginTime"></div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </main>
     </div>
 </div>
 
-
-
-
-<!-- 编辑端口弹出框 -->
 <div id="modifyPasswordDialog" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">修改密码</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="newP" class="col-sm-2 control-label">旧密码</label>
-						<div class="col-sm-6">
-							<input id="newP" type="password" ng-model="entity.oldPassword"  class="form-control" placeholder="请输入旧密码" />
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-					<div class="form-group">
-						<label for="oldP" class="col-sm-2 control-label">新密码</label>
-						<div class="col-sm-6">
-							<input id="oldP" type="text" ng-model="entity.newPassword"  class="form-control" placeholder="请输入新密码" />
-						</div>
-						<div class="col-sm-4"></div>
-					</div>
-				</form>
-
-			</div>
-			<div class="modal-footer">
-				<a ng-click="save()" class="btn btn-default">保存</a>
-				<a ng-click="closeModifyPasswordDialog()"  class="btn btn-default">取消</a>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="newP" class="col-sm-2 control-label">旧密码</label>
+                        <div class="col-sm-6">
+                            <input id="newP" type="password" ng-model="entity.oldPassword" class="form-control" placeholder="请输入旧密码" />
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="oldP" class="col-sm-2 control-label">新密码</label>
+                        <div class="col-sm-6">
+                            <input id="oldP" type="text" ng-model="entity.newPassword" class="form-control" placeholder="请输入新密码" />
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a ng-click="save()" class="btn btn-default">保存</a>
+                <a ng-click="closeModifyPasswordDialog()" class="btn btn-default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,10 +4,12 @@
  * @author marker
  * @date 2019-12-26
  */
-define(['app','jquery','layer','pagintation', 'css!./orders.css'], function (app, $, layer, pagintation) {//加载依赖js,
+define(['app','jquery','layer','pagintation', 'css!../../console/subpage.css', 'css!./orders.css'], function (app, $, layer, pagintation) {//加载依赖js,
 
 
 	var callback = ["$scope","$routeParams",'$location',  function ($scope, $routeParams, $location) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'orders';
         $scope.current = $routeParams.current;
         $scope.page = {
             current: 1,
@@ -60,6 +62,10 @@ define(['app','jquery','layer','pagintation', 'css!./orders.css'], function (app
                 }
             });
         }
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
 
 
  	}];

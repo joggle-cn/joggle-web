@@ -1,76 +1,193 @@
-<div style="margin-top:30px; "></div>
-<div class="container package">
+<div id="package" class="joggle-home joggle-package">
+    <header class="jh-topbar">
+        <div class="jh-shell">
+            <a class="jh-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="jh-nav">
+                <a href="#/index">首页</a>
+                <a class="is-active" href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="jh-nav-actions">
+                <a class="jh-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="jh-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="jh-buy" href="#/package">立即购买</a>
+            </div>
+        </div>
+    </header>
 
-	<div class="row">
-		<div class="col-xs-12">
-			<ol class="breadcrumb">
-				<li><a href="#">首页</a></li> 
-				<li>套餐列表</li>
+    <section class="jp-hero">
+        <div class="jh-shell">
+            <div class="jp-hero-panel">
+                <div class="jp-hero-copy">
+                    <p class="jp-kicker"><i class="fa fa-diamond"></i> JOGGLE 套餐权益</p>
+                    <h1>灵活定价，按需升级</h1>
+                    <p>从个人到企业场景都可快速匹配，支持后续平滑升级，核心能力与首页保持统一体验。</p>
+                    <ul class="jp-highlight-list">
+                        <li><i class="fa fa-check-circle-o"></i> 设备与连接配额清晰</li>
+                        <li><i class="fa fa-check-circle-o"></i> 流量与并发额度透明</li>
+                        <li><i class="fa fa-check-circle-o"></i> 支持代理与网络唤醒能力</li>
+                        <li><i class="fa fa-check-circle-o"></i> 套餐升级实时生效</li>
+                    </ul>
+                </div>
+                <aside class="jp-hero-side">
+                    <div class="jp-stat">
+                        <strong>{{list.length || 0}}</strong>
+                        <span>可选套餐</span>
+                    </div>
+                    <div class="jp-stat">
+                        <strong>{{recommendedPlanName || '--'}}</strong>
+                        <span>推荐套餐</span>
+                    </div>
+                    <p>购买后可在控制台统一管理设备、订单与资源。</p>
+                </aside>
+            </div>
+        </div>
+    </section>
 
-<!--				<li class="bind-device">-->
-<!--					<a href="#/user/device/bind">-->
-<!--					<i class="fa fa-magnet"></i> <span ng-bind="res.t('home.btn.devicebind')"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-			</ol>
-		</div>
-	</div>
+    <section class="jh-section jp-pricing">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>选择适合您的套餐</h2>
+                <p>与首页同一设计体系，权益结构保持一致，选型更直观。</p>
+            </div>
 
-	<div class="row">
-		<div class="col-md-3" ng-repeat="item in list">
+            <div class="jp-loading" ng-if="loading">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+                正在加载套餐信息...
+            </div>
 
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">{{item.name}}</h3>
-					<b ng-if="item.level != 0">{{item.price}}元/月</b>
-					<b ng-if="item.level == 0">免费</b>
-				</div>
-				<div class="panel-body">
-					<ul class="list-group">
-						<li class="list-group-item">可绑设备 <div class="pull-right">{{item.deviceNum}}台</div></li>
-						<li class="list-group-item">
-							套餐流量
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" ng-if="item.level == 0" title="新用户注册赠送流量"></span>
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" ng-if="item.level != 0" title="每个月的流量限额"></span>
-							<div class="pull-right">{{item.flowNum/1024/1024}}GB</div>
-						</li>
-						<li class="list-group-item">隧道宽带
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="单条隧道宽带峰值"></span>
-							<div class="pull-right">{{item.broadbandRate}}Mbps</div></li>
-						<li class="list-group-item">端口隧道 <div class="pull-right">{{item.portNum}}个</div></li>
-						<li class="list-group-item">域名隧道 <div class="pull-right">{{item.domainNum}}个</div></li>
-						<li class="list-group-item">P2P隧道
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="不是所有网路都支持P2P打洞"></span>
-							<div class="pull-right">{{item.p2pNum}}条</div></li>
-						<li class="list-group-item">并发限制
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="同时间链接的数量"></span>
-							<div class="pull-right">{{item.concurrentNum}}</div></li>
-						<li class="list-group-item">代理支持 <div class="pull-right">{{item.proxyEnable==1?'支持':'-'}}</div></li>
-						<li class="list-group-item">网络唤醒 <div class="pull-right">{{item.wolEnable==1?'支持':'-'}}</div></li>
-					</ul>
+            <div class="jp-empty" ng-if="!loading && !list.length">
+                暂无可用套餐，请稍后重试。
+            </div>
 
-					<div class="packages-btn">
-						<a ng-if="item.level != 0" href="#/user/package/pay?packageId={{item.id}}" class="btn btn-success" role="button">升级套餐</a>
-					</div>
-				</div>
-			</div>
+            <div class="jh-plan-grid jp-plan-grid" ng-if="list.length">
+                <article class="jh-plan" ng-repeat="item in list track by item.id" ng-class="{'jh-plan-featured': isFeatured(item)}">
+                    <span class="jh-badge" ng-if="getBadgeText(item)" ng-class="{'hot': isHot(item)}">{{getBadgeText(item)}}</span>
 
-		</div>
+                    <h3>{{item.name}}</h3>
+                    <p class="jh-plan-tag" ng-if="item.level == 0">个人入门免费套餐</p>
+                    <p class="jh-plan-tag" ng-if="item.level != 0">适合 {{item.level > 1 ? '团队/企业' : '个人/小团队'}} 使用</p>
+                    <p class="jh-price">
+                        <span class="jp-currency">¥</span>{{item.level == 0 ? '0' : item.price}}
+                        <span>/ 月</span>
+                    </p>
 
-	</div>
+                    <ul>
+                        <li><span>可绑设备</span><b>{{item.deviceNum}} 台</b></li>
+                        <li>
+                            <span>
+                                套餐流量
+                                <i class="fa fa-question-circle-o jp-tip" data-toggle="tooltip" data-placement="top"
+                                   ng-attr-title="{{item.level == 0 ? '新用户注册赠送流量' : '每月流量限额'}}"></i>
+                            </span>
+                            <b>{{item.flowNumGb}} GB</b>
+                        </li>
+                        <li>
+                            <span>
+                                隧道宽带
+                                <i class="fa fa-question-circle-o jp-tip" data-toggle="tooltip" data-placement="top" title="单条隧道带宽峰值"></i>
+                            </span>
+                            <b>{{item.broadbandRate}} Mbps</b>
+                        </li>
+                        <li><span>端口隧道</span><b>{{item.portNum}} 个</b></li>
+                        <li><span>域名隧道</span><b>{{item.domainNum}} 个</b></li>
+                        <li>
+                            <span>
+                                P2P隧道
+                                <i class="fa fa-question-circle-o jp-tip" data-toggle="tooltip" data-placement="top" title="并非所有网络环境都支持 P2P 打洞"></i>
+                            </span>
+                            <b>{{item.p2pNum}} 条</b>
+                        </li>
+                        <li>
+                            <span>
+                                并发限制
+                                <i class="fa fa-question-circle-o jp-tip" data-toggle="tooltip" data-placement="top" title="同一时刻连接总数"></i>
+                            </span>
+                            <b>{{item.concurrentNum}}</b>
+                        </li>
+                        <li><span>代理支持</span><b>{{item.proxyEnable == 1 ? '支持' : '-'}}</b></li>
+                        <li><span>网络唤醒</span><b>{{item.wolEnable == 1 ? '支持' : '-'}}</b></li>
+                    </ul>
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="alert alert-info" role="alert">
-				注意：购买VIP套餐后，所有的资源可以通过VIP权益支付方式0元购买。<br/>
-				需要无限速大宽带的用户，可以选择通道私有部署。
-			</div>
-		</div>
-	</div>
+                    <a class="jh-plan-btn" ng-href="{{getActionLink(item)}}">
+                        {{item.level == 0 ? '免费使用' : '立即升级'}}
+                    </a>
+                </article>
+            </div>
 
+            <p class="jh-sub-note">
+                注意：购买 VIP 套餐后，资源可通过 VIP 权益按 0 元方式支付；需要更高带宽与专线能力可联系支持进行私有部署。
+            </p>
+        </div>
+    </section>
 
+    <section class="jh-section jp-values">
+        <div class="jh-shell">
+            <div class="jh-cap-grid jp-cap-grid">
+                <article>
+                    <i class="fa fa-sliders"></i>
+                    <h3>权益透明</h3>
+                    <p>每档套餐的设备数、带宽、并发与流量清晰可见。</p>
+                </article>
+                <article>
+                    <i class="fa fa-level-up"></i>
+                    <h3>平滑升级</h3>
+                    <p>按业务规模逐级升级，避免一次性高成本投入。</p>
+                </article>
+                <article>
+                    <i class="fa fa-shield"></i>
+                    <h3>安全可靠</h3>
+                    <p>端到端加密与高可用节点能力，保障稳定访问。</p>
+                </article>
+            </div>
+        </div>
+    </section>
 
-
+    <footer class="jh-footer">
+        <div class="jh-shell jh-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专业的内网穿透与远程访问平台，让连接更简单、体验更稳定。</p>
+                <div class="jh-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>产品</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/feedback">更新日志</a>
+            </div>
+            <div>
+                <h5>支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+            </div>
+            <div class="jh-support-card">
+                <p>7x24 小时技术支持</p>
+                <h4>support@joggle.cn</h4>
+                <span>工作日 9:00 - 18:00</span>
+            </div>
+        </div>
+        <div class="jh-footer-bottom">
+            © 2014-2026 JOGGLE. All Rights Reserved. 蜀ICP备14017469号-2
+        </div>
+    </footer>
 </div>
 
 

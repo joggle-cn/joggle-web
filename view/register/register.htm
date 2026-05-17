@@ -1,120 +1,120 @@
-<div class="container" id="register">
-	<div class="row">
-	  <div class="col-md-7">
-		  <img src="./resource/images/register/register.jpg" style="width: 100%; margin-top:3em" />
-	  </div>
-	  <div class="col-md-5">
+<div id="register" class="register-redesign">
+    <header class="rg-topbar">
+        <div class="rg-shell">
+            <a class="rg-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="rg-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="rg-auth">
+                <a href="#/login">登录</a>
+                <a class="is-active" href="#/register">注册</a>
+            </div>
+        </div>
+    </header>
 
-		<form class="form-horizontal mt50" role="form">
-			<div class="activity">
-				<span class="blink">New活动：</span>注册即可获赠1G流量&7天雪花二级域名
-			</div>
-			<br/>
-			<input ng-model="user.icon" type="hidden" />
-	      <div class="form-group">
-		    <label class="col-sm-3 control-label" ng-bind="res.t('register.email')"></label>
-		    <div class="col-sm-9">
-		      <input type="text" ng-model="user.email" class="face-input" placeholder="" 
-		      ng-focus="emailMsg=''" />
-		      <span class="form_message" >{{emailMsg}}</span>
-			  <br/><span>请填写可接收邮件的邮箱地址</span>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-3 control-label" ng-bind="res.t('register.nickname')"></label>
-		    <div class="col-sm-9">
-		      <input type="text" ng-model="user.nickname" class="face-input" placeholder=""/>
-				<span class="form_message" >{{nicknameMsg}}</span>
-		    </div>
-		  </div>
+    <main class="rg-main">
+        <div class="rg-shell rg-grid">
+            <section class="rg-marketing">
+                <p class="rg-badge">安全 · 稳定 · 高效</p>
+                <h1>立即加入 <span>开启高效连接</span></h1>
+                <p class="rg-subtitle">
+                    注册 JOGGLE，轻松实现安全稳定的内网穿透与远程访问，<br>
+                    快速连接设备、服务与应用。
+                </p>
+                <div class="rg-feature-row">
+                    <article>
+                        <i class="fa fa-shield"></i>
+                        <h4>安全可靠</h4>
+                        <p>端到端加密传输</p>
+                    </article>
+                    <article>
+                        <i class="fa fa-rocket"></i>
+                        <h4>高速稳定</h4>
+                        <p>智能路由低延迟</p>
+                    </article>
+                    <article>
+                        <i class="fa fa-desktop"></i>
+                        <h4>多平台支持</h4>
+                        <p>全平台无缝兼容</p>
+                    </article>
+                    <article>
+                        <i class="fa fa-cloud-download"></i>
+                        <h4>轻松部署</h4>
+                        <p>快速接入即开即用</p>
+                    </article>
+                </div>
+                <img class="rg-hero-image" src="./resource/images/login/login-hero-device.png" alt="JOGGLE 网络连接示意图">
+            </section>
 
+            <section class="rg-form-panel">
+                <div class="rg-panel-head">
+                    <h2>欢迎注册 <span>JOGGLE</span></h2>
+                    <p>创建您的账号，立即体验安全稳定的内网穿透服务</p>
+                </div>
 
-		  <div class="form-group">
-		    <label class="col-sm-3 control-label" ng-bind="res.t('register.password')"></label>
-		    <div class="col-sm-9">
-		      <input type="password" ng-model="user.password" class="face-input" placeholder=""
-		      ng-focus="passwordMsg=''" 
-		      >
-		      <span class="form_message" >{{passwordMsg}}</span>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-3 control-label" ng-bind="res.t('register.password2')"></label>
-		    <div class="col-sm-9"> 
-		      <input type="password" ng-model="password2" class="face-input" placeholder=""
-		       ng-focus="password2Msg=''" 
-		      >
-		      <span class="form_message" >{{password2Msg}}</span>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-3 col-sm-9">
-				<div class="checkbox icheck-emerland">
-					<input type="checkbox" ng-model="user.agree" checked="" id="emerland">
-					<label for="emerland">
-						<a href="#/user/agreement" target="_blank"><span ng-bind="res.t('register.agree')"></span></a>
-					</label>
-				</div>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <button ng-click="reg()" class="btn btn-success btn-block">{{res.t('user.register')}}</button>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10" style="visibility: hidden">
-		    	<p class="thirdparty_title">使用三方平台账号登录</p>
-			    <div class="col-sm-3"> 
-			       <a target="_self" href="/thirdparty/qq/login.face">
-			       	  <div class="login_with_thirdparty"><i class="fa fa-qq"></i></div>
-			       </a> 
-			    </div>
-			    <div class="col-sm-3"> 
-			       <a target="_self" href="/thirdparty/qq/login.face">
-			       	  <div class="login_with_thirdparty"><i class="fa fa-weibo"></i></div>
-			       </a> 
-			    </div>
-			    <div class="col-sm-3"> 
-			       <a target="_self" href="/thirdparty/qq/login.face">
-			       	  <div class="login_with_thirdparty"><i class="fa fa-wechat"></i></div>
-			       </a> 
-			    </div>
-			    <div class="col-sm-3"> 
-			       <a target="_self" href="/thirdparty/qq/login.face">
-			       	  <div class="login_with_thirdparty"><i class="fa fa-twitter"></i></div>
-			       </a> 
-			    </div>
-			    
-			 </div>
-		  </div> 
-		</form>
-	  </div>
-	</div>
+                <p class="rg-reward"><i class="fa fa-gift"></i> 注册即可获赠 1G 流量 & 7天雪花二级域名</p>
+
+                <form class="rg-form" novalidate>
+                    <input ng-model="user.icon" type="hidden">
+
+                    <label class="rg-field">
+                        <i class="fa fa-envelope-o"></i>
+                        <input type="text" ng-model="user.email" ng-focus="emailMsg=''" placeholder="邮箱" autocomplete="email">
+                    </label>
+                    <span class="rg-error" ng-bind="emailMsg"></span>
+
+                    <label class="rg-field">
+                        <i class="fa fa-user-o"></i>
+                        <input type="text" ng-model="user.nickname" ng-focus="nicknameMsg=''" placeholder="昵称" autocomplete="nickname">
+                    </label>
+                    <span class="rg-error" ng-bind="nicknameMsg"></span>
+
+                    <label class="rg-field">
+                        <i class="fa fa-lock"></i>
+                        <input ng-attr-type="{{showPassword ? 'text' : 'password'}}" ng-model="user.password" ng-focus="passwordMsg=''" placeholder="密码" autocomplete="new-password">
+                        <button type="button" class="rg-eye" ng-click="togglePassword()">
+                            <i class="fa" ng-class="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                        </button>
+                    </label>
+                    <span class="rg-error" ng-bind="passwordMsg"></span>
+
+                    <label class="rg-field">
+                        <i class="fa fa-lock"></i>
+                        <input ng-attr-type="{{showPassword2 ? 'text' : 'password'}}" ng-model="password2" ng-focus="password2Msg=''" placeholder="确认密码" autocomplete="new-password">
+                        <button type="button" class="rg-eye" ng-click="togglePassword2()">
+                            <i class="fa" ng-class="showPassword2 ? 'fa-eye' : 'fa-eye-slash'"></i>
+                        </button>
+                    </label>
+                    <span class="rg-error" ng-bind="password2Msg"></span>
+
+                    <label class="rg-agree">
+                        <input type="checkbox" ng-model="user.agree">
+                        <span>我已阅读并同意 <a href="#/user/agreement" target="_blank">《Joggle用户使用协议》</a></span>
+                    </label>
+
+                    <button type="button" class="rg-submit-btn" ng-click="reg()">立即注册</button>
+
+                    <div class="rg-sep"><span>已有账号？</span></div>
+                    <p class="rg-login-tip"><a href="#/login">立即登录</a></p>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="rg-footer">
+        <div class="rg-shell">
+            <span class="rg-footer-lang"><i class="fa fa-globe"></i> 简体中文 <i class="fa fa-angle-down"></i></span>
+            <span>Copyright © 2014-2025 www.joggle.cn All rights reserved. <a target="_blank" href="https://beian.miit.gov.cn/">粤ICP备14017469号-2</a></span>
+            <span class="rg-footer-safe"><i class="fa fa-shield"></i> 数据安全</span>
+            <span class="rg-footer-safe">隐私保护</span>
+        </div>
+    </footer>
 </div>
-
-
-
-
-<div id="registerModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">登录</h4>
-      </div>
-      <div class="modal-body">
-      	
-        <p>
-        	<span ng-bind="user.email"></span>
-        </p>
-      	<p style="text-align: center; margin: 30px;">
-        	 确认密码： 
-        </p>
-      </div>
-      <div class="modal-footer">
-        <a ng-click="confirmation()" class="btn btn-default">确定注册</a>
-        <a ng-click="cancel()"  class="btn btn-default">取消</a>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

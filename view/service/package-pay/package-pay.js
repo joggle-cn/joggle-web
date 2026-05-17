@@ -5,25 +5,51 @@
  * @author marker
  * @date 2019-12-26
  */
-define(['app','jquery','layer', 'css!./package-pay.css'], function (app, $, layer) {//加载依赖js,
+define(['app','jquery','layer', 'css!../../console/subpage.css', 'css!./package-pay.css'], function (app, $, layer) {//加载依赖js,
 
 	var callback = ["$scope","$routeParams",'$utils',  function ($scope, $routeParams, $utils) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'orders';
 
         $scope.active = 'domain';
         $scope.payMoney = 0;
         $scope.payType = 2;
-        $scope.amount  = 1; // 天
-        $scope.data = {
-        }
+        $scope.amount  = 1;
+        $scope.isSubmitting = false;
+        $scope.quickAmounts = [1, 2, 3, 4, 6, 8, 10, 11, 12];
+        $scope.data = {};
 
         let packageId = $routeParams.packageId;
         let params = {
             id: packageId,
         }
+
+        function applyScope(handler){
+            if ($scope.$root.$$phase) {
+                handler();
+                return;
+            }
+            $scope.$apply(handler);
+        }
+
+        function normalizeAmount(amount){
+            let value = parseInt((amount + "").replace(/^(0+)|[^\d]+/g, ''), 10);
+            if (!value || value < 1) {
+                value = 1;
+            }
+            return value;
+        }
+
+        function finishSubmit(){
+            applyScope(function(){
+                $scope.isSubmitting = false;
+            });
+        }
+
 	    function render(){
             faceinner.get(api["user.package.detail"], params, function(res){
                 if (res.code == 'S00') {
-                    $scope.$apply(function() {
+                    applyScope(function() {
                         $scope.data = res.data;
                         calculate();
                     });
@@ -34,20 +60,46 @@ define(['app','jquery','layer', 'css!./package-pay.css'], function (app, $, laye
 
 
         $scope.fixDays = function (){
-            if($scope.amount){
-                $scope.amount = parseInt(($scope.amount+"").replace(/^(0+)|[^\d]+/g,''))
-            }
+            $scope.amount = normalizeAmount($scope.amount);
+        }
+
+        $scope.setAmount = function(month){
+            $scope.amount = normalizeAmount(month);
+        }
+
+        $scope.isQuickAmount = function(month){
+            return Number($scope.amount) === Number(month);
+        }
+
+        $scope.selectPayType = function(payType){
+            $scope.payType = Number(payType);
         }
 
 
         $scope.$watch('amount', function(newVal, oldVal){
-            $scope.amount = parseInt(newVal);
-            if(newVal != oldVal){
-                calculate();
+            if(newVal == oldVal){
+                return;
             }
+            let normalized = normalizeAmount(newVal);
+            if (normalized !== Number(newVal)) {
+                $scope.amount = normalized;
+                return;
+            }
+            calculate();
         });
         $scope.$watch('payType', function(newVal, b){
-            $scope.payType  = newVal;
+            if(newVal == b){
+                return;
+            }
+            let normalized = Number(newVal);
+            if (normalized !== 2 && normalized !== 3) {
+                normalized = 2;
+            }
+            if (normalized !== Number(newVal)) {
+                $scope.payType = normalized;
+                return;
+            }
+            $scope.payType = normalized;
             calculate();
         });
 
@@ -60,13 +112,13 @@ define(['app','jquery','layer', 'css!./package-pay.css'], function (app, $, laye
         function calculate( ){
             let params = {
                 resourceType: 5,
-                amount: $scope.amount,
+                amount: normalizeAmount($scope.amount),
                 resId: packageId,
                 payType: $scope.payType,
             }
             faceinner.postJson(api["user.orders.calculate"], params, function(res){
                 if (res.code == 'S00') {
-                    $scope.$apply(function() {
+                    applyScope(function() {
                         $scope.payMoney = res.data.payAmount;
                         $scope.dueTime = res.data.dueTime;
                         if ($scope.amount != res.data.amount) {
@@ -85,20 +137,26 @@ define(['app','jquery','layer', 'css!./package-pay.css'], function (app, $, laye
          * 调用支付
          */
 		$scope.pay = function(){
+            if($scope.isSubmitting){
+                return;
+            }
+            $scope.isSubmitting = true;
             let params = {
                 resourceType: 5,
-                amount: $scope.amount,
+                amount: normalizeAmount($scope.amount),
                 resId: packageId,
                 payType: $scope.payType,
             }
             faceinner.postJson(api["user.orders.create"], params, function(res){
                 if (res.code == 'S00') {
                     if(params.payType == 2){// 支付宝
+                        finishSubmit();
                         window.location.href = faceinner.server + '/api/open/orders/alipay?orderId='+ res.data;
                         layer.msg('正在跳转支付宝付款网页');
                         return;
                     }
                     if (params.payType == 3) {// 微信
+                        finishSubmit();
                         let params2 = {
                             orderId: res.data
                         }
@@ -132,15 +190,19 @@ define(['app','jquery','layer', 'css!./package-pay.css'], function (app, $, laye
                         });
                         return;
                     }
+                    finishSubmit();
                     window.location.href = "#/user/package";
                     layer.msg("购买成功");
                 }else{ //错误提示
+                    finishSubmit();
                     layer.msg(res.msg.replaceAll('\n', "<br/>"), {icon: 9});
                 }
             });
-
-
         }
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
  	}];
 	
 

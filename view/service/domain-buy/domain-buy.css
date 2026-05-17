@@ -1,49 +1,143 @@
-.domain-buy input{
-    outline: none !important;
-}
-.domain-buy .icheck-success{
-    display: inline-block;
-}
-.domain-buy .pay-box{
-    border: 1px solid rgba(208, 208, 208, 0.8);
-    border-radius: 6px;
-    padding-top: 0px;
+.db-filter-card {
+    margin-top: 12px;
 }
 
-.domain-buy .pay-box label:before{
-    margin-top: 5px;
+.db-select {
+    min-width: 200px;
 }
-.domain-buy .pay-box label:after{
-    margin-top: 15px;
-    margin-left: 11px !important;
+
+.db-keyword {
+    min-width: 260px;
 }
-.domain-buy .pay-box label{
+
+.db-summary-row {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.db-summary-item {
+    border: 1px solid #e5ebf1;
+    border-radius: 10px;
+    background: #f9fbfd;
+    padding: 12px 14px;
+}
+
+.db-summary-item p {
+    margin: 0;
+    color: #6b7e92;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.db-summary-item h4 {
+    margin: 8px 0 0;
+    color: #12253d;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.db-loading {
+    border: 1px dashed #cfe1d7;
+    border-radius: 12px;
+    background: #f7fbf8;
+    color: #547060;
+    min-height: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.db-loading i {
+    color: #16a34a;
+}
+
+.db-table .db-node-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.db-table .db-node-cell small {
+    color: #6f8094;
+}
+
+.db-domain-chip {
     display: inline-block;
-    width: 160px;
-    height: 54px;
-    padding-top: 10px;
-    padding-left: 40px !important;
+    max-width: 100%;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid #d8e3ee;
+    background: #f7fbff;
+    color: #22384f;
+    font-size: 12px;
+    word-break: break-all;
 }
-.domain-buy .original-price{
+
+.db-original-price {
+    display: block;
+    color: #8a97a7;
+    font-size: 12px;
     text-decoration: line-through;
 }
-.domain-buy .pay-box{
-   user-select:none;
-}.domain-buy .pay-box img{
-    width: 100px;
+
+.db-sales-price {
+    display: block;
+    margin-top: 2px;
+    color: #109144;
+    font-size: 14px;
 }
-.domain-buy .pay-box span{
-    margin-top: 4px;
-    margin-left: 10px;
-    display: inline-block;
+
+.db-buy-link {
+    color: #139447;
+    font-weight: 700;
 }
-.domain-buy .item-domain{
-    background: #e7e7e7;
-    color: black;
+
+.db-buy-link:hover,
+.db-buy-link:focus {
+    color: #0d7f3b;
+    text-decoration: none;
 }
-.domain-buy .node-status{
-    float: right; content:''
+
+.db-disabled {
+    color: #8a97a7;
 }
-.domain-buy .node-status:before{
-    content:''
+
+@media (max-width: 1200px) {
+    .db-summary-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 992px) {
+    .db-select,
+    .db-keyword {
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 640px) {
+    .db-keyword,
+    .db-select,
+    .cs-input,
+    .cs-select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .cs-toolbar-group {
+        width: 100%;
+    }
+
+    .cs-input-wrap {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

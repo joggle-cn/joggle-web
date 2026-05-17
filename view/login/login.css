@@ -1,22 +1,573 @@
-#loginTitle{
-    font-size: 30px;
+:root {
+    --lg-green: #16a34a;
+    --lg-green-dark: #12853c;
+    --lg-text: #16253b;
+    --lg-muted: #687689;
+    --lg-border: #d7e0e8;
+    --lg-bg: #f4f7f9;
 }
 
-.login-page .inner2{
+body.login-refactor {
+    background: var(--lg-bg);
+}
+
+body.login-refactor > #top,
+body.login-refactor > #content + .container,
+body.login-refactor > #content + .container + footer.container {
+    display: none;
+}
+
+body.login-refactor #content {
+    min-height: 0 !important;
+}
+
+.login-redesign {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 22% 36%, #eef7f2 0%, rgba(238, 247, 242, 0.6) 38%, rgba(238, 247, 242, 0) 65%),
+        linear-gradient(180deg, #f6f9fb 0%, #f3f7fa 100%);
+    color: var(--lg-text);
+    font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-redesign a {
+    text-decoration: none;
+}
+
+.login-redesign img {
+    max-width: 100%;
+    display: block;
+}
+
+.lg-shell {
+    width: min(1420px, calc(100% - 42px));
     margin: 0 auto;
-    margin-top:80px;
-}
-.login-page .single-panel-body{
-    margin: 0 30px;
 }
 
+.lg-topbar {
+    background: linear-gradient(90deg, #0d9a43 0%, #0f8f3f 55%, #0d8039 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-@media (max-width: 767px)
-{
+.lg-topbar .lg-shell {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
 
-    .single-panel{
-        /*margin: 0 30px;*/
+.lg-brand img {
+    height: 34px;
+}
+
+.lg-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.lg-nav a {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.lg-nav a:hover {
+    color: #fff;
+}
+
+.lg-auth {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.lg-auth a {
+    color: rgba(255, 255, 255, 0.96);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    position: relative;
+    padding: 4px 0;
+}
+
+.lg-auth a.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -18px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.lg-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 14px 0 6px;
+}
+
+.lg-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.72fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.lg-badge {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #e4f5ec;
+    color: #20a353;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.lg-marketing h1 {
+    margin: 16px 0 14px;
+    font-size: clamp(36px, 3.9vw, 54px);
+    line-height: 1.08;
+    letter-spacing: 1px;
+    font-weight: 900;
+    color: #15263c;
+}
+
+.lg-marketing h1 span {
+    color: #31b661;
+}
+
+.lg-subtitle {
+    margin: 0;
+    color: #36485f;
+    font-size: 17px;
+    line-height: 1.55;
+}
+
+.lg-feature-row {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.lg-feature-row article {
+    text-align: left;
+}
+
+.lg-feature-row i {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3faf6;
+    color: var(--lg-green);
+    font-size: 21px;
+}
+
+.lg-feature-row h4 {
+    margin: 10px 0 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #24354b;
+}
+
+.lg-feature-row p {
+    margin: 0;
+    color: #7b899c;
+    font-size: 12px;
+}
+
+.lg-hero-image {
+    margin-top: 12px;
+    width: 100%;
+    max-width: 700px;
+    opacity: 0.94;
+}
+
+.lg-form-panel {
+    background: #fff;
+    border: 1px solid #e7edf3;
+    border-radius: 16px;
+    box-shadow: 0 28px 45px -42px rgba(31, 51, 74, 0.5);
+    padding: 32px 32px 24px;
+}
+
+.lg-panel-head {
+    text-align: center;
+}
+
+.lg-panel-head h2 {
+    margin: 0;
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.lg-panel-head h2 span {
+    color: #2ab35f;
+}
+
+.lg-panel-head p {
+    margin: 10px 0 0;
+    color: #7a889c;
+    font-size: 15px;
+}
+
+.lg-form {
+    margin-top: 20px;
+}
+
+.lg-field {
+    height: 56px;
+    border: 1px solid var(--lg-border);
+    border-radius: 10px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: #fff;
+    margin-bottom: 12px;
+}
+
+.lg-field i {
+    color: #24a556;
+    font-size: 19px;
+}
+
+.lg-field input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    color: #1b2b40;
+    font-size: 15px;
+}
+
+.lg-field input::placeholder {
+    color: #a0acbb;
+}
+
+.lg-eye {
+    border: none;
+    background: transparent;
+    color: #9aa7b7;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.lg-code {
+    margin-top: -2px;
+}
+
+.lg-error {
+    display: block;
+    margin: -8px 0 6px;
+    color: #dc2626;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.lg-row {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lg-remember {
+    margin: 0;
+    color: #2f4258;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.lg-remember input {
+    width: 16px;
+    height: 16px;
+}
+
+.lg-forget {
+    color: var(--lg-green);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.lg-login-btn {
+    margin-top: 16px;
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #39bb66 0%, #20a954 100%);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 18px 28px -24px rgba(28, 168, 80, 0.9);
+}
+
+.lg-login-btn:hover {
+    transform: translateY(-1px);
+}
+
+.lg-login-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.lg-sep {
+    margin: 16px 0;
+    position: relative;
+    text-align: center;
+}
+
+.lg-sep::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-top: 1px solid #e5ebf0;
+}
+
+.lg-sep span {
+    position: relative;
+    background: #fff;
+    padding: 0 12px;
+    color: #97a3b2;
+    font-size: 14px;
+}
+
+.lg-wechat-btn {
+    width: 100%;
+    height: 47px;
+    border-radius: 9px;
+    border: 1px solid #5ec383;
+    background: #fff;
+    color: #2ca95a;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.lg-wechat-btn i {
+    font-size: 16px;
+}
+
+.lg-register-tip {
+    margin: 16px 0 0;
+    text-align: center;
+    color: #74849a;
+    font-size: 13px;
+}
+
+.lg-register-tip a {
+    color: #28a95a;
+    font-weight: 700;
+}
+
+.lg-footer {
+    border-top: 1px solid #e5ebf0;
+    background: #f9fbfc;
+}
+
+.lg-footer .lg-shell {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    color: #7c8a9e;
+    font-size: 13px;
+    flex-wrap: wrap;
+}
+
+.lg-footer a {
+    color: #3d8fda;
+}
+
+.lg-footer-lang,
+.lg-footer-safe {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width: 1500px) {
+    .lg-nav {
+        gap: 24px;
     }
 
+    .lg-marketing h1 {
+        font-size: clamp(32px, 3.4vw, 46px);
+    }
+
+    .lg-subtitle {
+        font-size: 15px;
+    }
+
+    .lg-feature-row h4 {
+        font-size: 14px;
+    }
+
+    .lg-feature-row p {
+        font-size: 12px;
+    }
+
+    .lg-panel-head h2 {
+        font-size: 30px;
+    }
+
+    .lg-panel-head p {
+        font-size: 14px;
+    }
+
+    .lg-field input {
+        font-size: 14px;
+    }
+
+    .lg-remember,
+    .lg-forget {
+        font-size: 14px;
+    }
+
+    .lg-login-btn {
+        font-size: 17px;
+    }
+
+    .lg-wechat-btn {
+        font-size: 14px;
+    }
+
+    .lg-register-tip {
+        font-size: 13px;
+    }
 }
 
+@media (max-width: 1200px) {
+    .lg-nav {
+        display: none;
+    }
+
+    .lg-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .lg-marketing {
+        text-align: center;
+    }
+
+    .lg-feature-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lg-feature-row article {
+        text-align: center;
+    }
+
+    .lg-hero-image {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .lg-shell {
+        width: calc(100% - 22px);
+    }
+
+    .lg-topbar .lg-shell {
+        min-height: 58px;
+    }
+
+    .lg-brand img {
+        height: 29px;
+    }
+
+    .lg-auth {
+        gap: 16px;
+    }
+
+    .lg-auth a {
+        font-size: 15px;
+    }
+
+    .lg-auth a.is-active::after {
+        bottom: -14px;
+    }
+
+    .lg-main {
+        padding-top: 16px;
+    }
+
+    .lg-badge {
+        font-size: 13px;
+    }
+
+    .lg-marketing h1 {
+        font-size: clamp(30px, 9vw, 40px);
+    }
+
+    .lg-subtitle {
+        font-size: 14px;
+    }
+
+    .lg-feature-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .lg-feature-row h4 {
+        font-size: 14px;
+    }
+
+    .lg-feature-row p {
+        font-size: 12px;
+    }
+
+    .lg-form-panel {
+        padding: 26px 16px 20px;
+    }
+
+    .lg-panel-head h2 {
+        font-size: 28px;
+    }
+
+    .lg-panel-head p {
+        font-size: 14px;
+    }
+
+    .lg-remember,
+    .lg-forget {
+        font-size: 14px;
+    }
+
+    .lg-login-btn {
+        font-size: 18px;
+    }
+
+    .lg-wechat-btn {
+        font-size: 15px;
+    }
+}

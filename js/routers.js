@@ -183,6 +183,11 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 			templateUrl: 'view/dashboard/dashboard.htm'
 			, controllerUrl: 'view/dashboard/dashboard.js'
 		}))
+		// Console
+		.when('/console', router({
+			templateUrl: 'view/console/index.htm'
+			, controllerUrl: 'view/console/index.js'
+		}))
 
         // ngrokd服务
         .when('/system/ngrokd', router({

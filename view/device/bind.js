@@ -5,10 +5,12 @@
  * @author marker
  * @date 2016-06-05
  */
-define(['app','jquery'], function (app, $) {//加载依赖js,
+define(['app','jquery', 'css!../console/subpage.css'], function (app, $) {//加载依赖js,
 
 
 	var callback = ["$scope","$location","$interval", function ($scope, $location,$interval) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'bind';
 
 
         $scope.active = 'bind';
@@ -97,6 +99,10 @@ define(['app','jquery'], function (app, $) {//加载依赖js,
             });
         }
         $scope.deviceDiscovery();
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
 
  	}];
 

@@ -1,75 +1,117 @@
 /**
- *
- * 注册模块
- *
- * @author marker
- * @date 2016-08-13
+ * 忘记密码模块
  */
-define(['layer', 'css!./app.css'], function (layer) {// 加载依赖js,a
+define(['app', 'layer', 'jquery', 'css!../login/login.css', 'css!./app.css'], function (app, layer, $) {
+    return ['$scope', '$location',
+        function ($scope, $location) {
+            $('body').addClass('login-refactor forget-refactor');
 
-
-    return ['$scope', '$location', 'userService', '$AjaxService',
-        function ($scope, $location, userService, $AjaxService) {
             $scope.user = {};
-            if ($location.search().code) {
-                // 修改密码代码
-                $scope.user.code = $location.search().code;
+            $scope.showPass = false;
+            $scope.showConfirmPass = false;
+            $scope.resetSubmitting = false;
+            $scope.changeSubmitting = false;
+
+            var code = $location.search().code;
+            if (code) {
+                $scope.user.code = code;
                 $scope.showChangePass = true;
             } else {
                 $scope.showChangePass = false;
             }
 
-
-            /**
-             * 修改密码
-             */
-            $scope.changePassword = function () {
-
-                faceinner.postJson(api['user.changepass'], $scope.user, function (res) {
-                    $scope.$apply(function () {
-                        if (res.status == 0) {
-                            layer.msg("重置成功!");
-                            $location.path('/login').replace();
-                        } else if (res.status == 100014) { // code不存在
-                            // 不存在直接跳转重置申请页面.
-                            layer.msg("您的code已经失效了.");
-                            $location.path('/forget').replace();
-                        }
-                        faceinner.handleFieldError($scope, res);
-                    });
-                });
-
+            function applyScope(handler) {
+                if ($scope.$root.$$phase) {
+                    handler();
+                    return;
+                }
+                $scope.$apply(handler);
             }
 
+            $scope.togglePass = function () {
+                $scope.showPass = !$scope.showPass;
+            };
 
-            /**
-             * 提交重置密码申请
-             */
-            $scope.submitRestPass = function () {
-                let siteUrl = window.location.protocol + "//" + window.location.host;
-                if (window.location.port == 80 || window.location.port == 443) {
-                    siteUrl += ":" + window.location.port
+            $scope.toggleConfirmPass = function () {
+                $scope.showConfirmPass = !$scope.showConfirmPass;
+            };
+
+            // 修改密码
+            $scope.changePassword = function () {
+                if (!$scope.user.pass) {
+                    layer.msg('请输入新密码');
+                    return;
                 }
-                siteUrl += window.location.pathname
 
-                console.log(siteUrl);
+                if ($scope.user.pass !== $scope.user.confirmPass) {
+                    layer.msg('两次密码不一致');
+                    return;
+                }
 
-                let data = {
+                $scope.changeSubmitting = true;
+
+                faceinner.postJson(api['user.changepass'], {
+                    code: $scope.user.code,
+                    pass: $scope.user.pass
+                }, function (res) {
+                    applyScope(function () {
+                        $scope.changeSubmitting = false;
+                    });
+
+                    if (res.status === 0 || res.code === 'S00') {
+                        layer.msg('重置成功');
+                        applyScope(function () {
+                            $location.path('/login').replace();
+                        });
+                        return;
+                    }
+
+                    if (res.status === 100014 || res.code === '100014') {
+                        layer.msg('重置链接已失效，请重新申请');
+                        applyScope(function () {
+                            $location.path('/forget').replace();
+                        });
+                        return;
+                    }
+
+                    faceinner.handleFieldError($scope, res);
+                    layer.msg(res.msg || '修改失败，请稍后重试');
+                });
+            };
+
+            // 提交忘记密码申请
+            $scope.submitResetPass = function () {
+                if (!$scope.email) {
+                    layer.msg('请输入邮箱地址');
+                    return;
+                }
+
+                $scope.resetSubmitting = true;
+
+                var siteUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+                var data = {
                     email: $scope.email,
                     siteUrl: siteUrl
                 };
 
                 faceinner.postJson(api['user.forget'], data, function (res) {
-                    if (res.status == 0) {
-                        layer.msg("申请成功,请查看您的邮箱");
+                    applyScope(function () {
+                        $scope.resetSubmitting = false;
+                    });
+
+                    if (res.status === 0 || res.code === 'S00') {
+                        layer.msg('申请成功，请检查您的邮箱');
                         window.location.href = '#/login';
-                    } else {
-                        layer.msg(res.msg);
+                        return;
                     }
+
                     faceinner.handleFieldError($scope, res);
+                    layer.msg(res.msg || '提交失败，请稍后重试');
                 });
-            }
+            };
 
+            $scope.$on('$destroy', function () {
+                $('body').removeClass('login-refactor forget-refactor');
+            });
         }];
-
 });

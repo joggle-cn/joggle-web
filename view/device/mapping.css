@@ -1,69 +1,191 @@
-
-.mapping .item-text{
-    margin-bottom: 4px;
-    white-space: nowrap;
-}
-.mapping .item-wrap{
-    border: 1px #ccc solid;
-    padding: 10px 20px;
-    overflow: hidden;
-    height: 90px;
-    margin-bottom: 20px;
-    display: block;
-    color:#000;
+.dm-tab-card {
+    padding: 12px;
 }
 
-.mapping .item-wrap:hover{
-    cursor: pointer;
-    background: #efefef;
-    border: 1px #4CAF50 solid;
-}
-.mapping .item-server{
-    position: relative;
-    margin: 0 auto;
-    height: 66px;
-    width: 80px;
-}
-.mapping .item-icon {
-    font-size: 80px; color:#383838;
-    position: absolute;
-    top: -3px;
-}
-.mapping .item-status.label-success{
-    background: #0de216;
-}
-.mapping .item-status{
-    display: block;
-    background: #ffe300;
-    width: 7px;
-    height: 7px;
-    z-index: 999;
-    position: absolute;
-    right: 5px;
-    top: 8px;
-    border-radius: 4px;
+.dm-tab-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
+.dm-tab-item {
+    border: 1px solid #d6dee7;
+    background: #fff;
+    color: #304155;
+    height: 36px;
+    border-radius: 8px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+}
 
+.dm-tab-item:hover {
+    background: #f8fbff;
+}
 
+.dm-tab-item.is-active {
+    border-color: #b9dec6;
+    color: #0f8e3c;
+    background: #eef8f2;
+}
 
-.mapping .mapping-feature-item{
-    border:1px #ccc  solid;
+.dm-badge {
+    margin-left: 6px;
+    background: #ff7f2a;
+    color: #fff;
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dm-tab-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.dm-device-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 14px;
+}
+
+.dm-device-meta {
+    border: 1px solid #e4e9ef;
+    border-radius: 10px;
+    background: #f9fbfd;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.dm-device-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+}
+
+.dm-device-meta h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #162740;
+}
+
+.dm-device-meta p {
+    margin: 0;
+    color: #5d6d82;
+    line-height: 1.75;
+    font-size: 14px;
+}
+
+.dm-action-grid {
+    border: 1px solid #e4e9ef;
+    border-radius: 10px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    align-content: start;
+}
+
+.dm-action-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+.dm-feature-grid {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.dm-feature-grid article {
+    border: 1px solid #e4e9ef;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fff;
+}
+
+.dm-feature-grid h4 {
+    margin: 0;
+    color: #51657c;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dm-feature-grid p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    line-height: 1.35;
+    color: #13253e;
+    font-weight: 800;
+}
+
+.dm-feature-grid p a {
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dm-feature-grid .label {
+    font-size: 12px;
+}
+
+#device-mapping-page .table .label {
+    display: inline-block;
+    min-width: 44px;
     text-align: center;
-    padding: 10px 0;
-    margin: 4px 0;
 }
 
-.mapping .mapping-feature-item p{
-    color: #929292;
+@media (max-width: 1600px) {
+    .dm-device-panel {
+        grid-template-columns: 1fr;
+    }
 }
-.mapping .no-device-info{
-    text-align: center;
-    margin-top: 7rem;
+
+@media (max-width: 1280px) {
+    .dm-feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
-.mapping .bind-device{
-    float: right;
+
+@media (max-width: 991px) {
+    .dm-tab-actions {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .dm-action-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dm-feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
-.mapping .bind-device:before{
-    content: '';
+
+@media (max-width: 640px) {
+    .dm-tab-item {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .dm-tab-actions {
+        flex-direction: column;
+    }
+
+    .dm-tab-actions .cs-main-btn {
+        width: 100%;
+    }
+
+    .dm-feature-grid {
+        grid-template-columns: 1fr;
+    }
 }

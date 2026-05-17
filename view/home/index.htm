@@ -1,317 +1,271 @@
-<!-- Docs page layout -->
-<style>
-    .swiper {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
-    @media (min-width: 1200px) {
-         .container {
-            width: 1700px !important;  /* 或你想要的任何宽度 */
-        }
-    }
-</style>
-<div class="" id="index">
-    <div class="jumbotron masthead">
-        <div class="container" style="position: relative">
-            <div class="row" style="  width: 100%; top: 7px">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="position: relative; width: 100%; height: 400px; z-index: 0">
-                                <div style="z-index: 11;  padding-bottom: 60px">
-                                    <h1>Joggle</h1>
-                                    <h2 class="site-title" ng-bind="res.t('home.banner.title')"></h2>
-                                    <p class="masthead-button-links">
-                                        <a class="btn btn-lg btn-primary btn-shadow" href="#/document" >立即阅读Joggle文档</a>
-                                    </p>
-                                    <p class="masthead-links">
-                                        <a >免费、开源、多用户、多协议支持、跨平台</a>
-                                    </p>
-                                </div>
-                                <div style="position: absolute;width: 100%; height: 400px;  z-index: 0">
-
-                                    <div id="echarts_flow_hour2" style="width: 100%; height: 400px;  z-index: 0" >
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div id="contain2er" style="width: 100%; height: 400px;  z-index: 0">
-
-                                </div>
-                                <div style="z-index: 1; position: absolute;top: 0px">
-                                    <h3>Joggle全网流量[30天]</h3>
-                                </div>
-
-                            </div>
-                            <div class="swiper-slide">
-                                <div id="echarts_flow_hour" style="width: 100%; height: 400px;  z-index: 0">
-
-                                </div>
-                                <div style="z-index: 1; position: absolute;top: 0px">
-                                    <h3>Joggle全网流量[24小时]</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 col-sm-6 col-xs-6">
-                <div class="counter">
-                    <div class="counter-content">
-                        <span class="counter-value" ng-bind="countInfo.userNum">0</span>
-                        <h3 class="title">用户</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-6">
-                <div class="counter">
-                    <div class="counter-content">
-                        <span class="counter-value" ng-bind="countInfo.deviceNum">0</span>
-                        <h3 class="title">设备</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-6">
-                <div class="counter">
-                    <div class="counter-content">
-                        <span class="counter-value" ng-bind="countInfo.deviceOnlineNum">0</span>
-                        <h3 class="title">在线设备</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-6">
-                <div class="counter">
-                    <div class="counter-content">
-                        <span class="counter-value" ng-bind="countInfo.domainNum">0</span>
-                        <h3 class="title">域名</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 col-xs-6">
-                <div class="counter">
-                    <div class="counter-content">
-                        <span class="counter-value" ng-bind="countInfo.portNum">0</span>
-                        <h3 class="title">端口</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-xs-6">
-                <div class="counter">
-                    <div class="counter-content">
-                        <span class="counter-value" ng-bind="countInfo.tunnelNum">0</span>
-                        <h3 class="title">通道</h3>
-                    </div>
-                </div>
+<div id="index" class="joggle-home">
+    <header class="jh-topbar">
+        <div class="jh-shell">
+            <a class="jh-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="jh-nav">
+                <a class="is-active" href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="jh-nav-actions">
+                <a class="jh-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="jh-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="jh-buy" href="#/package">立即购买</a>
             </div>
         </div>
+    </header>
 
-        <hr class="half-rule">
-    </div>
-
-
-    <div class="container index-textcenter">
-        <h1 class="index-bullet-title" style="font-weight: bold">技术特点</h1>
-        <div class="row index-textcenter">
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon">
-                    <img src="./resource/images/icon/icon1.png" alt="Joggle support" class="img-responsive">
+    <section class="jh-hero">
+        <div class="jh-shell jh-hero-grid">
+            <div class="jh-hero-copy">
+                <p class="jh-kicker"><i class="fa fa-dot-circle-o"></i> 企业级内网穿透与远程访问平台</p>
+                <h1>高速稳定的内网穿透服务</h1>
+                <p class="jh-subtitle">安全访问内网资源，远程管理设备，企业级网络加速，一套方案覆盖个人与团队场景。</p>
+                <ul class="jh-bullets">
+                    <li><i class="fa fa-check-circle-o"></i> 高速稳定</li>
+                    <li><i class="fa fa-check-circle-o"></i> 安全加密</li>
+                    <li><i class="fa fa-check-circle-o"></i> 简易易用</li>
+                    <li><i class="fa fa-check-circle-o"></i> 多设备管理</li>
+                    <li><i class="fa fa-check-circle-o"></i> P2P 直连</li>
+                    <li><i class="fa fa-check-circle-o"></i> 网络唤醒</li>
+                </ul>
+                <div class="jh-hero-actions">
+                    <a class="jh-btn primary" href="#/package"><i class="fa fa-shopping-cart"></i> 立即购买套餐</a>
+                    <a class="jh-btn ghost" href="#/download"><i class="fa fa-download"></i> 下载客户端</a>
                 </div>
-                <h3>免费、开源</h3>
-                <p>Github下载最新的源代码</p>
             </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon">
-                    <img src="./resource/images/icon/icon2.png" alt="Responsive across devices" class="img-responsive">
-                </div>
-                <h3>灵活配置</h3>
-                <p>提供强大图形界面配置</p>
-            </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon">
-                    <img src="./resource/images/icon/icon3.png" alt="Components" class="img-responsive">
-                </div>
-                <h3>多平台支持</h3>
-                <p>市面主流操作系统,Windows\Linux\MacOs</p>
-            </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon">
-                    <img src="./resource/images/icon/icon4.png" alt="Components" class="img-responsive">
-                </div>
-                <h3>多协议支持</h3>
-                <p>支持TCP、UDP、HTTP、HTTPS、P2P等协议</p>
+            <div class="jh-hero-art">
+                <img src="./resource/images/home/hero-racks.png" alt="JOGGLE 节点集群">
             </div>
         </div>
-    </div>
+    </section>
 
-
-
-    <div class="container index-textcenter">
-        <h1 class="index-bullet-title" style="font-weight: bold">核心技术优势</h1>
-
-        <div class="row  ">
-            <div class="col-sm-6 col-xs-6">
-                <img style="width:700px" src="./resource/images/home/kcp.jpg" alt="Joggle kcp" class="img-responsive">
-            </div>
-            <div class="col-sm-6  col-xs-6">
-                <div style=" padding-top: 140px">
-                    <div>
-                        <h1 style="font-weight: bold">端到端网络映射</h1>
-                        <p style="font-size: 24px; color: #858585">深度集成KCP协议，全面实现可靠、稳定、高性能的端到端网络映射。 自主研发的P2P隧道技术，突破NAT限制，将两个局域网建立通讯桥梁，实现了无需走公网流量点对点链接的网络服务。</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-<!--    <div class="container index-textcenter" style="margin-top: 80px">-->
-<!--        <h2 class="index-bullet-title">Joggle P2P隧道工作原理</h2>-->
-<!--        <p class="lead">-->
-
-<!--        </p>-->
-<!--        <img src="./resource/images/register/joggle-p2p.png" alt="joggle p2p原理图" style="width: 100%; margin-top:3em" />-->
-<!--        <br/>-->
-<!--    </div>-->
-
-    <div class="container index-textcenter" style="margin-top: 40px">
-        <h2 class="index-bullet-title">Joggle 源代码下载</h2>
-
-        <hr class="half-rule">
-        <p class="lead">Joggle是开源免费的项目，它的代码托管、开发、维护都依赖 GitHub 平台。</p>
-        <a href="https://github.com/joggle-cn/joggle" target="_blank" class="btn btn-outline btn-lg">查看 GitHub 项目主页</a>
-    </div>
-
-    <div style="background: rgb(249 250 251 / var(--tw-bg-opacity, 1));">
-        <div class="container index-textcenter case" style="margin-top: 40px; padding-bottom: 40px">
-            <h2 class="index-bullet-title">应用场景</h2>
-            <div class="row index-textcenter" style="padding-top: 20px;">
-                <div class="col-sm-3 col-xs-6  ">
-                    <div class="sence">
-                        <div class="index-icon-sence">
-                            <img src="./resource/images/home/pc-remote.png" alt="远程桌面访问" class="img-responsive">
-                        </div>
-                        <h4>远程桌面访问</h4>
-                        <p>实现流畅的远程桌面控制体验，适用于远程办公场景。</p>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6  ">
-                    <div class="sence">
-                        <div class="index-icon-sence" >
-                            <img src="./resource/images/home/games.png" alt="游戏加速" class="img-responsive">
-                        </div>
-                        <h4>游戏加速</h4>
-                        <p>降低游戏延迟，提供流畅的游戏体验。端到端加速。</p>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6  ">
-                    <div class="sence">
-                        <div class="index-icon-sence" >
-                            <img src="./resource/images/home/sharefile.png" alt="文件共享" class="img-responsive">
-                        </div>
-                        <h4>文件共享</h4>
-                        <p>快速可靠的文件传输服务，支持大文件断点续传。</p>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="sence">
-                        <div class="index-icon-sence" >
-                            <img src="./resource/images/home/monitor.png" alt="监控系统" class="img-responsive">
-                        </div>
-                        <h4>监控系统</h4>
-                        <p>支持实时设备监控，精准把控流量情况，确保网络安全。</p>
-                    </div>
-                </div>
+    <section class="jh-capabilities">
+        <div class="jh-shell">
+            <div class="jh-cap-grid">
+                <article>
+                    <i class="fa fa-rocket"></i>
+                    <h3>高速隧道</h3>
+                    <p>高可用线路选择，低时延稳定访问体验。</p>
+                </article>
+                <article>
+                    <i class="fa fa-shield"></i>
+                    <h3>稳定连接</h3>
+                    <p>多节点冗余，99.9% 运行可用性。</p>
+                </article>
+                <article>
+                    <i class="fa fa-lock"></i>
+                    <h3>安全加密</h3>
+                    <p>端到端加密传输，保障链路安全。</p>
+                </article>
+                <article>
+                    <i class="fa fa-laptop"></i>
+                    <h3>多设备管理</h3>
+                    <p>灵活管理多台设备，集中控制更高效。</p>
+                </article>
+                <article>
+                    <i class="fa fa-random"></i>
+                    <h3>P2P 支持</h3>
+                    <p>智能打洞连接，降低中继依赖。</p>
+                </article>
+                <article>
+                    <i class="fa fa-power-off"></i>
+                    <h3>网络唤醒</h3>
+                    <p>远程唤醒内网设备，随时随地在线。</p>
+                </article>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container index-textcenter case" style="margin-top: 40px">
-        <h2 class="index-bullet-title">成功案例</h2>
+    <section class="jh-section">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>选择适合您的套餐</h2>
+                <p>灵活套餐方案，满足个人与企业不同场景需求。</p>
+            </div>
+            <div class="jh-plan-loading" ng-if="packageLoading">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+                正在加载套餐信息...
+            </div>
 
-        <hr class="half-rule">
-        <p class="lead">Joggle是一款非常优秀的内网穿透平台软件，受到了非常多的成功企业或个人的支持，因此它成长的很茁壮！</p>
-        <div class="row index-textcenter" style="padding-top: 20px;">
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon">
-                    <img src="./resource/images/logo/guoneishuzhi.png" alt="国能数智logo" class="img-responsive">
-                </div>
-                <h3><a href="http://www.ai-energy.cn/" target="_blank">国能数智</a></h3>
-                <p>无人机地理信息系统领导者</p>
+            <div class="jh-plan-grid" ng-if="!packageLoading && homePlans.length">
+                <article class="jh-plan" ng-repeat="item in homePlans track by item.id" ng-class="{'jh-plan-featured': isFeaturedPlan(item)}">
+                    <span class="jh-badge" ng-if="getPlanBadge(item)" ng-class="{'hot': isHotPlan(item)}">{{getPlanBadge(item)}}</span>
+                    <h3>{{item.name}}</h3>
+                    <p class="jh-plan-tag">{{getPlanTag(item)}}</p>
+                    <p class="jh-price">
+                        ¥ {{item.level == 0 ? '0' : item.price}}
+                        <span>/ 月</span>
+                    </p>
+                    <ul>
+                        <li><span>可绑定设备</span><b>{{item.deviceNum}} 台</b></li>
+                        <li><span>套餐流量</span><b>{{item.flowNumGb}}GB</b></li>
+                        <li><span>隧道宽带</span><b>{{item.broadbandRate}}Mbps</b></li>
+                        <li><span>端口隧道</span><b>{{item.portNum}} 个</b></li>
+                        <li><span>P2P 隧道</span><b>{{item.p2pNum}} 条</b></li>
+                        <li><span>并发限制</span><b>{{item.concurrentNum || '-'}}</b></li>
+                        <li><span>网络唤醒</span><b>{{item.wolEnable == 1 ? '支持' : '-'}}</b></li>
+                    </ul>
+                    <a ng-href="{{getPlanActionLink(item)}}" class="jh-plan-btn">{{item.level == 0 ? '免费使用' : '立即升级'}}</a>
+                </article>
             </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon" >
-                    <img src="./resource/images/logo/sanqiminghuan.png" alt="三奇明环logo" class="img-responsive">
-                </div>
-                <h3><a href="http://www.58sqmh.cn/" target="_blank">三奇明环</a></h3>
-                <p>周易文化社交传媒</p>
+
+            <div class="jh-plan-loading" ng-if="!packageLoading && !homePlans.length">
+                暂无可用套餐，请稍后重试。
             </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon" >
-                    <img src="./resource/images/logo/wanwuhe.png" alt="万物盒logo" class="img-responsive">
-                </div>
-                <h3><a href="#" target="_blank">万物盒</a></h3>
-                <p>盲盒类小项目</p>
+            <p class="jh-sub-note">购买 VIP 套餐后，可优先使用更多高级资源能力；企业或大规模场景可联系技术支持获取定制方案。</p>
+        </div>
+    </section>
+
+    <section class="jh-section jh-workflow">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>工作原理</h2>
+                <p>通过 JOGGLE 中继服务，安全高效地实现外网访问内网。</p>
             </div>
-            <div class="col-sm-3 col-xs-6">
-                <div class="index-icon" >
-                    <img src="./resource/images/logo/devuser.png" alt="个人开发者logo" class="img-responsive">
-                </div>
-                <h3><a href="https://github.com/joggle-cn/joggle" target="_blank">个人开发者</a></h3>
-                <p>开发测试环境调试</p>
+            <div class="jh-work-row">
+                <article class="jh-work-card">
+                    <h4>外网设备与客户端</h4>
+                    <p>浏览器 / 客户端 / 手机</p>
+                </article>
+                <div class="jh-work-arrow">加密隧道 <i class="fa fa-long-arrow-right"></i></div>
+                <article class="jh-work-card jh-work-card-center">
+                    <h4>JOGGLE 云端服务节点</h4>
+                    <p>全节点高可用调度</p>
+                </article>
+                <div class="jh-work-arrow"><i class="fa fa-long-arrow-right"></i> 安全稳定</div>
+                <article class="jh-work-card">
+                    <h4>内网设备与服务</h4>
+                    <p>服务器 / NAS / 工控设备 / PC</p>
+                </article>
+            </div>
+            <p class="jh-flow-note">无需公网 IP，无需路由配置，3 步即可完成安全远程访问。</p>
+        </div>
+    </section>
+
+    <section class="jh-section jh-p2p">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>P2P 直连原理</h2>
+                <p>智能打洞与中继回退机制并存，保证连接可用和传输效率。</p>
+            </div>
+            <ol class="jh-p2p-steps">
+                <li>
+                    <span>1</span>
+                    <h4>外网客户端</h4>
+                    <p>发起连接请求</p>
+                </li>
+                <li>
+                    <span>2</span>
+                    <h4>信令协商服务</h4>
+                    <p>交换网络信息</p>
+                </li>
+                <li>
+                    <span>3</span>
+                    <h4>NAT 穿透</h4>
+                    <p>探测并打通链路</p>
+                </li>
+                <li>
+                    <span>4</span>
+                    <h4>建立 P2P 握手</h4>
+                    <p>双向建立连接</p>
+                </li>
+                <li>
+                    <span>5</span>
+                    <h4>建立直连通道</h4>
+                    <p>数据直连传输</p>
+                </li>
+            </ol>
+            <p class="jh-flow-note">直连失败时可自动回退中继模式，持续保障业务连通。</p>
+        </div>
+    </section>
+
+    <section class="jh-section">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>应用场景</h2>
+                <p>覆盖多种远程访问与设备管理需求。</p>
+            </div>
+            <div class="jh-scene-grid">
+                <article>
+                    <img src="./resource/images/home/sharefile.png" alt="家庭NAS远程访问">
+                    <h4>家庭 NAS 远程访问</h4>
+                    <p>随时随地访问家庭 NAS，管理文件更高效。</p>
+                </article>
+                <article>
+                    <img src="./resource/images/home/pc-remote.png" alt="远程桌面办公">
+                    <h4>远程桌面办公</h4>
+                    <p>安全访问办公终端，远程协作更顺畅。</p>
+                </article>
+                <article>
+                    <img src="./resource/images/home/monitor.png" alt="监控设备连接">
+                    <h4>监控设备连接</h4>
+                    <p>远程查看监控画面，多点部署统一管理。</p>
+                </article>
+                <article>
+                    <img src="./resource/images/home/games.png" alt="开发调试环境映射">
+                    <h4>开发调试环境映射</h4>
+                    <p>内网服务快速暴露，便于联调与测试验证。</p>
+                </article>
+                <article>
+                    <img src="./resource/images/hardware/img_1.png" alt="工业设备远程运维">
+                    <h4>工业设备远程运维</h4>
+                    <p>远程管理工控设备，降低现场维护成本。</p>
+                </article>
+            </div>
+            <div class="jh-faq-row">
+                <span><i class="fa fa-lock"></i> 数据传输是否安全？</span>
+                <span><i class="fa fa-line-chart"></i> 提速效果如何？</span>
+                <span><i class="fa fa-desktop"></i> 支持哪些系统？</span>
+                <span><i class="fa fa-cogs"></i> 如何快速部署？</span>
+                <span><i class="fa fa-question-circle"></i> 新手怎么开始？</span>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- 隐藏功能-->
-    <div class="container index-textcenter  " style="margin-top: 40px">
-        <h2 class="index-bullet-title">实验性功能</h2>
-
-        <hr class="half-rule">
-        <p class="lead">Joggle实验，测试相关能力为后续新业务赋能。</p>
-
-    <p>
-<!--    	<a href="#/user/device" ng-show="user" class="btn btn-default" ng-bind="res.t('home.btn.device')"></a>-->
-<!--    	<a href="#/user/domain" ng-show="user" class="btn btn-default" ng-bind="res.t('home.btn.domain')"></a>-->
-    	<a href="#/flashchat/index" class="btn btn-default" ng-bind="res.t('home.btn.flashchat')"></a>
-<!--    	<a href="#/wishwall/build" class="btn btn-default" ng-bind="res.t('home.btn.wishwall')"></a>-->
-        <a href="#/app/video/index" class="btn btn-default" ng-bind="res.t('home.btn.onlinevideo')"></a>
-
-
-      <!--<a href="#/user/device" class="btn btn-default" ng-bind="res.t('home.btn.download')"></a>-->
-    </p>
-  </div>
+    <footer class="jh-footer">
+        <div class="jh-shell jh-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专业的内网穿透与远程访问平台，让连接更简单、体验更稳定。</p>
+                <div class="jh-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>产品</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/feedback">更新日志</a>
+            </div>
+            <div>
+                <h5>支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+            </div>
+            <div class="jh-support-card">
+                <p>7x24 小时技术支持</p>
+                <h4>support@joggle.cn</h4>
+                <span>工作日 9:00 - 18:00</span>
+            </div>
+        </div>
+        <div class="jh-footer-bottom">
+            © 2014-2026 JOGGLE. All Rights Reserved. 蜀ICP备14017469号-2
+        </div>
+    </footer>
 </div>
-

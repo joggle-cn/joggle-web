@@ -1,88 +1,113 @@
-<div id="wrap-all" class="container login-page">
-    <div class="row">
-        <div class="col-md-7  "></div>
-        <div class="inner2 col-md-5 col-xs-12">
-            <!-- // data-ng-controller="user_login_ctrl"_= -->
-            <div class="other-warp login-wrap">
+<div id="login" class="login-redesign">
+    <header class="lg-topbar">
+        <div class="lg-shell">
+            <a class="lg-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="lg-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="lg-auth">
+                <a class="is-active" href="#/login">登录</a>
+                <a href="#/register">注册</a>
+            </div>
+        </div>
+    </header>
 
-                <div class="single-panel clearfix">
-                    <div class="single-panel-inner login-mini">
-                        <div class="single-panel-header">
-                            <h3 style="text-align: center;padding-bottom: 30px;" ng-bind="res.t('user.login')"></h3>
-                        </div>
-                        <div class="single-panel-body">
-                            <div class="single-panel-section">
+    <main class="lg-main">
+        <div class="lg-shell lg-grid">
+            <section class="lg-marketing">
+                <p class="lg-badge">安全 · 稳定 · 高效</p>
+                <h1>安全连接 <span>无限可能</span></h1>
+                <p class="lg-subtitle">
+                    JOGGLE 为您提供安全稳定的内网穿透与远程访问服务<br>
+                    轻松连接设备与应用，随时随地掌控全局
+                </p>
+                <div class="lg-feature-row">
+                    <article>
+                        <i class="fa fa-shield"></i>
+                        <h4>安全连接</h4>
+                        <p>端到端加密传输</p>
+                    </article>
+                    <article>
+                        <i class="fa fa-rocket"></i>
+                        <h4>高速稳定</h4>
+                        <p>智能路由低延迟</p>
+                    </article>
+                    <article>
+                        <i class="fa fa-desktop"></i>
+                        <h4>多平台支持</h4>
+                        <p>全平台无缝兼容</p>
+                    </article>
+                    <article>
+                        <i class="fa fa-cloud-download"></i>
+                        <h4>P2P内网穿透</h4>
+                        <p>轻松访问内网设备</p>
+                    </article>
+                </div>
+                <img class="lg-hero-image" src="./resource/images/login/login-hero-device.png" alt="JOGGLE 网络连接示意图">
+            </section>
 
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="inputEmail" class="col-sm-2 control-label">账号</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="text" ng-model="user.name" id="inputEmail"
-                                                   ng-focus="nameMsg=''" placeholder="请输入账号"/>
+            <section class="lg-form-panel">
+                <div class="lg-panel-head">
+                    <h2>欢迎登录 <span>JOGGLE</span></h2>
+                    <p>安全连接，随时随地，掌控您的设备与应用</p>
+                </div>
 
-                                            <span class="message" ng-bind="nameMsg"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword" class="col-sm-2 control-label">密码</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="password" id="inputPassword"
-                                                   ng-model="user.pass" ng-focus="passMsg=''" placeholder="请输入密码"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-show="openvalid == true">
-                                        <div class="input-group">
-                                            <input class="form-control" type="password" placeholder="输入验证码"
-                                                   ng-model="user.code" style="width:120px"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button ng-click="login()" class="btn btn-success btn-lg btn-block"
-                                                    ng-disabled="loginBtnDisable"
-                                                    data-loading-text="登录中..." ng-bind="res.t('user.login')"></button>
-                                        </div>
-                                    </div>
+                <form class="lg-form" ng-submit="login()">
+                    <label class="lg-field">
+                        <i class="fa fa-user-o"></i>
+                        <input type="text" ng-model="user.name" ng-focus="nameMsg=''" placeholder="账号 / 邮箱" autocomplete="username">
+                    </label>
+                    <span class="lg-error" ng-bind="nameMsg"></span>
 
+                    <label class="lg-field">
+                        <i class="fa fa-lock"></i>
+                        <input ng-attr-type="{{showPass ? 'text' : 'password'}}" ng-model="user.pass" ng-focus="passMsg=''" placeholder="密码" autocomplete="current-password">
+                        <button type="button" class="lg-eye" ng-click="togglePassword()">
+                            <i class="fa" ng-class="showPass ? 'fa-eye' : 'fa-eye-slash'"></i>
+                        </button>
+                    </label>
+                    <span class="lg-error" ng-bind="passMsg"></span>
 
-                                    <div class="form-group" style="visibility: hidden">
-                                        <p class="thirdparty_title">使用三方平台账号登录</p>
-                                        <div class="col-sm-3">
-                                            <a target="_self" href="/thirdparty/qq/login.face">
-                                                <div class="login_with_thirdparty"><i class="fa fa-qq"></i></div>
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <a target="_self" href="/thirdparty/qq/login.face">
-                                                <div class="login_with_thirdparty"><i class="fa fa-weibo"></i></div>
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <a target="_self" href="/thirdparty/qq/login.face">
-                                                <div class="login_with_thirdparty"><i class="fa fa-wechat"></i></div>
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <a target="_self" href="/thirdparty/qq/login.face">
-                                                <div class="login_with_thirdparty"><i class="fa fa-twitter"></i></div>
-                                            </a>
-                                        </div>
-                                    </div>
+                    <label class="lg-field lg-code" ng-show="openvalid == true">
+                        <i class="fa fa-shield"></i>
+                        <input type="text" ng-model="user.code" placeholder="输入验证码" autocomplete="off">
+                    </label>
 
-                                </form>
-                            </div>
-
-                        </div>
-                        <div class="single-panel-footer">
-                            <div class="pull-right">
-                                <a href="#/forget">忘记密码？</a></div>
-                        </div>
+                    <div class="lg-row">
+                        <label class="lg-remember">
+                            <input type="checkbox" ng-model="rememberMe"> 记住我
+                        </label>
+                        <a class="lg-forget" href="#/forget">忘记密码?</a>
                     </div>
 
-                </div>
-            </div>
+                    <button type="submit" class="lg-login-btn" ng-disabled="loginBtnDisable">立即登录</button>
 
+                    <div class="lg-sep"><span>或使用其他方式登录</span></div>
+
+                    <button type="button" class="lg-wechat-btn" ng-click="wechatLogin()">
+                        <i class="fa fa-wechat"></i> 微信登录
+                    </button>
+
+                    <p class="lg-register-tip">没有账号? <a href="#/register">立即注册 <i class="fa fa-angle-right"></i></a></p>
+                </form>
+            </section>
         </div>
-    </div>
+    </main>
 
+    <footer class="lg-footer">
+        <div class="lg-shell">
+            <span class="lg-footer-lang"><i class="fa fa-globe"></i> 简体中文 <i class="fa fa-angle-down"></i></span>
+            <span>Copyright © 2014-2025 www.joggle.cn All rights reserved. <a target="_blank" href="https://beian.miit.gov.cn/">蜀ICP备14017469号-2</a></span>
+            <span class="lg-footer-safe"><i class="fa fa-shield"></i> 数据安全</span>
+            <span class="lg-footer-safe">隐私保护</span>
+        </div>
+    </footer>
 </div>

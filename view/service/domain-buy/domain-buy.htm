@@ -1,92 +1,125 @@
-<div style="margin-top:30px; "></div>
-<div class="container domain-buy">
+<div id="domain-buy-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li><a href="#/user/domain">我的域名</a></li>
-                <li class="active">购买资源</li>
-                <li class="node-status">
-                    <a href="#/server-tunnel/nodes">节点状态</a>
-                </li>
-            </ol>
-        </div>
-    </div>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <div class="col-sm-12">
-                   <div class="form-inline">
-                       <div class="input-group">
-                            <span class="input-group-addon">节点</span>
-                           <select class="form-control" ng-model="params.serverTunnelId" ng-options="item.id as item.name for item in tunnels">
-
-                           </select>
-                       </div>
-                       <div class="input-group">
-                            <span class="input-group-addon">类型</span>
-                           <select class="form-control" ng-model="params.type">
-                             <option value="">全部</option>
-                             <option value="1">端口</option>
-                             <option value="2">域名</option>
-                           </select>
-                       </div>
-                       <div class="input-group">
-                            <span class="input-group-addon">关键字</span>
-                            <input type="text" ng-model="params.keyword" class="form-control" aria-label="Text input with multiple buttons">
-                      </div>
-                      <button id="bindButton" ng-click="searchDomain(1)" type="button"   class="btn btn-success">搜索域名</button>
-
-                  </div>
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>购买资源</h1>
+                    <p>选择节点与类型，购买官方提供的端口/域名资源，支付后即时开通。</p>
                 </div>
-            </div>
+                <div class="cs-head-actions">
+                    <a class="cs-ghost-btn" href="#/user/domain"><i class="fa fa-angle-left"></i>&nbsp;返回我的资源</a>
+                    <a class="cs-main-btn" href="#/server-tunnel/nodes"><i class="fa fa-signal"></i>&nbsp;节点状态</a>
+                </div>
+            </section>
 
+            <section class="cs-content-card db-filter-card">
+                <div class="cs-toolbar">
+                    <div class="cs-toolbar-group">
+                        <div class="cs-input-wrap">
+                            <span class="cs-label">节点</span>
+                            <select class="cs-select db-select" ng-model="params.serverTunnelId" ng-options="item.id as item.name for item in tunnels">
+                                <option value="">全部节点</option>
+                            </select>
+                        </div>
+                        <div class="cs-input-wrap">
+                            <span class="cs-label">类型</span>
+                            <select class="cs-select db-select" ng-model="params.type">
+                                <option value="">全部</option>
+                                <option value="1">端口</option>
+                                <option value="2">域名</option>
+                            </select>
+                        </div>
+                        <div class="cs-input-wrap">
+                            <span class="cs-label">关键词</span>
+                            <input type="text" class="cs-input db-keyword" ng-model="params.keyword" placeholder="输入资源地址关键词">
+                        </div>
+                    </div>
+                    <div class="cs-toolbar-group">
+                        <a class="cs-ghost-btn" ng-click="resetFilters()">重置</a>
+                        <a class="cs-main-btn" ng-click="searchDomain(1)"><i class="fa fa-search"></i>&nbsp;搜索资源</a>
+                    </div>
+                </div>
 
+                <div class="db-summary-row">
+                    <article class="db-summary-item">
+                        <p>资源总数</p>
+                        <h4>{{page.total || 0}}</h4>
+                    </article>
+                    <article class="db-summary-item">
+                        <p>当前页</p>
+                        <h4>{{page.current || 1}} / {{page.pages || 1}}</h4>
+                    </article>
+                    <article class="db-summary-item">
+                        <p>可购买资源</p>
+                        <h4>{{availableCount}}</h4>
+                    </article>
+                </div>
+            </section>
 
-             <div class="bs-example" data-example-id="hoverable-table">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th width="60">#</th>
-                      <th width="260">服务器地区</th>
-                        <th width="80">类型</th>
-                      <th width="200">地址</th>
-                      <th width="80">宽带峰值</th>
-                      <th width="200">价格</th>
-                      <th width="80">状态</th>
-                      <th>操作</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="item in page.records">
-                      <th scope="row">{{$index + 1+(page.current -1) * page.size}}</th>
-                      <td>
-                        <span class="label label-info">{{item.tunnelArea}}</span> {{item.tunnelName}}<{{item.tunnelBroadband}}Mbps></td>
+            <section class="cs-content-card">
+                <div class="db-loading" ng-if="loading">
+                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                    正在加载可购买资源...
+                </div>
 
-                      <td ng-bind="item.typeName"></td>
-                      <td>
-                        <span class="label label-default item-domain">{{item.domain}}</span>
-                      </td>
-                      <td>{{item.bandwidth}}Mbps</td>
-                      <td><i style="text-decoration: line-through;">{{item.originalPrice}}元/天</i> <b>{{item.salesPrice}}</b>元/天</td>
-                      <td>
-                        <span ng-if="item.status == 0" class="label label-success">可售</span>
-                      </td>
-                      <td>
-                            <a href="#/user/domain/pay?domainId={{item.id}}" >购买</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                <div class="cs-empty" ng-if="!loading && (!page.records || page.records.length === 0)">
+                    暂无可购买资源，请尝试切换节点或关键词。
+                </div>
 
+                <div class="cs-table-wrap" ng-if="!loading && page.records && page.records.length > 0">
+                    <table class="table table-hover db-table">
+                        <thead>
+                        <tr>
+                            <th width="70">#</th>
+                            <th width="260">节点信息</th>
+                            <th width="90">类型</th>
+                            <th width="220">资源地址</th>
+                            <th width="100">带宽峰值</th>
+                            <th width="180">价格</th>
+                            <th width="90">状态</th>
+                            <th width="110">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in page.records track by item.id">
+                            <th scope="row">{{$index + 1 + (page.current - 1) * page.size}}</th>
+                            <td>
+                                <div class="db-node-cell">
+                                    <span class="label label-info">{{item.tunnelArea}}</span>
+                                    <span>{{item.tunnelName}}</span>
+                                    <small>&lt;{{item.tunnelBroadband}}Mbps&gt;</small>
+                                </div>
+                            </td>
+                            <td>{{item.typeName || (item.type == 1 ? '端口' : '域名')}}</td>
+                            <td>
+                                <span class="db-domain-chip">{{item.domain}}</span>
+                            </td>
+                            <td>{{item.bandwidth}}Mbps</td>
+                            <td>
+                                <span class="db-original-price">¥{{item.originalPrice}} / 天</span>
+                                <b class="db-sales-price">¥{{item.salesPrice}} / 天</b>
+                            </td>
+                            <td>
+                                <span class="label label-success" ng-if="item.status == 0">可售</span>
+                                <span class="label label-default" ng-if="item.status != 0">不可售</span>
+                            </td>
+                            <td>
+                                <a class="db-buy-link" ng-if="item.status == 0" ng-href="#/user/domain/pay?domainId={{item.id}}">立即购买</a>
+                                <span class="db-disabled" ng-if="item.status != 0">-</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-
-            <div class="text-center">
-                <ul id="pagination" class="pagination"></ul>
-            </div>
-        </div>
+                <div class="text-center cs-pagination-wrap" ng-if="!loading && page.pages > 1">
+                    <ul id="pagination" class="pagination"></ul>
+                </div>
+            </section>
+        </main>
     </div>
 </div>

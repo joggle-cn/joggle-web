@@ -1,32 +1,230 @@
-
-
-
-#agreement .about-banner {
-    padding: 30px 0;
+.joggle-agreement {
+    min-height: 100vh;
 }
 
-#agreement .masthead-button-links{
-
-    margin-top: 30px;
+.ag-hero {
+    padding: 40px 0 16px;
 }
 
-#agreement .masthead-links a{
-    color:#ffffff
+.ag-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 440px);
+    align-items: center;
+    gap: 22px;
+}
 
+.ag-kicker {
+    margin: 0;
+    color: var(--jh-green);
+    font-size: 14px;
+    font-weight: 700;
 }
-#agreement .index-bullet-title{
-    margin: 30px 0;
+
+.ag-kicker i {
+    margin-right: 6px;
 }
-#agreement .index-textcenter{
-    text-align: center;
+
+.ag-copy h1 {
+    margin: 10px 0 12px;
+    color: #12253c;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.15;
+    font-weight: 900;
 }
-#agreement .index-icon{
-    width: 100px;
-    margin: 0 auto;
+
+.ag-copy > p {
+    margin: 0;
+    color: #4f6378;
+    font-size: 15px;
+    line-height: 1.8;
 }
-#agreement .contact-support-icon{
-    width: 100px;
+
+.ag-meta-row {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
 }
-#agreement p{
-    line-height: 1.7em;
+
+.ag-meta-row span {
+    border: 1px solid #d7e6dc;
+    background: #f5fbf8;
+    border-radius: 999px;
+    color: #2f4a62;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ag-meta-row i {
+    color: var(--jh-green);
+}
+
+.ag-art img {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid #d9e6df;
+    box-shadow: 0 24px 36px -30px rgba(18, 43, 36, 0.48);
+}
+
+.ag-main {
+    padding-bottom: 10px;
+}
+
+.ag-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+}
+
+.ag-side-card {
+    position: sticky;
+    top: 84px;
+    border: 1px solid var(--jh-border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 16px;
+}
+
+.ag-side-card h3 {
+    margin: 0;
+    color: #12253d;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.ag-side-card ul {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.ag-side-card li {
+    color: #486075;
+    font-size: 13px;
+    line-height: 1.75;
+    padding-left: 18px;
+    position: relative;
+}
+
+.ag-side-card li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--jh-green);
+    position: absolute;
+    left: 2px;
+    top: 8px;
+}
+
+.ag-side-actions {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+}
+
+.ag-side-actions .jh-btn {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    font-size: 14px;
+}
+
+.ag-content-card {
+    border: 1px solid var(--jh-border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 18px;
+}
+
+.ag-content-head h2 {
+    margin: 0;
+    color: #12263e;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.ag-content-head p {
+    margin: 8px 0 0;
+    color: #6a7d92;
+    font-size: 13px;
+}
+
+.ag-article {
+    margin-top: 14px;
+    border-top: 1px solid #ecf1f4;
+    padding-top: 12px;
+}
+
+.ag-article p {
+    margin: 0 0 10px;
+    color: #30465d;
+    font-size: 14px;
+    line-height: 1.9;
+    word-break: break-word;
+}
+
+.ag-article b {
+    color: #152b43;
+    font-size: 15px;
+}
+
+.joggle-agreement .jh-footer {
+    margin-top: 56px;
+}
+
+@media (max-width: 1300px) {
+    .ag-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ag-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ag-side-card {
+        position: static;
+    }
+}
+
+@media (max-width: 991px) {
+    .ag-hero {
+        padding-top: 24px;
+    }
+
+    .ag-copy h1 {
+        font-size: clamp(26px, 8vw, 36px);
+    }
+
+    .ag-content-head h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .ag-content-card,
+    .ag-side-card {
+        padding: 14px;
+    }
+
+    .ag-copy > p,
+    .ag-article p,
+    .ag-side-card li {
+        font-size: 13px;
+    }
+
+    .ag-content-head h2 {
+        font-size: 21px;
+    }
+
+    .ag-meta-row span {
+        font-size: 12px;
+    }
 }

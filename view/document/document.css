@@ -1,4 +1,462 @@
+.joggle-document {
+    min-height: 100vh;
+}
 
-.doc-iframe{
-    position: absolute; top: 50px;  bottom: 60px; width: 100%; height: 100%;
+.jd-hero {
+    padding: 42px 0 20px;
+}
+
+.jd-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(330px, 420px);
+    align-items: start;
+    gap: 20px;
+}
+
+.jd-kicker {
+    margin: 0;
+    color: var(--jh-green);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.jd-kicker i {
+    margin-right: 6px;
+}
+
+.jd-copy h1 {
+    margin: 10px 0 10px;
+    color: #11243b;
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.15;
+    font-weight: 900;
+}
+
+.jd-copy p {
+    margin: 0;
+    color: #526376;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.jd-hero-links {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.jd-hero-links a {
+    border: 1px solid #dce9e2;
+    background: #fff;
+    border-radius: 10px;
+    color: #1d374f;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jd-hero-links a:hover {
+    border-color: #6fc790;
+    color: var(--jh-green);
+}
+
+.jd-hero-links i {
+    color: var(--jh-green);
+}
+
+.jd-highlight {
+    background: linear-gradient(155deg, #ffffff 0%, #f4fbf6 100%);
+    border: 1px solid #d7e9de;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.jd-highlight h3 {
+    margin: 0;
+    color: #13283f;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.jd-highlight ul {
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.jd-highlight li {
+    color: #2f475a;
+    font-size: 13px;
+    line-height: 1.65;
+    display: flex;
+    gap: 8px;
+}
+
+.jd-highlight span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #e5f8ec;
+    color: var(--jh-green);
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.jd-main {
+    padding-bottom: 12px;
+}
+
+.jd-layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+}
+
+.jd-sidebar {
+    position: sticky;
+    top: 84px;
+    border: 1px solid var(--jh-border);
+    border-radius: 14px;
+    background: #fff;
+    padding: 14px;
+    display: grid;
+    gap: 8px;
+}
+
+.jd-sidebar h4 {
+    margin: 0 0 6px;
+    color: #142940;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.jd-sidebar a {
+    border: 1px solid transparent;
+    border-radius: 9px;
+    color: #385269;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 10px;
+}
+
+.jd-sidebar a:hover {
+    border-color: #cce6d6;
+    background: #f6fcf8;
+    color: var(--jh-green);
+}
+
+.jd-content {
+    display: grid;
+    gap: 14px;
+}
+
+.jd-block {
+    background: #fff;
+    border: 1px solid var(--jh-border);
+    border-radius: 14px;
+    padding: 20px;
+    scroll-margin-top: 92px;
+}
+
+.jd-head h2 {
+    margin: 0;
+    color: #12263c;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.jd-head p {
+    margin: 8px 0 0;
+    color: #64758a;
+    font-size: 14px;
+}
+
+.jd-step-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.jd-step-grid article {
+    border: 1px solid #e1ebe5;
+    border-radius: 12px;
+    background: linear-gradient(155deg, #ffffff 0%, #f9fcfa 100%);
+    padding: 14px;
+}
+
+.jd-step-grid span {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e7f8ef;
+    color: var(--jh-green);
+    font-size: 12px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jd-step-grid h3 {
+    margin: 10px 0 6px;
+    color: #14314a;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.jd-step-grid p {
+    margin: 0;
+    color: #627489;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.jd-step-grid a,
+.jd-doc-grid a,
+.jd-link-grid a,
+.jd-support-row a {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--jh-green);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.jd-doc-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.jd-doc-grid article {
+    border: 1px solid #e2ebe5;
+    border-radius: 12px;
+    background: #fcfefc;
+    padding: 14px;
+}
+
+.jd-doc-grid h3 {
+    margin: 0;
+    color: #122a40;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.jd-doc-grid h3 i {
+    color: var(--jh-green);
+    margin-right: 6px;
+}
+
+.jd-doc-grid p {
+    margin: 10px 0 0;
+    color: #617589;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.jd-link-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.jd-link-grid a {
+    margin: 0;
+    border: 1px solid #deebe3;
+    border-radius: 12px;
+    background: #fff;
+    padding: 14px;
+    color: inherit;
+    display: block;
+}
+
+.jd-link-grid a:hover {
+    border-color: #69c58b;
+    box-shadow: 0 18px 30px -28px rgba(18, 34, 45, 0.5);
+}
+
+.jd-link-grid h4 {
+    margin: 0;
+    color: #17324a;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.jd-link-grid p {
+    margin: 9px 0 0;
+    color: #637689;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.jd-faq {
+    margin-top: 14px;
+    border: 1px solid #deebe2;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.jd-faq details {
+    border-bottom: 1px solid #e5efea;
+    background: #fff;
+}
+
+.jd-faq details:last-child {
+    border-bottom: 0;
+}
+
+.jd-faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px;
+    color: #16314a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.jd-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.jd-faq summary::after {
+    content: '\f107';
+    font-family: FontAwesome;
+    float: right;
+    color: #7991a5;
+}
+
+.jd-faq details[open] summary::after {
+    content: '\f106';
+}
+
+.jd-faq p {
+    margin: 0;
+    color: #5f7286;
+    font-size: 13px;
+    line-height: 1.75;
+    padding: 0 14px 14px;
+}
+
+.jd-support-row {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.jd-support-row article {
+    border: 1px solid #deebe3;
+    border-radius: 12px;
+    background: linear-gradient(160deg, #ffffff 0%, #f8fcfa 100%);
+    padding: 14px;
+}
+
+.jd-support-row i {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #e7f8ee;
+    color: var(--jh-green);
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jd-support-row h4 {
+    margin: 10px 0 6px;
+    color: #132d45;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.jd-support-row p {
+    margin: 0;
+    color: #617488;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.joggle-document .jh-footer {
+    margin-top: 54px;
+}
+
+@media (max-width: 1199px) {
+    .jd-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .jd-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .jd-sidebar {
+        position: static;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
+    }
+
+    .jd-sidebar h4 {
+        grid-column: 1 / -1;
+    }
+
+    .jd-doc-grid,
+    .jd-support-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 991px) {
+    .jd-hero {
+        padding-top: 24px;
+    }
+
+    .jd-copy h1 {
+        font-size: clamp(28px, 8vw, 36px);
+    }
+
+    .jd-copy p {
+        font-size: 14px;
+    }
+
+    .jd-hero-links,
+    .jd-step-grid,
+    .jd-link-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .jd-head h2 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 640px) {
+    .jd-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .jd-doc-grid,
+    .jd-support-row {
+        grid-template-columns: 1fr;
+    }
+
+    .jd-block {
+        padding: 16px;
+    }
 }

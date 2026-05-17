@@ -1,102 +1,211 @@
 /**
- *
- * Home   模块
- *
- * @author marker
- * @date 2016-06-05
+ * 实名认证页面
  */
-define(['app','jquery','layer'], function (app, $, layer) {//加载依赖js,
+define(['app', 'jquery', 'layer', 'css!../../console/subpage.css', 'css!./certification.css'], function (app, $, layer) {
+    return ['$scope', '$rootScope', '$interval', function ($scope, $rootScope, $interval) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'profile';
 
-	var callback = ["$scope","$location","$interval", function ($scope, $location,$interval) {
-        $scope.info = "获取验证码";
+        $scope.smsButtonText = '获取验证码';
+        $scope.smsDisabled = false;
+        $scope.submitDisabled = false;
+        $scope.submitSuccess = false;
+        $scope.certRejectMsg = '';
+        $scope.certStatusValue = 0;
+        $scope.certStatusText = '未认证';
+        $scope.certStatusClass = 'is-none';
+        $scope.certStatusIcon = 'fa-id-card-o';
+
         $scope.data = {
-            phone: "",
-            type : 1,
-        }
+            realName: '',
+            type: '1',
+            idcard: '',
+            phone: '',
+            code: ''
+        };
 
-        // 获取短信验证码
-		$scope.getSmsCode = function( ){
-            if($scope.data.phone == ""){
-                layer.msg("请填写手机号")
+        var smsTimer = null;
+        var smsCountdown = 0;
+
+        function applyScope(handler) {
+            if ($scope.$root.$$phase) {
+                handler();
                 return;
             }
-            let params = {
-                "phone": $scope.data.phone,
-                "type": "AUTH"
+            $scope.$apply(handler);
+        }
+
+        function trim(value) {
+            return String(value || '').replace(/^\s+|\s+$/g, '');
+        }
+
+        function updateStatusView(status) {
+            $scope.certStatusValue = status;
+            if (status === 1) {
+                $scope.certStatusText = '已认证';
+                $scope.certStatusClass = 'is-pass';
+                $scope.certStatusIcon = 'fa-check-circle';
+                return;
+            }
+            if (status === 2) {
+                $scope.certStatusText = '认证驳回';
+                $scope.certStatusClass = 'is-reject';
+                $scope.certStatusIcon = 'fa-times-circle';
+                return;
+            }
+            if (status === 3) {
+                $scope.certStatusText = '审核中';
+                $scope.certStatusClass = 'is-pending';
+                $scope.certStatusIcon = 'fa-clock-o';
+                return;
             }
 
-            $("#btnGetSms").attr("disabled",true);
-            faceinner.postJson(api['user.auth.sms'], params, function(res) {
-                if (res.code == 'S00') {
-                    // 准备跳转
-                    $scope.time = 90;
-                    $scope.info = "等待" + $scope.time + "秒可重发";
-                    $scope.$apply(function(){});
-                    let timer = $interval(function(){
-                        let num = $scope.time - 1;
-                        if (num >= 0) {
-                            $scope.time = num;
-                        }
-                        $scope.info = "等待" + $scope.time + "秒可重发";
-                        if($scope.time <= 0){
-                            $("#btnGetSms").attr("disabled", false);
-                            $scope.info = "获取验证码";
-                            $interval.cancel(timer);
-                        }
-                    }, 1000);
+            $scope.certStatusText = '未认证';
+            $scope.certStatusClass = 'is-none';
+            $scope.certStatusIcon = 'fa-id-card-o';
+        }
 
-                } else {
-                    $scope.$apply(function(){
-                        layer.msg(res.msg);
-                        $("#btnGetSms").attr("disabled", false);
-                    });
+        function stopSmsTimer() {
+            if (smsTimer) {
+                $interval.cancel(smsTimer);
+                smsTimer = null;
+            }
+        }
+
+        function startSmsCountdown(seconds) {
+            stopSmsTimer();
+            smsCountdown = seconds;
+            $scope.smsDisabled = true;
+            $scope.smsButtonText = '等待' + smsCountdown + '秒可重发';
+
+            smsTimer = $interval(function () {
+                smsCountdown -= 1;
+                if (smsCountdown <= 0) {
+                    stopSmsTimer();
+                    $scope.smsDisabled = false;
+                    $scope.smsButtonText = '获取验证码';
+                    return;
                 }
+                $scope.smsButtonText = '等待' + smsCountdown + '秒可重发';
+            }, 1000);
+        }
+
+        faceinner.get(api['user.login.info'], function (res) {
+            if (res.code === '040006' && localStorage.token) {
+                window.location.href = '#/login';
+                return;
+            }
+
+            if (res.code !== 'S00' || !res.data) {
+                return;
+            }
+
+            applyScope(function () {
+                $rootScope.user = res.data;
+                $scope.user = res.data;
+                $scope.certRejectMsg = res.data.ucResultMsg || '';
+                $scope.data.phone = res.data.phone || res.data.mobile || '';
+                updateStatusView(Number(res.data.userCertification || 0));
             });
+        });
 
-        }
-
-        /**
-         * 弹框退出
-         */
-		$scope.exit = function(){
-            $("#editDevice").modal('hide');
-        }
-
-
-
-        /**
-         * 设备发现
-         */
-        $scope.submitData = function(){
-            // 校验
-            if($scope.data.realName == ""){
-                layer.msg("姓名不能为空"); return
-            }
-            if($scope.data.idcard == ""){
-                 layer.msg("身份证号码不能为空"); return;
-            }
-            if($scope.data.phone == ""){
-                 layer.msg("手机号不能为空");  return;
-            }
-            if($scope.data.code == ""){
-                layer.msg("验证码不能为空"); return;
+        $scope.getSmsCode = function () {
+            if ($scope.smsDisabled) {
+                return;
             }
 
-            $("#submitUcData").attr("disabled", true);
-            faceinner.postJson(api['user.auth.submit'], $scope.data, function(res) {
-                if (res.code == 'S00') {
-                    layer.msg("提交成功，请等待系统审核。", {icon:1});
-                }else{
-                    layer.msg(res.msg, {icon:9});
+            var phone = trim($scope.data.phone);
+            if (!phone) {
+                layer.msg('请填写手机号');
+                return;
+            }
+            if (!/^1\d{10}$/.test(phone)) {
+                layer.msg('请输入正确的手机号');
+                return;
+            }
+
+            $scope.smsDisabled = true;
+            $scope.smsButtonText = '发送中...';
+
+            faceinner.postJson(api['user.auth.sms'], {
+                phone: phone,
+                type: 'AUTH'
+            }, function (res) {
+                if (res.code === 'S00') {
+                    applyScope(function () {
+                        startSmsCountdown(90);
+                    });
+                    layer.msg('验证码已发送');
+                    return;
                 }
-                setTimeout(function (){
-                    $("#submitUcData").attr("disabled", false);
-                },1000)
-            })
-        }
 
- 	}];
+                applyScope(function () {
+                    $scope.smsDisabled = false;
+                    $scope.smsButtonText = '获取验证码';
+                });
+                layer.msg(res.msg || '验证码发送失败，请稍后重试');
+            });
+        };
 
+        $scope.submitData = function () {
+            if ($scope.submitDisabled) {
+                return;
+            }
 
-	return callback;
+            $scope.data.realName = trim($scope.data.realName);
+            $scope.data.idcard = trim($scope.data.idcard);
+            $scope.data.phone = trim($scope.data.phone);
+            $scope.data.code = trim($scope.data.code);
+
+            if (!$scope.data.realName) {
+                layer.msg('姓名不能为空');
+                return;
+            }
+            if (!$scope.data.idcard) {
+                layer.msg('身份证号码不能为空');
+                return;
+            }
+            if (!/^(\d{15}|\d{17}[\dXx])$/.test($scope.data.idcard)) {
+                layer.msg('请输入正确的身份证号码');
+                return;
+            }
+            if (!$scope.data.phone) {
+                layer.msg('手机号不能为空');
+                return;
+            }
+            if (!/^1\d{10}$/.test($scope.data.phone)) {
+                layer.msg('请输入正确的手机号');
+                return;
+            }
+            if (!$scope.data.code) {
+                layer.msg('验证码不能为空');
+                return;
+            }
+
+            $scope.submitDisabled = true;
+            $scope.submitSuccess = false;
+
+            faceinner.postJson(api['user.auth.submit'], $scope.data, function (res) {
+                applyScope(function () {
+                    $scope.submitDisabled = false;
+                });
+
+                if (res.code === 'S00') {
+                    applyScope(function () {
+                        $scope.submitSuccess = true;
+                        updateStatusView(3);
+                    });
+                    layer.msg('提交成功，请等待系统审核。', {icon: 1});
+                    return;
+                }
+
+                layer.msg(res.msg || '提交失败，请稍后重试', {icon: 9});
+            });
+        };
+
+        $scope.$on('$destroy', function () {
+            stopSmsTimer();
+            $('body').removeClass('console-refactor');
+        });
+    }];
 });

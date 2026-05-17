@@ -4,10 +4,12 @@
  * @author marker
  * @date 2019-12-26
  */
-define(['app','jquery','layer','pagintation', 'css!./metrics.css'], function (app, $, layer, pagintation) {//加载依赖js,
+define(['app','jquery','layer','pagintation', 'css!../../console/subpage.css', 'css!./metrics.css'], function (app, $, layer, pagintation) {//加载依赖js,
 
 
 	var callback = ["$scope","$routeParams",'$location',  function ($scope, $routeParams, $location) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'metrics';
         $scope.current = $routeParams.current;
 
         $scope.orderNo = $routeParams.out_trade_no;
@@ -76,6 +78,10 @@ define(['app','jquery','layer','pagintation', 'css!./metrics.css'], function (ap
                 }
             });
         }
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
 
 
  	}];

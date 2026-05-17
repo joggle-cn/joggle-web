@@ -1,0 +1,255 @@
+.cs-cert-layout {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    gap: 12px;
+}
+
+.cs-cert-form-card,
+.cs-cert-guide-card {
+    border: 1px solid var(--cs-border);
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.cs-cert-form-head h3,
+.cs-cert-guide-card h3 {
+    margin: 0;
+    color: #14263d;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.cs-cert-form-head p {
+    margin: 8px 0 0;
+    color: #6e7d90;
+    font-size: 13px;
+}
+
+.cs-cert-policy {
+    margin-top: 12px;
+    border: 1px dashed #cfe1d7;
+    border-radius: 10px;
+    background: #f6fbf8;
+    color: #5f7288;
+    font-size: 13px;
+    line-height: 1.8;
+    padding: 10px 12px;
+}
+
+.cs-cert-policy a {
+    color: var(--cs-green);
+    font-weight: 700;
+}
+
+.cs-cert-tip {
+    margin-top: 12px;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.cs-cert-tip i {
+    margin-right: 5px;
+}
+
+.cs-cert-tip.reject {
+    border: 1px solid #f6d0d0;
+    background: #fff5f5;
+    color: #b42318;
+}
+
+.cs-cert-tip.success {
+    border: 1px solid #b8e6c8;
+    background: #f3fbf6;
+    color: #0f8f3c;
+}
+
+.cs-cert-form {
+    margin-top: 14px;
+    display: grid;
+    gap: 12px;
+}
+
+.cs-cert-field {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.cs-cert-field > span {
+    color: #34495f;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cs-cert-field input,
+.cs-cert-field select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #d6dee7;
+    border-radius: 8px;
+    background: #fff;
+    color: #1c2f45;
+    font-size: 14px;
+    padding: 0 12px;
+    outline: none;
+}
+
+.cs-cert-field input:focus,
+.cs-cert-field select:focus {
+    border-color: #84cfa3;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.08);
+}
+
+.cs-cert-sms-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cs-cert-sms-row input {
+    flex: 1;
+}
+
+.cs-cert-sms-row .cs-ghost-btn {
+    min-width: 126px;
+    height: 40px;
+    border-color: #cae2d3;
+    background: #f6fbf8;
+}
+
+.cs-cert-submit {
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cs-cert-submit .cs-main-btn {
+    min-width: 160px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.cs-cert-submit .cs-main-btn[disabled],
+.cs-cert-sms-row .cs-ghost-btn[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.cs-cert-status {
+    height: 36px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #d8e2eb;
+    background: #f6f9fc;
+    color: #5f748b;
+}
+
+.cs-cert-status.is-pass {
+    border-color: #bde3cc;
+    background: #effaf3;
+    color: #139147;
+}
+
+.cs-cert-status.is-pending {
+    border-color: #d7ddff;
+    background: #f5f7ff;
+    color: #4255b8;
+}
+
+.cs-cert-status.is-reject {
+    border-color: #f4cbcb;
+    background: #fff4f4;
+    color: #b42318;
+}
+
+.cs-cert-guide-list {
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.cs-cert-guide-list li {
+    color: #485e75;
+    font-size: 13px;
+    line-height: 1.7;
+    padding-left: 18px;
+    position: relative;
+}
+
+.cs-cert-guide-list li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cs-green);
+    position: absolute;
+    left: 2px;
+    top: 8px;
+}
+
+.cs-cert-actions {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+}
+
+.cs-cert-actions .cs-ghost-btn {
+    justify-content: center;
+}
+
+@media (max-width: 1320px) {
+    .cs-cert-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .cs-cert-field {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .cs-cert-sms-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cs-cert-sms-row .cs-ghost-btn,
+    .cs-cert-submit .cs-main-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .cs-cert-form-card,
+    .cs-cert-guide-card {
+        padding: 14px;
+    }
+
+    .cs-cert-form-head h3,
+    .cs-cert-guide-card h3 {
+        font-size: 19px;
+    }
+
+    .cs-cert-policy,
+    .cs-cert-tip,
+    .cs-cert-field > span,
+    .cs-cert-field input,
+    .cs-cert-field select,
+    .cs-cert-guide-list li {
+        font-size: 13px;
+    }
+}

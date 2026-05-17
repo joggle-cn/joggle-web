@@ -1,194 +1,165 @@
-<div style="margin-top:30px; "></div>
-<div class="container p2p-mapping ">
+<div id="p2p-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <ol class="breadcrumb">
-			<li><a href="#">首页</a></li>
-            <li><a href="#/user/device">我的设备</a></li>
-			<li><a href="#/p2p/mapping/list">P2P映射管理</a></li>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
 
-            <li class="bind-device">
-                <a href ng-click="createP2pMapping()">
-                <i class="fa fa-magnet"></i> <span>创建P2P映射</span>
-                </a>
-            </li>
-		</ol>
-        </div>
-    </div>
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>P2P映射管理</h1>
+                    <p>管理点对点映射服务，快速创建、编辑和删除映射规则。</p>
+                </div>
+                <div class="cs-head-actions">
+                    <a href ng-click="createP2pMapping()" class="cs-main-btn"><i class="fa fa-plus"></i>&nbsp;创建P2P映射</a>
+                </div>
+            </section>
 
-    <div class="row">
-<!--         <div class="col-md-2"> -->
-<!--         </div> -->
-        <div class="col-md-12">
-            <div class="bs-example" data-example-id="hoverable-table">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th width="60">#</th>
-                      <th width="400">服务模型</th>
-                      <th width="80">状态</th>
-                      <th width="165">操作时间</th>
-                        <th width="200">备注</th>
-                      <th>操作</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="item in page.records">
-                      <th scope="row">{{$index + 1}}</th>
-                      <td>tcp://{{item.serverLocalHost}}:{{item.serverLocalPort}} <-> tcp://{{item.clientDeviceIp}}:{{item.clientProxyPort}}</td>
-                      <td>
-                        <span ng-if="item.status == 1" class="label label-success">{{item.statusName}}</span>
-                        <span ng-if="item.status != 1" class="label label-default">{{item.statusName}}</span>
-                      </td>
-                      <td>{{item.updateTime}}</td>
-                        <td>{{item.remark}} </td>
-                      <td>
-                        <a href ng-click="createP2pMapping(item.id)">编辑</a>
-                        <a href ng-click="deleteP2pMapping(item.id)">删除</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-                <div class="text-center">
+            <section class="cs-content-card">
+                <div class="cs-table-wrap" ng-if="page.records && page.records.length > 0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="60">#</th>
+                            <th width="420">服务模型</th>
+                            <th width="90">状态</th>
+                            <th width="170">操作时间</th>
+                            <th width="220">备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in page.records">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>tcp://{{item.serverLocalHost}}:{{item.serverLocalPort}} <-> tcp://{{item.clientDeviceIp}}:{{item.clientProxyPort}}</td>
+                            <td>
+                                <span ng-if="item.status == 1" class="label label-success">{{item.statusName}}</span>
+                                <span ng-if="item.status != 1" class="label label-default">{{item.statusName}}</span>
+                            </td>
+                            <td>{{item.updateTime}}</td>
+                            <td>{{item.remark}}</td>
+                            <td>
+                                <a href ng-click="createP2pMapping(item.id)">编辑</a>
+                                &nbsp;
+                                <a href ng-click="deleteP2pMapping(item.id)">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cs-empty" ng-if="!page.records || page.records.length === 0">
+                    暂无P2P映射，点击右上角按钮创建
+                </div>
+
+                <div class="text-center cs-pagination-wrap">
                     <ul id="pagination" class="pagination"></ul>
                 </div>
-        </div>
-
-
-
+            </section>
+        </main>
     </div>
 
-
-
-
-
-
-
-<!-- 创建p2p弹框 -->
-<div id="createP2pMappingDialog" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">创建P2P映射</h4>
-			</div>
-			<div class="modal-body">
-                   <p>注意：部分网络不支持P2P。特殊情况可调整MTU值。</p>
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">服务侧</label>
-						<div class="col-sm-8">
-							<select class="form-control" ng-model="entity.serverDeviceId" ng-options="item.id as item.name+'<'+item.deviceNo+'> '+item.intranetIp for item in list">
-
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">服务侧HOST</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="entity.serverLocalHost" class="form-control" placeholder="客户侧本地端口,例如12330">
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">服务侧端口</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="entity.serverLocalPort" class="form-control" placeholder="客户侧本地端口,例如3389">
-                        </div>
-                    </div>
-
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">客户侧</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" ng-model="entity.clientDeviceId" ng-options="item.id as item.name+'['+item.deviceNo+'] '+item.intranetIp for item in list">
-
-                            </select>
-                        </div>
-                    </div>
-
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">客户侧代理HOST</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="entity.clientProxyHost" class="form-control" placeholder="客户侧本地端口,例如12330">
-                        </div>
-                    </div>
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">客户侧代理端口</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="entity.clientProxyPort" class="form-control" placeholder="客户侧本地端口,例如12330">
-                        </div>
-                    </div>
-
-					<div class="form-group">
-                        <label class="col-sm-3 control-label">备注</label>
-                        <div class="col-sm-8">
-                            <textarea type="text" ng-model="entity.remark" class="form-control" placeholder=""></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="devicePeerEnableCheckbox" class="col-sm-3 control-label" >状态</label>
-                        <div class="col-sm-8">
-                            <div class="switch">
-                                <input id="devicePeerEnableCheckbox" type="checkbox" checked />
+    <div id="createP2pMappingDialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">创建P2P映射</h4>
+                </div>
+                <div class="modal-body">
+                    <p>注意：部分网络不支持P2P，特殊场景可调整 MTU 参数。</p>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">服务端</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-model="entity.serverDeviceId" ng-options="item.id as item.name+'<'+item.deviceNo+'> '+item.intranetIp for item in list"></select>
                             </div>
                         </div>
-                    </div>
-
-                    <a class="btn btn-link" role="button" data-toggle="collapse" ng-click="toggleConfig()"  >
-                        高级参数配置
-                    </a>
-                    <div class="collapse" id="collapseConfig">
-                        <div class="well" style="padding-left: 0; padding-right: 0">
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">MTU</label>
-                                <div class="col-sm-8">
-                                    <input type="number" ng-model="entity.clientMtu" class="form-control" placeholder="默认：1350">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">服务端HOST</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="entity.serverLocalHost" class="form-control" placeholder="例如 127.0.0.1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">服务端端口</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="entity.serverLocalPort" class="form-control" placeholder="例如 3389">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">客户端</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-model="entity.clientDeviceId" ng-options="item.id as item.name+'['+item.deviceNo+'] '+item.intranetIp for item in list"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">客户端代理HOST</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="entity.clientProxyHost" class="form-control" placeholder="例如 0.0.0.0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">客户端代理端口</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="entity.clientProxyPort" class="form-control" placeholder="例如 12330">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注</label>
+                            <div class="col-sm-8">
+                                <textarea ng-model="entity.remark" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="devicePeerEnableCheckbox" class="col-sm-3 control-label">状态</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <input id="devicePeerEnableCheckbox" type="checkbox" checked />
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">KCP刷新周期</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <input type="number" ng-model="entity.configInterval" class="form-control" placeholder="默认：40">
-                                        <div class="input-group-addon">毫秒</div>
+                        </div>
+
+                        <a class="btn btn-link" role="button" data-toggle="collapse" ng-click="toggleConfig()">高级参数配置</a>
+                        <div class="collapse" id="collapseConfig">
+                            <div class="well" style="padding-left: 0; padding-right: 0">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">MTU</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" ng-model="entity.clientMtu" class="form-control" placeholder="默认：1350">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">KCP刷新周期</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <input type="number" ng-model="entity.configInterval" class="form-control" placeholder="默认：40">
+                                            <div class="input-group-addon">毫秒</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="compressEnableCheckbox" class="col-sm-3 control-label">压缩传输</label>
+                                    <div class="col-sm-8">
+                                        <div class="switch">
+                                            <input id="compressEnableCheckbox" type="checkbox" checked />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">加密方式</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-model="entity.configEncryption" ng-options="item.encrypt as item.encrypt +'  ['+item.desc+']' for item in encOptions"></select>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="compressEnableCheckbox" class="col-sm-3 control-label" >压缩传输</label>
-                                <div class="col-sm-8">
-                                    <div class="switch">
-                                        <input id="compressEnableCheckbox" type="checkbox" checked />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">加密方式</label>
-                                <div class="col-sm-8">
-                                    <div class="switch">
-                                        <select class="form-control" ng-model="entity.configEncryption" ng-options="item.encrypt as item.encrypt +'  ['+item.desc+']' for item in encOptions">
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
-                    </div>
-
-                </form>
-
-			</div>
-			<div class="modal-footer">
-				<a ng-click="submitP2pMapping()" class="btn btn-default">提交映射</a>
-				<a ng-click="closeP2pMappingDialog()"  class="btn btn-default">取消</a>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a ng-click="submitP2pMapping()" class="btn btn-default">提交映射</a>
+                    <a ng-click="closeP2pMappingDialog()" class="btn btn-default">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

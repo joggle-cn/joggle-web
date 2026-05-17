@@ -1,64 +1,89 @@
-<div style="margin-top:30px; "></div>
-<div class="container node-status">
+<div id="node-status-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li><a href="#/user/domain">我的资源</a></li>
-                <li><a href="#/user/domain/buy">购买资源</a></li>
-                <li class="active">节点状态</li>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
 
-            </ol>
-        </div>
-    </div>
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>节点状态</h1>
+                    <p>查看各节点带宽、流量、在线设备与运行状态，辅助资源购买决策。</p>
+                </div>
+                <div class="cs-head-actions">
+                    <a class="cs-ghost-btn" href="#/user/domain/buy"><i class="fa fa-angle-left"></i>&nbsp;返回购买资源</a>
+                    <a class="cs-main-btn" ng-click="searchNodes(page.current || 1)"><i class="fa fa-refresh"></i>&nbsp;刷新状态</a>
+                </div>
+            </section>
 
-    <div class="row">
-        <div class="col-md-12">
-             <div class="bs-example" data-example-id="hoverable-table">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th width="60">#</th>
-                      <th width="200">服务器地区</th>
-                      <th width="60">宽带</th>
-                      <th width="100">出网流量</th>
-                      <th width="100">入网流量</th>
-<!--                      <th width="100">隧道数量</th>-->
-                      <th width="100">在线设备</th>
-                      <th width="100">在线时长</th>
-                      <th width="80">状态</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="item in page.records">
-                      <th scope="row">{{$index + 1+(page.current -1) * page.size}}</th>
-                      <td>
-                        <span class="label label-info">{{item.area}}</span> {{item.name}}</td>
-                      <td>{{item.broadband}}Mbps</td>
-                      <td>
-                        <span class="label label-info item-domain">{{item.flowIn}} GB</span>
-                      </td>  <td>
-                        <span class="label label-info item-domain">{{item.flowOut}} GB</span>
-                      </td>
-<!--                      <td>{{item.tunnelNum}}</td>-->
-                      <td>{{item.deviceNum}}</td>
-                      <td>{{item.onlineTime}}</td>
-                      <td>
-                        <span ng-if="item.status == 1" class="label label-success">正常</span>
-                        <span ng-if="item.status == 2" class="label label-warning">拥挤</span>
-                        <span ng-if="item.status == 3" class="label label-danger">已满</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <section class="cs-content-card ns-summary-card">
+                <article class="ns-stat-item">
+                    <p>节点总数</p>
+                    <h4>{{page.total || 0}}</h4>
+                </article>
+                <article class="ns-stat-item">
+                    <p>正常节点</p>
+                    <h4>{{normalCount}}</h4>
+                </article>
+                <article class="ns-stat-item">
+                    <p>拥挤/已满</p>
+                    <h4>{{busyCount + fullCount}}</h4>
+                </article>
+            </section>
 
+            <section class="cs-content-card">
+                <div class="ns-loading" ng-if="loading">
+                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                    正在加载节点状态...
+                </div>
 
+                <div class="cs-empty" ng-if="!loading && (!page.records || page.records.length === 0)">
+                    暂无节点状态数据。
+                </div>
 
-            <div class="text-center">
-                <ul id="pagination" class="pagination"></ul>
-            </div>
-        </div>
+                <div class="cs-table-wrap" ng-if="!loading && page.records && page.records.length > 0">
+                    <table class="table table-hover ns-table">
+                        <thead>
+                        <tr>
+                            <th width="70">#</th>
+                            <th width="260">节点信息</th>
+                            <th width="100">带宽</th>
+                            <th width="130">入网流量</th>
+                            <th width="130">出网流量</th>
+                            <th width="120">在线设备</th>
+                            <th width="140">在线时长</th>
+                            <th width="110">状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in page.records track by item.id">
+                            <th scope="row">{{$index + 1 + (page.current - 1) * page.size}}</th>
+                            <td>
+                                <div class="ns-node-cell">
+                                    <span class="label label-info">{{item.area}}</span>
+                                    <span>{{item.name}}</span>
+                                </div>
+                            </td>
+                            <td>{{item.broadband}}Mbps</td>
+                            <td><span class="ns-flow-chip">{{item.flowIn}} GB</span></td>
+                            <td><span class="ns-flow-chip">{{item.flowOut}} GB</span></td>
+                            <td>{{item.deviceNum}}</td>
+                            <td>{{item.onlineTime}}</td>
+                            <td>
+                                <span ng-if="item.status == 1" class="label label-success">正常</span>
+                                <span ng-if="item.status == 2" class="label label-warning">拥挤</span>
+                                <span ng-if="item.status == 3" class="label label-danger">已满</span>
+                                <span ng-if="item.status != 1 && item.status != 2 && item.status != 3" class="label label-default">未知</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center cs-pagination-wrap" ng-if="!loading && page.pages > 1">
+                    <ul id="pagination" class="pagination"></ul>
+                </div>
+            </section>
+        </main>
     </div>
 </div>

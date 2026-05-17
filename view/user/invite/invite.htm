@@ -1,21 +1,36 @@
-<!-- Docs page layout -->
-<div class="" id="invite">
+<div id="invite-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-    <div class="container index-textcenter">
-        <h2 class="index-bullet-title" style="">邀请新用户得流量</h2>
-        <p class="lead">邀请规则：邀请1名用户得<b style="color: #d53131">1G</b>流量，
-            新注册用户得<b style="color: #d53131">1G</b>流量。</p>
-        <p class="lead">感谢您的支持与关注！邀请二维码如下：</p>
-        <div id="imgQRcode" style="margin: 0 auto; width: 256px;"></div>
-        <br/><br/>
-        <div style="width: 360px; margin: 0 auto;">
-            <div class="input-group">
-                <input id="inviteUrlInput" type="text" readonly ng-model="inviteUrl" class="form-control" aria-label="Text input with multiple buttons">
-                <div class="input-group-btn">
-                    <button ng-click="copyInviteUrl()" type="button" class="btn btn-success copyButton"
-                            data-clipboard-target="#inviteUrlInput">复制链接</button>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
+
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>邀请用户</h1>
+                    <p>邀请新用户注册，双方均可获得流量奖励。</p>
                 </div>
-            </div>
-        </div>
+            </section>
+
+            <section class="cs-invite-layout">
+                <h2>邀请新用户得流量</h2>
+                <p class="lead">
+                    邀请规则：邀请 1 名用户得 <b style="color: #d53131">1G</b> 流量，新注册用户得
+                    <b style="color: #d53131">1G</b> 流量。
+                </p>
+                <p class="lead">感谢您的支持与关注，邀请二维码如下：</p>
+
+                <div id="imgQRcode" class="cs-invite-qr"></div>
+
+                <div class="cs-copy-row">
+                    <div class="input-group">
+                        <input id="inviteUrlInput" type="text" readonly ng-model="inviteUrl" class="form-control">
+                        <span class="input-group-btn">
+                            <button ng-click="copyInviteUrl()" type="button" class="btn btn-success copyButton" data-clipboard-target="#inviteUrlInput">复制链接</button>
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 </div>

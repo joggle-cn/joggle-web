@@ -1,78 +1,115 @@
-<div style="margin-top:30px; "></div>
-<div class="container package">
+<div id="user-package-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-	<div class="row">
-		<div class="col-xs-12">
-			<ol class="breadcrumb">
-				<li><a href="#">首页</a></li>
-				<li><a href="#/user/profile">我的资料</a></li>
-				<li>套餐列表</li>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
 
-<!--				<li class="bind-device">-->
-<!--					<a href="#/user/device/bind">-->
-<!--					<i class="fa fa-magnet"></i> <span ng-bind="res.t('home.btn.devicebind')"></span>-->
-<!--					</a>-->
-<!--				</li>-->
-			</ol>
-		</div>
-	</div>
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>升级套餐</h1>
+                    <p>按需升级设备、流量与并发能力，支付后立即生效。</p>
+                </div>
+                <div class="cs-head-actions">
+                    <a class="cs-ghost-btn" href="#/user/profile"><i class="fa fa-angle-left"></i>&nbsp;返回我的资料</a>
+                </div>
+            </section>
 
-	<div class="row">
-		<div class="col-md-3" ng-repeat="item in list">
+            <section class="up-stats-row">
+                <article class="up-stat-card">
+                    <p>当前套餐</p>
+                    <h3>{{currentPackageName || '基础套餐'}}</h3>
+                    <span>等级 L{{currentPackageLevel}}</span>
+                </article>
+                <article class="up-stat-card">
+                    <p>套餐流量</p>
+                    <h3>{{currentPackageFlowText}}</h3>
+                    <span>按月恢复至套餐标准流量</span>
+                </article>
+                <article class="up-stat-card">
+                    <p>可选套餐</p>
+                    <h3>{{list.length || 0}} 个</h3>
+                    <span>推荐：{{recommendedPlanName || '--'}}</span>
+                </article>
+            </section>
 
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">{{item.name}}</h3>
-					<b ng-if="item.level != 0">{{item.price}}元/月</b>
-					<b ng-if="item.level == 0">免费</b>
-				</div>
-				<div class="panel-body">
-					<ul class="list-group">
-						<li class="list-group-item">可绑设备 <div class="pull-right">{{item.deviceNum}}台</div></li>
-						<li class="list-group-item">
-							套餐流量
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" ng-if="item.level == 0" title="新用户注册赠送流量"></span>
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" ng-if="item.level != 0" title="每个月的流量限额"></span>
-							<div class="pull-right">{{item.flowNum/1024/1024}}GB</div>
-						</li>
-						<li class="list-group-item">隧道宽带
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="单条隧道宽带峰值"></span>
-							<div class="pull-right">{{item.broadbandRate}}Mbps</div></li>
-						<li class="list-group-item">端口隧道 <div class="pull-right">{{item.portNum}}个</div></li>
-						<li class="list-group-item">域名隧道 <div class="pull-right">{{item.domainNum}}个</div></li>
-						<li class="list-group-item">端到端隧道
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="不是所有网路都支持P2P打洞"></span>
-							<div class="pull-right">{{item.p2pNum}}条</div></li>
-						<li class="list-group-item">并发限制
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="同时间链接的数量"></span>
-							<div class="pull-right">{{item.concurrentNum}}</div></li>
-						<li class="list-group-item">代理支持 <div class="pull-right">{{item.proxyEnable==1?'支持':'-'}}</div></li>
-						<li class="list-group-item">网络唤醒 <div class="pull-right">{{item.wolEnable==1?'支持':'-'}}</div></li>
-					</ul>
+            <section class="cs-content-card up-content">
+                <div class="up-loading" ng-if="loading">
+                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                    正在加载套餐数据...
+                </div>
 
-					<div class="packages-btn">
-						<a ng-if="item.level != 0" href="#/user/package/pay?packageId={{item.id}}" class="btn btn-success" role="button">升级套餐</a>
-					</div>
-				</div>
-			</div>
+                <div class="cs-empty" ng-if="!loading && !list.length">
+                    暂无可用套餐，请稍后重试。
+                </div>
 
-		</div>
+                <div class="up-plan-grid" ng-if="!loading && list.length">
+                    <article
+                        class="up-plan-card"
+                        ng-repeat="item in list track by item.id"
+                        ng-class="{'is-featured': isFeatured(item), 'is-current': isCurrentPackage(item)}">
 
-	</div>
+                        <span class="up-badge" ng-if="getBadgeText(item)" ng-class="{'is-hot': isHot(item)}">
+                            {{getBadgeText(item)}}
+                        </span>
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="alert alert-info" role="alert">
-				注意：购买VIP套餐后，所有的资源可以通过VIP权益支付方式0元购买。<br/>
-				需要无限速大宽带的用户，可以选择通道私有部署。
-			</div>
-		</div>
-	</div>
+                        <h3>{{item.name}}</h3>
+                        <p class="up-plan-tag">{{getPlanScene(item)}}</p>
+                        <p class="up-price">
+                            <span class="up-currency">¥</span>{{item.level == 0 ? '0' : item.price}}
+                            <small>/月</small>
+                        </p>
 
+                        <ul class="up-feature-list">
+                            <li><span>可绑设备</span><b>{{item.deviceNum}} 台</b></li>
+                            <li>
+                                <span>
+                                    套餐流量
+                                    <i class="fa fa-question-circle-o up-tip" data-toggle="tooltip" data-placement="top"
+                                       ng-attr-title="{{item.level == 0 ? '新用户注册赠送流量' : '每月可用流量总额'}}"></i>
+                                </span>
+                                <b>{{item.flowNumGb}} GB</b>
+                            </li>
+                            <li>
+                                <span>
+                                    隧道宽带
+                                    <i class="fa fa-question-circle-o up-tip" data-toggle="tooltip" data-placement="top" title="单条隧道带宽峰值"></i>
+                                </span>
+                                <b>{{item.broadbandRate}} Mbps</b>
+                            </li>
+                            <li><span>端口隧道</span><b>{{item.portNum}} 个</b></li>
+                            <li><span>域名隧道</span><b>{{item.domainNum}} 个</b></li>
+                            <li>
+                                <span>
+                                    P2P 通道
+                                    <i class="fa fa-question-circle-o up-tip" data-toggle="tooltip" data-placement="top" title="部分网络环境不支持 P2P 打洞"></i>
+                                </span>
+                                <b>{{item.p2pNum}} 条</b>
+                            </li>
+                            <li>
+                                <span>
+                                    并发限制
+                                    <i class="fa fa-question-circle-o up-tip" data-toggle="tooltip" data-placement="top" title="同一时刻允许连接总数"></i>
+                                </span>
+                                <b>{{item.concurrentNum}}</b>
+                            </li>
+                            <li><span>代理支持</span><b>{{item.proxyEnable == 1 ? '支持' : '-'}}</b></li>
+                            <li><span>网络唤醒</span><b>{{item.wolEnable == 1 ? '支持' : '-'}}</b></li>
+                        </ul>
 
+                        <div class="up-card-actions">
+                            <span class="up-action-btn is-current" ng-if="isCurrentPackage(item)">当前套餐</span>
+                            <span class="up-action-btn is-basic" ng-if="!isCurrentPackage(item) && item.level == 0">基础套餐</span>
+                            <a class="up-action-btn" ng-if="!isCurrentPackage(item) && item.level > 0" ng-href="#/user/package/pay?packageId={{item.id}}">立即升级</a>
+                        </div>
+                    </article>
+                </div>
 
-
+                <div class="up-notice" ng-if="!loading && list.length">
+                    <i class="fa fa-info-circle"></i>
+                    说明：升级后套餐权益立即生效；若需更高带宽或私有部署，请联系技术支持获取专属方案。
+                </div>
+            </section>
+        </main>
+    </div>
 </div>
-
-
-

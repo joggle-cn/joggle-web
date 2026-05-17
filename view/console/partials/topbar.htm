@@ -1,0 +1,21 @@
+<header class="cs-topbar">
+    <div class="cs-shell">
+        <a class="cs-brand" href="#/index">
+            <img src="./resource/images/logo-white.png" alt="JOGGLE">
+        </a>
+        <nav class="cs-nav">
+            <a href="#/index">首页</a>
+            <a href="#/package">产品定价</a>
+            <a href="#/document">帮助中心</a>
+            <a href="#/download">下载中心</a>
+            <a href="#/hardware">硬件设备</a>
+            <a href="#/about">关于我们</a>
+            <a href="#/feedback">问题反馈</a>
+        </nav>
+        <div class="cs-userbar">
+            <i class="fa fa-bell-o"></i>
+            <i class="fa fa-question-circle-o"></i>
+            <span>{{(user && user.email) || (userInfo && userInfo.email) || 'admin@wuweibi.com'}}</span>
+        </div>
+    </div>
+</header>

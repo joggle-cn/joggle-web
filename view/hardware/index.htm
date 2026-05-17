@@ -1,127 +1,214 @@
-<!-- Docs page layout -->
-<div class="" id="hardware">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h3>《超低功耗资源再利用计划》</h3>
-                <p>该产品能够让您快速体验内网穿透效果，并且不用担心耗电问题。同时默认开启ssh，您可以登录到系统安装其他应用。<br/>
-                    够买渠道：邮件联系，闲鱼购买</p>
+<div id="hardware-page" class="joggle-home joggle-hardware">
+    <header class="jh-topbar">
+        <div class="jh-shell">
+            <a class="jh-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="jh-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a class="is-active" href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="jh-nav-actions">
+                <a class="jh-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="jh-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="jh-buy" href="#/package">立即购买</a>
             </div>
         </div>
-    </div>
+    </header>
 
-
-    <div class="mainer-parameter">
-
-        <div class="banner-parameter">
-            <div class="parameter-img"><img src="resource/images/hardware/img_1.png"></div>
-            <div class="parameter-img-tab">
-                <ul class="parameter-img-tab-list clear">
-                    <li><i class="icon-parameter-blue"></i><p>科技蓝</p></li>
-                    <li><i class="icon-parameter-black"></i><p>曜石黑</p></li>
-                    <li><i class="icon-parameter-orange"></i><p>爱马仕橙</p></li>
-                </ul>
+    <main>
+        <section class="hw-hero">
+            <div class="jh-shell hw-hero-grid">
+                <div class="hw-copy">
+                    <p class="hw-kicker"><i class="fa fa-microchip"></i> 超低功耗资源复用设备</p>
+                    <h1>JOGGLE 轻量硬件网关</h1>
+                    <p>用于内网穿透与远程访问场景的专用小主机，开机即可运行，支持长期在线，稳定承载常用映射任务。</p>
+                    <ul class="hw-points">
+                        <li><i class="fa fa-check-circle-o"></i> 默认集成 Joggle 客户端环境</li>
+                        <li><i class="fa fa-check-circle-o"></i> 低功耗设计，适合 7x24 小时运行</li>
+                        <li><i class="fa fa-check-circle-o"></i> 支持 SSH 远程接入二次扩展</li>
+                    </ul>
+                    <div class="hw-actions">
+                        <a class="jh-btn primary" href="#/feedback"><i class="fa fa-commenting-o"></i> 联系购买</a>
+                        <a class="jh-btn ghost" href="#/document"><i class="fa fa-book"></i> 查看部署文档</a>
+                    </div>
+                </div>
+                <aside class="hw-visual">
+                    <img src="./resource/images/hardware/img_1.png" alt="Joggle 硬件设备">
+                    <div class="hw-price-card">
+                        <p>资源复用计划价</p>
+                        <h3>¥80</h3>
+                        <span>原价 ¥99</span>
+                    </div>
+                </aside>
             </div>
-            <div class="parameter-num">
-                <div class="parameter-num-list">
-                    <h4>1000M网口</h4>
-                    <p>稳定的网络速度</p>
+        </section>
+
+        <section class="jh-section hw-spec-overview">
+            <div class="jh-shell">
+                <div class="jh-title-wrap">
+                    <h2>核心参数</h2>
+                    <p>围绕稳定接入、低功耗运行和可维护性设计。</p>
                 </div>
-                <div class="parameter-num-list">
-                    <h4>1GB DDR3</h4>
-                    <p>超大内存，运行更稳定</p>
-                </div>
-                <div class="parameter-num-list">
-                    <h4>USBx2</h4>
-                    <p>随时扩容空间</p>
-                </div>
-                <div class="parameter-num-list">
-                    <h4>HDMI</h4>
-                    <p>不支持使用</p>
-                </div>
-                <div class="parameter-num-list">
-                    <h4>CPU 4核 1.5GHz</h4>
-                    <p>晶晨S805 4核处理器</p>
-                </div>
-                <div class="parameter-num-list">
-                    <h4>超低功耗</h4>
-                    <p>5瓦左右，相当于机顶盒的耗电量</p>
+                <div class="hw-feature-grid">
+                    <article>
+                        <h4>1000M 网口</h4>
+                        <p>千兆网络接口，满足持续在线访问。</p>
+                    </article>
+                    <article>
+                        <h4>1GB DDR3</h4>
+                        <p>内存充足，保障代理进程稳定运行。</p>
+                    </article>
+                    <article>
+                        <h4>8GB eMMC</h4>
+                        <p>系统与客户端镜像预置，开机即用。</p>
+                    </article>
+                    <article>
+                        <h4>USB 2.0 x2</h4>
+                        <p>支持外设与存储扩展，调试维护更灵活。</p>
+                    </article>
+                    <article>
+                        <h4>4核 1.5GHz</h4>
+                        <p>晶晨 S805 芯片，满足日常映射与管理任务。</p>
+                    </article>
+                    <article>
+                        <h4>约 5W 功耗</h4>
+                        <p>适合长期运行，降低待机与运维成本。</p>
+                    </article>
                 </div>
             </div>
+        </section>
+
+        <section class="jh-section hw-spec-detail">
+            <div class="jh-shell">
+                <div class="jh-title-wrap">
+                    <h2>详细规格</h2>
+                    <p>设备参数、接口信息与配件列表。</p>
+                </div>
+                <div class="hw-table-wrap">
+                    <table class="hw-table">
+                        <tbody>
+                        <tr>
+                            <th>尺寸 / 重量</th>
+                            <td>145 × 90 × 43 mm，约 250g</td>
+                        </tr>
+                        <tr>
+                            <th>机身材质</th>
+                            <td>阳极氧化铝合金机身 + 透明 PC 面板</td>
+                        </tr>
+                        <tr>
+                            <th>系统环境</th>
+                            <td>Linux（Armbian，内置 Joggle 客户端）</td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th>
+                            <td>晶晨 S805 ARM 四核 1.5GHz</td>
+                        </tr>
+                        <tr>
+                            <th>RAM</th>
+                            <td>1GB DDR3</td>
+                        </tr>
+                        <tr>
+                            <th>ROM</th>
+                            <td>8GB eMMC</td>
+                        </tr>
+                        <tr>
+                            <th>接口</th>
+                            <td>USB2.0 ×2、SD Card Reader ×1、RJ45 ×1、HDMI OUT ×1、DC in ×1</td>
+                        </tr>
+                        <tr>
+                            <th>电源适配</th>
+                            <td>12V / 1.5A</td>
+                        </tr>
+                        <tr>
+                            <th>包装尺寸</th>
+                            <td>171 × 120 × 85 mm</td>
+                        </tr>
+                        <tr>
+                            <th>包装配件</th>
+                            <td>电源适配器、用户手册、网线</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="jh-section hw-package-list">
+            <div class="jh-shell">
+                <div class="jh-title-wrap">
+                    <h2>包装清单</h2>
+                    <p>标准配件一览，开箱即可部署使用。</p>
+                </div>
+                <div class="hw-package-card">
+                    <img src="./resource/images/hardware/product-list.png" alt="硬件包装清单">
+                </div>
+            </div>
+        </section>
+
+        <section class="jh-section hw-support">
+            <div class="jh-shell hw-support-grid">
+                <article>
+                    <i class="fa fa-envelope-o"></i>
+                    <h4>购买咨询</h4>
+                    <p>admin@wuweibi.com</p>
+                </article>
+                <article>
+                    <i class="fa fa-qq"></i>
+                    <h4>交流群</h4>
+                    <p>331925386</p>
+                </article>
+                <article>
+                    <i class="fa fa-life-ring"></i>
+                    <h4>技术支持</h4>
+                    <p>工作日 9:00 - 18:00</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="jh-footer">
+        <div class="jh-shell jh-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专业的内网穿透与远程访问平台，让连接更简单、体验更稳定。</p>
+                <div class="jh-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>产品</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/feedback">更新日志</a>
+            </div>
+            <div>
+                <h5>支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+            </div>
+            <div class="jh-support-card">
+                <p>7x24 小时技术支持</p>
+                <h4>support@joggle.cn</h4>
+                <span>工作日 9:00 - 18:00</span>
+            </div>
         </div>
-
-        <div class="parameter-data">
-            <table class="parameter-table">
-                <tbody><tr>
-                    <td colspan="2">产品尺寸/重量</td>
-                    <td>145*90*43mm<br>重量：350g</td>
-                </tr>
-                <tr>
-                    <td colspan="2">材质</td>
-                    <td>阳极氧化铝合金机身+透明PC面板</td>
-                </tr>
-                <tr>
-                    <td colspan="2">操作OS</td>
-                    <td>Linux（Armbain 内置Joggle客户端)</td>
-                </tr>
-                <tr>
-                    <td colspan="2">官方指导价</td>
-                    <td>原价：¥599 ，<span style="color:darkred">资源利用价：¥80</span></td>
-                </tr>
-                <tr>
-                    <td rowspan="3">硬件配置</td>
-                    <td>CPU</td>
-                    <td>晶晨S805 ARM四核 1.5GHz</td>
-                </tr>
-                <tr>
-                    <td>RAM</td>
-                    <td>1GB DDR3</td>
-                </tr>
-                <tr>
-                    <td>ROM</td>
-                    <td>8GB eMMC</td>
-                </tr>
-                <tr>
-                    <td rowspan="5">输入/输出</td>
-                    <td rowspan="5">接口</td>
-                    <td>USB2.0x2</td>
-                </tr>
-                <tr>
-                    <td>SD Card Reader*1</td>
-                </tr>
-                <tr>
-                    <td>RJ45x1（千兆网1000Mbps）</td>
-                </tr>
-                <tr>
-                    <td>HDMI OUT*1（不支持输出）</td>
-                </tr>
-                <tr>
-                    <td>DC in x1</td>
-                </tr>
-                <tr>
-                    <td rowspan="3">其他</td>
-                    <td>产品配件</td>
-                    <td>电源适配器<br>用户手册*1<br>网线*1</td>
-                </tr>
-                <tr>
-                    <td>包装尺寸</td>
-                    <td>171*120*85MM</td>
-                </tr>
-                <tr>
-                    <td>电源适配器</td>
-                    <td>12V/1.5A</td>
-                </tr>
-                </tbody></table>
-
+        <div class="jh-footer-bottom">
+            Copyright 2014-2026 JOGGLE. All Rights Reserved. 蜀ICP备14017469号-2
         </div>
-
-        <div class="product-things-list">
-            <h4>玩客云产品包装清单</h4>
-            <img src="resource/images/hardware/product-list.png">
-        </div>
-
-
-    </div>
+    </footer>
 </div>
-

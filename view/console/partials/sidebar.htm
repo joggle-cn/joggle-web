@@ -1,0 +1,16 @@
+<aside class="cs-sidebar">
+    <ul class="cs-menu">
+        <li ng-class="{'is-active': consoleMenuActive === 'dashboard'}"><a href="#/console"><i class="fa fa-dashboard"></i> 仪表盘</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'profile'}"><a href="#/user/profile"><i class="fa fa-user-o"></i> 我的资料</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'orders'}"><a href="#/user/orders/list"><i class="fa fa-bars"></i> 我的订单</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'bind'}"><a href="#/user/device/bind"><i class="fa fa-magnet"></i> 绑定设备</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'device'}"><a href="#/user/device"><i class="fa fa-server"></i> 我的设备</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'metrics'}"><a href="#/user/domain/buy"><i class="fa fa-paper-plane-o"></i> 我的资源</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'wol'}"><a href="#/user/device/wol"><i class="fa fa-heartbeat"></i> 网络唤醒</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'p2p'}"><a href="#/p2p/mapping/list"><i class="fa fa-handshake-o"></i> P2P映射管理</a></li>
+        <li ng-class="{'is-active': consoleMenuActive === 'invite'}"><a href="#/user/invite"><i class="fa fa-gift"></i> 邀请用户(领取流量)</a></li>
+    </ul>
+    <div class="cs-menu-logout">
+        <a ng-click="loginout()"><i class="fa fa-power-off"></i> 退出</a>
+    </div>
+</aside>

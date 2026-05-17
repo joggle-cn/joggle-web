@@ -1,3 +1,237 @@
-<div class="">
-<iframe src="https://www.joggle.cn/doc/index.html" width="100%" class="doc-iframe"  frameborder="0"></iframe>
+<div id="document-page" class="joggle-home joggle-document">
+    <header class="jh-topbar">
+        <div class="jh-shell">
+            <a class="jh-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="jh-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a class="is-active" href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="jh-nav-actions">
+                <a class="jh-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="jh-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="jh-buy" href="#/package">立即购买</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="jd-hero">
+        <div class="jh-shell jd-hero-grid">
+            <div class="jd-copy">
+                <p class="jd-kicker"><i class="fa fa-compass"></i> 本地帮助中心</p>
+                <h1>文档导航中心</h1>
+                <p>快速定位部署、客户端使用、控制台操作与常见故障处理说明。全部内容在站内访问，不依赖外链跳转。</p>
+                <div class="jd-hero-links">
+                    <a href="" ng-click="scrollTo('guide-start', $event)"><i class="fa fa-play-circle-o"></i> 快速开始</a>
+                    <a href="" ng-click="scrollTo('client-download', $event)"><i class="fa fa-download"></i> 客户端下载说明</a>
+                    <a href="" ng-click="scrollTo('console-guide', $event)"><i class="fa fa-dashboard"></i> 控制台功能指南</a>
+                    <a href="" ng-click="scrollTo('common-issues', $event)"><i class="fa fa-life-ring"></i> 常见问题排查</a>
+                </div>
+            </div>
+            <div class="jd-highlight">
+                <h3>使用建议</h3>
+                <ul>
+                    <li><span>1</span> 首次使用先完成“客户端下载 + 设备绑定”。</li>
+                    <li><span>2</span> 优先在“控制台”中查看设备在线状态。</li>
+                    <li><span>3</span> 映射失败时先检查端口占用与网络唤醒设置。</li>
+                    <li><span>4</span> 仍无法解决可通过“问题反馈”提交工单。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <main class="jd-main">
+        <div class="jh-shell jd-layout">
+            <aside class="jd-sidebar">
+                <h4>导航目录</h4>
+                <a href="" ng-click="scrollTo('guide-start', $event)">快速开始</a>
+                <a href="" ng-click="scrollTo('client-download', $event)">客户端下载说明</a>
+                <a href="" ng-click="scrollTo('console-guide', $event)">控制台指南</a>
+                <a href="" ng-click="scrollTo('common-issues', $event)">常见问题</a>
+                <a href="" ng-click="scrollTo('service-support', $event)">服务支持</a>
+            </aside>
+
+            <div class="jd-content">
+                <section class="jd-block" id="guide-start">
+                    <div class="jd-head">
+                        <h2>快速开始</h2>
+                        <p>建议按照以下顺序完成首次接入。</p>
+                    </div>
+                    <div class="jd-step-grid">
+                        <article>
+                            <span>01</span>
+                            <h3>注册与登录</h3>
+                            <p>创建账号后登录平台，进入控制台查看账户状态。</p>
+                            <a href="#/login">前往登录</a>
+                        </article>
+                        <article>
+                            <span>02</span>
+                            <h3>下载客户端</h3>
+                            <p>根据设备系统下载对应客户端并完成安装。</p>
+                            <a href="#/download">下载中心</a>
+                        </article>
+                        <article>
+                            <span>03</span>
+                            <h3>绑定设备</h3>
+                            <p>在控制台绑定设备，确认设备上线与心跳状态。</p>
+                            <a href="#/user/device">我的设备</a>
+                        </article>
+                        <article>
+                            <span>04</span>
+                            <h3>创建映射</h3>
+                            <p>创建端口映射或 P2P 映射，验证远程访问是否可达。</p>
+                            <a href="#/p2p/mapping/list">P2P 映射管理</a>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="jd-block" id="client-download">
+                    <div class="jd-head">
+                        <h2>客户端下载说明</h2>
+                        <p>按系统平台选择安装包，优先使用最新版本。</p>
+                    </div>
+                    <div class="jd-doc-grid">
+                        <article>
+                            <h3><i class="fa fa-windows"></i> Windows / Mac / Linux</h3>
+                            <p>适用于办公电脑、开发机和家用设备，安装后可直接绑定。</p>
+                            <a href="#/download">查看下载入口</a>
+                        </article>
+                        <article>
+                            <h3><i class="fa fa-android"></i> Android 客户端</h3>
+                            <p>用于移动端远程访问，支持常见 arm64 设备架构。</p>
+                            <a href="#/download">查看下载入口</a>
+                        </article>
+                        <article>
+                            <h3><i class="fa fa-ship"></i> Docker 部署</h3>
+                            <p>适合 NAS 与容器环境，建议结合固定卷与开机自启策略。</p>
+                            <a href="#/download">查看下载入口</a>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="jd-block" id="console-guide">
+                    <div class="jd-head">
+                        <h2>控制台功能指南</h2>
+                        <p>常用操作入口统一在控制台与用户中心。</p>
+                    </div>
+                    <div class="jd-link-grid">
+                        <a href="#/console">
+                            <h4>控制台仪表盘</h4>
+                            <p>查看在线设备、流量使用、P2P 映射与订单概览。</p>
+                        </a>
+                        <a href="#/user/orders/list">
+                            <h4>我的订单</h4>
+                            <p>管理套餐订单与流量购买记录。</p>
+                        </a>
+                        <a href="#/user/device">
+                            <h4>我的设备</h4>
+                            <p>设备绑定、网络唤醒、端口映射与日志排查。</p>
+                        </a>
+                        <a href="#/user/metrics/list">
+                            <h4>我的资源</h4>
+                            <p>查看流量明细与消耗情况，按需购买流量包。</p>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="jd-block" id="common-issues">
+                    <div class="jd-head">
+                        <h2>常见问题</h2>
+                        <p>先按以下条目排查，大多数连接问题可快速定位。</p>
+                    </div>
+                    <div class="jd-faq">
+                        <details open>
+                            <summary>设备显示离线怎么办？</summary>
+                            <p>确认客户端已启动、设备网络正常，并检查防火墙是否拦截心跳端口。必要时在设备页执行重连。</p>
+                        </details>
+                        <details>
+                            <summary>映射创建成功但无法访问？</summary>
+                            <p>先检查目标服务是否本机可访问，再确认映射端口未被占用，并尝试切换节点或启用 P2P 中继。</p>
+                        </details>
+                        <details>
+                            <summary>流量消耗异常如何定位？</summary>
+                            <p>在“我的资源”查看时间段消耗明细，结合设备日志识别大流量任务，必要时限制同步任务频率。</p>
+                        </details>
+                        <details>
+                            <summary>忘记密码如何处理？</summary>
+                            <p>前往忘记密码页面提交邮箱申请，收到邮件后按链接重置密码。</p>
+                        </details>
+                    </div>
+                </section>
+
+                <section class="jd-block" id="service-support">
+                    <div class="jd-head">
+                        <h2>服务支持</h2>
+                        <p>如果文档未覆盖你的场景，可通过以下方式联系支持。</p>
+                    </div>
+                    <div class="jd-support-row">
+                        <article>
+                            <i class="fa fa-ticket"></i>
+                            <h4>问题反馈</h4>
+                            <p>提交故障描述、复现步骤与截图，便于快速定位。</p>
+                            <a href="#/feedback">提交反馈</a>
+                        </article>
+                        <article>
+                            <i class="fa fa-envelope-o"></i>
+                            <h4>邮件支持</h4>
+                            <p>技术支持邮箱：support@joggle.cn</p>
+                            <a href="mailto:support@joggle.cn">发送邮件</a>
+                        </article>
+                        <article>
+                            <i class="fa fa-info-circle"></i>
+                            <h4>产品介绍</h4>
+                            <p>查看平台能力、场景与版本规划。</p>
+                            <a href="#/about">关于我们</a>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="jh-footer">
+        <div class="jh-shell jh-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专业的内网穿透与远程访问平台，让连接更简单、体验更稳定。</p>
+                <div class="jh-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>产品</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/feedback">更新日志</a>
+            </div>
+            <div>
+                <h5>支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+            </div>
+            <div class="jh-support-card">
+                <p>7x24 小时技术支持</p>
+                <h4>support@joggle.cn</h4>
+                <span>工作日 9:00 - 18:00</span>
+            </div>
+        </div>
+        <div class="jh-footer-bottom">
+            © 2014-2026 JOGGLE. All Rights Reserved. 粤ICP备14017469号-2
+        </div>
+    </footer>
 </div>

@@ -1,28 +1,54 @@
 /**
- *
- * Home 主页 模块
- *
- * @author marker
- * @date 2016-06-05
+ * 帮助中心页面模块
  */
-define(['app','css!./document.css'], function (app) {//加载依赖js,
-	var callback = ["$scope", function ($scope) {
+define(['app', 'jquery', 'css!../home/index.css', 'css!./document.css'], function (app, $) {
+    var callback = ['$scope', function ($scope) {
+        $('body').addClass('home-refactor document-refactor');
 
-		// 校验是否登录
+        $scope.islogin = false;
+        $scope.user = {};
 
-        // 加载用户登录信息
-        faceinner.get(api['user.login.info'], function(res){
-            if(res.code == '040006'){ // 没有登录
-                if(localStorage.token){
-                    window.location.href='#/login';
-                }
+        function applyScope(handler) {
+            if ($scope.$root.$$phase) {
+                handler();
+                return;
             }
+            $scope.$apply(handler);
+        }
+
+        faceinner.get(api['user.login.info'], function (res) {
+            if (res.code === 'S00') {
+                applyScope(function () {
+                    $scope.islogin = true;
+                    $scope.user = res.data || {};
+                });
+                return;
+            }
+
+            applyScope(function () {
+                $scope.islogin = false;
+                $scope.user = {};
+            });
         });
 
+        $scope.scrollTo = function (id, $event) {
+            if ($event && $event.preventDefault) {
+                $event.preventDefault();
+            }
 
+            var target = document.getElementById(id);
+            if (!target) {
+                return;
+            }
 
- 	}];
+            var top = Math.max(target.getBoundingClientRect().top + window.pageYOffset - 86, 0);
+            $('html, body').stop().animate({scrollTop: top}, 240);
+        };
 
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('home-refactor document-refactor');
+        });
+    }];
 
-	return callback;
+    return callback;
 });

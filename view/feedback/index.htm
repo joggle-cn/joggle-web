@@ -1,62 +1,153 @@
-<!-- Docs page layout -->
-<div class="" id="feedback">
-
-    <div class="container about-banner">
-        <p class="lead">
-            <img  class="img-responsive" src="./resource/images/about/banner-about-default.jpg" alt="">
-        </p>
-    </div>
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6" style="border: 1px solid #e8e8e8">
-                <form class="form-horizontal mt50" role="form" style="padding-right:30px;">
-                    <h3 style="text-align: center">问题反馈</h3>
-                    <br/>
-                    <br/>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">*问题标题</label>
-                        <div class="col-sm-9">
-                            <input type="text" ng-model="entity.title" class="face-input" placeholder=""
-                                   ng-focus="emailMsg=''" />
-                            <span class="form_message" >{{emailMsg}}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">*问题内容</label>
-                        <div class="col-sm-9">
-                            <textarea rows="5" ng-model="entity.content" class="face-input" placeholder=""/>
-                            <span class="form_message" >{{nicknameMsg}}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">联系方式</label>
-                        <div class="col-sm-9">
-                            <input type="text" ng-model="entity.contact" class="face-input" placeholder=""
-                                   ng-focus="passwordMsg=''"
-                            >
-                            <span class="form_message" >{{passwordMsg}}</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10 col-xs-12">
-                            <button ng-click="submit()" class="btn btn-success btn-block">提交反馈</button>
-                        </div>
-                    </div>
-
-                </form>
+<div id="feedback-page" class="joggle-home joggle-feedback">
+    <header class="jh-topbar">
+        <div class="jh-shell">
+            <a class="jh-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="jh-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a class="is-active" href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="jh-nav-actions">
+                <a class="jh-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="jh-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="jh-buy" href="#/package">立即购买</a>
             </div>
-
-            <div class="col-md-3"></div>
         </div>
+    </header>
 
+    <main>
+        <section class="jf-hero">
+            <div class="jh-shell jf-hero-grid">
+                <div class="jf-copy">
+                    <p class="jf-kicker"><i class="fa fa-commenting-o"></i> 用户反馈中心</p>
+                    <h1>告诉我们你的问题与建议</h1>
+                    <p>每一条反馈都会进入技术团队处理流程，帮助我们持续优化连接质量与控制台体验。</p>
+                    <ul class="jf-points">
+                        <li><i class="fa fa-check-circle-o"></i> 连接异常与错误日志反馈</li>
+                        <li><i class="fa fa-check-circle-o"></i> 功能建议与体验改进意见</li>
+                        <li><i class="fa fa-check-circle-o"></i> 账号、计费与订单相关问题</li>
+                    </ul>
+                </div>
+                <aside class="jf-hero-card">
+                    <h3>处理说明</h3>
+                    <ul>
+                        <li><span>1</span> 标题尽量描述场景和现象，便于快速定位。</li>
+                        <li><span>2</span> 建议附上操作步骤、设备系统与时间点。</li>
+                        <li><span>3</span> 我们会通过联系邮箱同步处理进度。</li>
+                    </ul>
+                    <div class="jf-contact-line">
+                        <i class="fa fa-envelope-o"></i>
+                        <span>support@joggle.cn</span>
+                    </div>
+                </aside>
+            </div>
+        </section>
 
+        <section class="jh-section jf-main">
+            <div class="jh-shell jf-main-grid">
+                <section class="jf-form-card">
+                    <header class="jf-form-head">
+                        <h2>提交反馈</h2>
+                        <p>反馈内容越完整，问题定位越快，处理效率越高。</p>
+                    </header>
+                    <div class="jf-field">
+                        <label for="feedbackTitle">问题标题 <em>*</em></label>
+                        <input id="feedbackTitle"
+                               type="text"
+                               class="jf-input"
+                               ng-model="entity.title"
+                               maxlength="80"
+                               placeholder="例如：Linux 客户端断线后无法自动重连">
+                    </div>
+                    <div class="jf-field">
+                        <label for="feedbackContent">问题内容 <em>*</em></label>
+                        <textarea id="feedbackContent"
+                                  class="jf-input jf-textarea"
+                                  ng-model="entity.content"
+                                  maxlength="2000"
+                                  placeholder="请描述复现步骤、报错信息、设备型号、系统版本等关键信息"></textarea>
+                    </div>
+                    <div class="jf-field">
+                        <label for="feedbackContact">联系方式</label>
+                        <input id="feedbackContact"
+                               type="text"
+                               class="jf-input"
+                               ng-model="entity.contact"
+                               maxlength="120"
+                               placeholder="邮箱 / QQ / 电话（用于反馈处理沟通）">
+                    </div>
+                    <div class="jf-submit-row">
+                        <button type="button" class="jf-submit-btn" ng-disabled="submitting" ng-click="submit()">
+                            {{submitting ? '提交中...' : '提交反馈'}}
+                        </button>
+                    </div>
+                </section>
 
-    </div>
+                <aside class="jf-side">
+                    <article class="jf-side-card">
+                        <h4><i class="fa fa-lightbulb-o"></i> 填写建议</h4>
+                        <p>推荐结构：问题现象 + 复现步骤 + 期望结果 + 实际结果。</p>
+                        <p>如果是连接问题，可补充节点地区、网络运营商、映射协议类型。</p>
+                    </article>
+                    <article class="jf-side-card">
+                        <h4><i class="fa fa-life-ring"></i> 其他支持渠道</h4>
+                        <a href="#/document">查看帮助中心文档</a>
+                        <a href="#/console">进入控制台自助排查</a>
+                        <a href="#/about">联系团队与商务合作</a>
+                    </article>
+                    <article class="jf-side-card">
+                        <h4><i class="fa fa-clock-o"></i> 服务时间</h4>
+                        <p>工作日 9:00 - 18:00</p>
+                        <p>我们会在收到反馈后尽快响应。</p>
+                    </article>
+                </aside>
+            </div>
+        </section>
+    </main>
 
-
+    <footer class="jh-footer">
+        <div class="jh-shell jh-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专业的内网穿透与远程访问平台，让连接更简单、体验更稳定。</p>
+                <div class="jh-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>产品</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/feedback">更新日志</a>
+            </div>
+            <div>
+                <h5>支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+            </div>
+            <div class="jh-support-card">
+                <p>7x24 小时技术支持</p>
+                <h4>support@joggle.cn</h4>
+                <span>工作日 9:00 - 18:00</span>
+            </div>
+        </div>
+        <div class="jh-footer-bottom">
+            Copyright 2014-2026 JOGGLE. All Rights Reserved. 蜀ICP备14017469号-2
+        </div>
+    </footer>
 </div>
-

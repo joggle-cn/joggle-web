@@ -1,140 +1,225 @@
-<!-- Docs page layout -->
-<div class="" id="download">
-
-    <div class="min-banner">
-        <div class=" download-banner">
-            <div class="container">
-                <div class="row banner-text">
-                    <h1>下载中心</h1>
-                    <p>无论您身处何地，都可以使用电脑或您的移动设备，通过Joggle访问家庭或公司内网服务器。</p>
-                </div>
+<div id="download" class="download-redesign">
+    <header class="dl-topbar">
+        <div class="dl-shell">
+            <a class="dl-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="dl-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a class="is-active" href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="dl-nav-actions">
+                <a class="dl-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="dl-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="dl-buy" href="#/package">立即购买</a>
             </div>
         </div>
-    </div>
+    </header>
 
-
-
-    <div class="container index-textcenter">
-        <h2 class="index-bullet-title">Joggle Client [客户端]</h2>
-        <p class="index-bullet-desc">Joggle Client 是一个内网服务器的Agent程序。</p>
-
-        <div class="row index-textcenter-bg">
-
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-windows"></i>
-                </div>
-                <h3><a  ng-click="downloadClient()"  class="btn btn-default">Windows</a></h3>
-                <p>
-                    版本：{{config.clientVersion}} <br>
-                    支持：386、amd64
-                </p>
+    <section class="dl-hero">
+        <div class="dl-shell dl-hero-grid">
+            <div class="dl-hero-copy">
+                <h1>下载中心</h1>
+                <p>无论您身处何地，都可以使用电脑或移动设备，<br>通过 Joggle 访问家庭或公司内网服务器。</p>
+                <ul class="dl-highlight">
+                    <li>
+                        <i class="fa fa-shield"></i>
+                        <div>
+                            <h4>全平台支持</h4>
+                            <p>覆盖主流操作系统</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-bolt"></i>
+                        <div>
+                            <h4>高速稳定</h4>
+                            <p>低延迟 高可用</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-lock"></i>
+                        <div>
+                            <h4>安全连接</h4>
+                            <p>端到端加密传输</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-refresh"></i>
+                        <div>
+                            <h4>持续更新</h4>
+                            <p>功能持续优化</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-linux"></i>
-                </div>
-                <h3><a  ng-click="downloadClient()"  target="_blank" class="btn btn-default">Linux</a></h3>
-                <p>
-                    版本：{{config.clientVersion}} <br>
-                    支持：386、amd64、arm64、arm32
-                </p>
-            </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-apple"></i>
-                </div>
-                <h3><a  ng-click="downloadClient()"  class="btn btn-default">Mac</a></h3>
-                <p>
-                    版本：{{config.clientVersion}} <br>
-                    支持：amd64
-                </p>
-            </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <img src="resource/images/icon/icon-docker.png" />
-                </div>
-                <h3><a href="https://help.joggle.cn/docs/deploy/docker-deploy-client.html" target="_blank" class="btn btn-default">Docker</a></h3>
-                <p>
-                    版本：{{config.dockerClientVersion}} <br><br>
-                </p>
-            </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-android"></i>
-                </div>
-                <h3><a  ng-click="downloadClient()"  class="btn btn-default">Android</a></h3>
-                <p>
-                    版本：{{config.apkClientVersion}} <br>
-                    支持：amd64(arm64-v8a)<br>【全网首发Android设备客户端】
-                </p>
-            </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-linux"></i>
-                </div>
-                <h3><a  ng-click="downloadClient()"  target="_blank" class="btn btn-default">玩客云armbian镜像</a></h3>
-                <p>
-                    版本：v1.3.6 <br>
-                    刷入玩客云重新开机后等待1分钟左右可在Joggle绑定设备
-                </p>
+            <div class="dl-hero-art">
+                <img src="./resource/images/download/hero-network.png" alt="Joggle 下载网络示意图">
             </div>
         </div>
-    </div>
+    </section>
 
-
-
-
-    <div class="container index-textcenter">
-        <h2 class="index-bullet-title">Joggle Server [服务端]</h2>
-        <p class="index-bullet-desc">Joggle Server 主要提供UI操作界面，控制客户端的代理程序。
-
-
-        </p>
-
-        <div class="row index-textcenter-bg">
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-windows"></i>
-                </div>
-                <h3><a href="" ng-click="downloadServer()" class="btn btn-default">Windows</a></h3>
-                <p>
-                    版本：{{config.serverVersion}} <br>
-                </p>
+    <main class="dl-main">
+        <section class="dl-shell dl-download-section">
+            <header class="dl-section-head">
+                <h2>Joggle Client [客户端]</h2>
+                <p>Joggle Client 是一个内网服务端的 Agent 程序。</p>
+            </header>
+            <div class="dl-card-grid">
+                <article class="dl-card">
+                    <i class="fa fa-windows dl-os win"></i>
+                    <h3>Windows</h3>
+                    <p>版本：v{{config.clientVersion}}</p>
+                    <p>支持：386、amd64</p>
+                    <a class="dl-btn" ng-click="downloadClient()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-linux dl-os linux"></i>
+                    <h3>Linux</h3>
+                    <p>版本：v{{config.clientVersion}}</p>
+                    <p>支持：386、amd64、arm64、arm32</p>
+                    <a class="dl-btn" ng-click="downloadClient()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-apple dl-os mac"></i>
+                    <h3>Mac</h3>
+                    <p>版本：v{{config.clientVersion}}</p>
+                    <p>支持：amd64</p>
+                    <a class="dl-btn" ng-click="downloadClient()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-ship dl-os docker"></i>
+                    <h3>Docker</h3>
+                    <p>版本：{{config.dockerClientVersion}}</p>
+                    <p>支持：容器化部署</p>
+                    <a class="dl-btn" target="_blank" href="https://help.joggle.cn/docs/deploy/docker-deploy-client.html"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-android dl-os android"></i>
+                    <h3>Android</h3>
+                    <p>版本：{{config.apkClientVersion}}</p>
+                    <p>支持：amd64(arm64-v8a)</p>
+                    <p class="dl-tip">全网首发 Android 设备客户端</p>
+                    <a class="dl-btn" ng-click="downloadClient()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-cloud-download dl-os cloud"></i>
+                    <h3>玩客云 armbian 镜像</h3>
+                    <p>版本：v1.3.6</p>
+                    <p>刷入后约 1 分钟即可在 Joggle 绑定设备</p>
+                    <a class="dl-btn" ng-click="downloadClient()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
             </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-linux"></i>
-                </div>
-                <h3><a href="" ng-click="downloadServer()"  class="btn btn-default">Linux</a></h3>
-                <p>
-                    版本：{{config.serverVersion}} <br>
-                </p>
+        </section>
+
+        <section class="dl-shell dl-download-section">
+            <header class="dl-section-head">
+                <h2>Joggle Server [服务端]</h2>
+                <p>Joggle Server 主要提供 UI 操作界面，控制客户端的代理程序。</p>
+            </header>
+            <div class="dl-card-grid dl-card-grid-server">
+                <article class="dl-card">
+                    <i class="fa fa-windows dl-os win"></i>
+                    <h3>Windows</h3>
+                    <p>版本：v{{config.serverVersion}}</p>
+                    <a class="dl-btn" ng-click="downloadServer()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-linux dl-os linux"></i>
+                    <h3>Linux</h3>
+                    <p>版本：v{{config.serverVersion}}</p>
+                    <a class="dl-btn" ng-click="downloadServer()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-apple dl-os mac"></i>
+                    <h3>Mac</h3>
+                    <p>版本：v{{config.serverVersion}}</p>
+                    <a class="dl-btn" ng-click="downloadServer()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
+                <article class="dl-card">
+                    <i class="fa fa-ship dl-os docker"></i>
+                    <h3>Docker</h3>
+                    <p>版本：未发布</p>
+                    <a class="dl-btn" ng-click="downloadServer()"><i class="fa fa-download"></i> 立即下载</a>
+                </article>
             </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <i class="fa fa-apple"></i>
+        </section>
+
+        <section class="dl-shell dl-feature-strip">
+            <article>
+                <i class="fa fa-desktop"></i>
+                <div>
+                    <h4>统一管理</h4>
+                    <p>集中管理所有设备与连接</p>
                 </div>
-                <h3><a href="" ng-click="downloadServer()"  class="btn btn-default">Mac</a></h3>
-                <p>
-                    版本：{{config.serverVersion}} <br>
-                </p>
+            </article>
+            <article>
+                <i class="fa fa-globe"></i>
+                <div>
+                    <h4>多平台支持</h4>
+                    <p>支持主流操作系统和设备</p>
+                </div>
+            </article>
+            <article>
+                <i class="fa fa-shield"></i>
+                <div>
+                    <h4>安全可靠</h4>
+                    <p>端到端加密传输，保障稳定连接</p>
+                </div>
+            </article>
+            <article class="dl-feature-cta">
+                <h4>安装或使用遇到问题？</h4>
+                <p>查看帮助文档或联系技术团队</p>
+                <a href="#/document">前往帮助中心 <i class="fa fa-long-arrow-right"></i></a>
+            </article>
+        </section>
+    </main>
+
+    <footer class="dl-footer">
+        <div class="dl-shell dl-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专注稳定高效的 P2P 穿透，助力万物互联。<br>快速、安全、专业的内网通信服务。</p>
+                <div class="dl-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                    <a href="#"><i class="fa fa-envelope-o"></i></a>
+                </div>
             </div>
-            <div class="col-sm-3 download-item">
-                <div class="index-icon">
-                    <img src="resource/images/icon/icon-docker.png" />
-                </div>
-                <h3><a href="" target="_blank" class="btn btn-default">Docker</a></h3>
-                <p>
-                    版本：未发布 <br>
-                </p>
+            <div>
+                <h5>产品服务</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a href="#/document">API 文档</a>
+            </div>
+            <div>
+                <h5>帮助支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+                <a href="#/feedback">技术支持</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+                <a href="#/user/agreement">隐私政策</a>
+            </div>
+            <div class="dl-contact-card">
+                <h5>联系我们</h5>
+                <p>邮箱：support@joggle.cn</p>
+                <p>工作时间：9:00-18:00 (工作日)</p>
             </div>
         </div>
-    </div>
-    <div style="height: 60px"></div>
-
-
-
-
-
+        <div class="dl-copyright">
+            Copyright © 2014-2026 joggle.cn All rights reserved. 蜀ICP备14017469号-2
+        </div>
+    </footer>
 </div>

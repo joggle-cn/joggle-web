@@ -5,9 +5,11 @@
  * @author marker
  * @date 2016-06-05
  */
-define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], function (app, $, layer) {//加载依赖js,
+define(['app','jquery', 'layer','bootstrap-switch', 'css!../console/subpage.css', 'css!./mapping.css'], function (app, $, layer) {//加载依赖js,
 
 	let callback = ["$scope","$routeParams","$location","$rootScope", function ($scope, $routeParams,$location,$rootScope) {
+        $('body').addClass('console-refactor');
+        $scope.consoleMenuActive = 'device';
         $scope.active = 'device';
         // 设备ID
         let deviceId = $routeParams.deviceId;
@@ -751,6 +753,10 @@ define(['app','jquery', 'layer','bootstrap-switch', 'css!./mapping.css'], functi
             }
 
         }
+
+        $scope.$on('$destroy', function () {
+            $('body').removeClass('console-refactor');
+        });
 
 
     }];

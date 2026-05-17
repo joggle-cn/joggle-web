@@ -1,64 +1,193 @@
-<!-- Docs page layout -->
-<div class="" id="about">
-    <div class="container about-banner">
-        <p class="lead">
-            <img  class="img-responsive" src="./resource/images/about/banner-about-default.jpg" alt="">
-        </p>
-    </div>
-
-
-
-    <div class="container index-textcenter">
-        <h2 class="index-bullet-title">关于Joggle产品</h2>
-        <p class="lead">Joggle 是一个基于云端管理的内网穿透工具, 用于快速、便捷切换网络的路由器，它能帮助开发者实现内网调试，开发者与开发者之间的联调等工作。更能实现轻量级的网站应用，您只需要在您的电脑部署一个Joggle客户端即可触手可及。</p>
-
-
-
-        <p class="lead">Joggle 是完全开源的。它的代码托管、开发、维护都依赖 GitHub/GitEE 平台。</p>
-        <a href="https://github.com/wuweiit/Bullet" target="_blank" class="btn btn-outline btn-lg">查看 GitHub 项目主页</a>
-    </div>
-
-
-    <div class="container index-textcenter">
-
-        <hr class="half-rule">
-
-        <h2 class="index-bullet-title">团队成员</h2>
-        <p class="lead"> </p>
-
-        <div class="row">
-
-            <div class="col-md-4 col-sm-4 wow fadeIn animated" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
-                <h4>开发者</h4>
-                <h3>Marker</h3>
-                <p></p>
+<div id="about-page" class="joggle-home joggle-about">
+    <header class="jh-topbar">
+        <div class="jh-shell">
+            <a class="jh-brand" href="#/index">
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+            </a>
+            <nav class="jh-nav">
+                <a href="#/index">首页</a>
+                <a href="#/package">产品定价</a>
+                <a href="#/document">帮助中心</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/hardware">硬件设备</a>
+                <a class="is-active" href="#/about">关于我们</a>
+                <a href="#/feedback">问题反馈</a>
+            </nav>
+            <div class="jh-nav-actions">
+                <a class="jh-login" ng-show="!islogin" href="#/login">登录</a>
+                <a class="jh-login" ng-show="islogin" href="#/console">控制台</a>
+                <a class="jh-buy" href="#/package">立即购买</a>
             </div>
         </div>
-    </div>
+    </header>
 
-
-    <div class="container index-textcenter">
-        <hr class="half-rule">
-        <h2 class="index-bullet-title">联系我们</h2>
-        <p class="lead"> </p>
-        <div class="row">
-            <div class="col-md-4 col-sm-4 wow fadeIn animated"  style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
-                <img src="resource/images/icon/icon3.png" class="contact-support-icon" alt="技术支持">
-                <h3>技术支持</h3>
-                <p>admin@wuweibi.com</p>
+    <section class="ja-hero">
+        <div class="jh-shell ja-hero-grid">
+            <div class="ja-copy">
+                <p class="ja-kicker"><i class="fa fa-diamond"></i> 关于 JOGGLE</p>
+                <h1>让内网访问更稳定、更简单</h1>
+                <p>JOGGLE 专注于内网穿透与远程访问能力建设，帮助个人、开发团队与企业在复杂网络环境下安全连接设备与服务。</p>
+                <ul class="ja-points">
+                    <li><i class="fa fa-check-circle-o"></i> 云端统一管理与多端协同</li>
+                    <li><i class="fa fa-check-circle-o"></i> 支持端口/域名/P2P 映射能力</li>
+                    <li><i class="fa fa-check-circle-o"></i> 持续更新与长期技术支持</li>
+                </ul>
             </div>
-            <div class="col-md-4 col-sm-4 wow fadeIn animated"  style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
-                <img src="resource/images/icon/icon4.png" class="contact-support-icon" alt="技术支持">
-                <h3>QQ交流群</h3>
-                <p>331925386</p>
-            </div>
-            <div class="col-md-4 col-sm-4 wow fadeIn animated" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
-                <img src="resource/images/icon/icon1.png" class="contact-support-icon" alt="赞助扶持">
-                <h3>赞助扶持</h3>
-                <p>903595558@qq.com</p>
+            <div class="ja-art">
+                <img src="./resource/images/about/banner-about-default.jpg" alt="关于JOGGLE">
             </div>
         </div>
-    </div>
+    </section>
 
+    <section class="jh-section">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>产品与愿景</h2>
+                <p>构建可靠、可扩展、可持续演进的内网连接基础设施。</p>
+            </div>
+            <div class="ja-mission-grid">
+                <article>
+                    <i class="fa fa-lightbulb-o"></i>
+                    <h3>使命</h3>
+                    <p>降低网络互联门槛，让远程访问像局域网一样直观。</p>
+                </article>
+                <article>
+                    <i class="fa fa-shield"></i>
+                    <h3>原则</h3>
+                    <p>以稳定性、安全性和可观测性为优先级设计产品能力。</p>
+                </article>
+                <article>
+                    <i class="fa fa-code-fork"></i>
+                    <h3>开放</h3>
+                    <p>持续拥抱开源生态，保持透明迭代和社区协作节奏。</p>
+                </article>
+            </div>
+        </div>
+    </section>
 
+    <section class="jh-section ja-timeline-section">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>里程碑</h2>
+                <p>围绕连接效率、覆盖场景和平台能力持续推进。</p>
+            </div>
+            <ol class="ja-timeline">
+                <li>
+                    <span>01</span>
+                    <h4>产品起步</h4>
+                    <p>聚焦开发调试场景，快速建立内网映射核心能力。</p>
+                </li>
+                <li>
+                    <span>02</span>
+                    <h4>多端覆盖</h4>
+                    <p>逐步支持 Windows、Linux、Mac、移动端与容器场景。</p>
+                </li>
+                <li>
+                    <span>03</span>
+                    <h4>P2P增强</h4>
+                    <p>扩展端到端映射能力，优化低延迟链路与可用性策略。</p>
+                </li>
+                <li>
+                    <span>04</span>
+                    <h4>持续演进</h4>
+                    <p>以用户反馈驱动迭代，强化控制台管理与运营能力。</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="jh-section">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>团队成员</h2>
+                <p>小而专注的产品与工程团队，持续打磨核心体验。</p>
+            </div>
+            <div class="ja-team-grid">
+                <article>
+                    <h4>开发者</h4>
+                    <h3>Marker</h3>
+                    <p>负责核心架构与平台能力建设。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="jh-section ja-open-source">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>开源协作</h2>
+                <p>代码托管与协作维护依赖 GitHub / Gitee 平台。</p>
+            </div>
+            <div class="ja-open-card">
+                <p>JOGGLE 持续在开源生态中迭代，欢迎关注项目进展、提交建议与参与贡献。</p>
+                <a href="https://github.com/wuweiit/Bullet" target="_blank" class="jh-btn primary"><i class="fa fa-github"></i> 查看 GitHub 项目主页</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="jh-section ja-contact">
+        <div class="jh-shell">
+            <div class="jh-title-wrap">
+                <h2>联系我们</h2>
+                <p>技术支持、交流社区与合作咨询渠道。</p>
+            </div>
+            <div class="ja-contact-grid">
+                <article>
+                    <i class="fa fa-envelope-o"></i>
+                    <h4>技术支持</h4>
+                    <p>admin@wuweibi.com</p>
+                </article>
+                <article>
+                    <i class="fa fa-qq"></i>
+                    <h4>QQ交流群</h4>
+                    <p>331925386</p>
+                </article>
+                <article>
+                    <i class="fa fa-handshake-o"></i>
+                    <h4>赞助扶持</h4>
+                    <p>903595558@qq.com</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="jh-footer">
+        <div class="jh-shell jh-footer-grid">
+            <div>
+                <img src="./resource/images/logo-white.png" alt="JOGGLE">
+                <p>专业的内网穿透与远程访问平台，让连接更简单、体验更稳定。</p>
+                <div class="jh-social">
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                    <a href="#"><i class="fa fa-qq"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5>产品</h5>
+                <a href="#/package">产品定价</a>
+                <a href="#/download">下载中心</a>
+                <a href="#/feedback">更新日志</a>
+            </div>
+            <div>
+                <h5>支持</h5>
+                <a href="#/document">帮助中心</a>
+                <a href="#/feedback">使用教程</a>
+                <a href="#/feedback">常见问题</a>
+            </div>
+            <div>
+                <h5>关于我们</h5>
+                <a href="#/about">公司介绍</a>
+                <a href="#/feedback">联系我们</a>
+                <a href="#/user/agreement">服务条款</a>
+            </div>
+            <div class="jh-support-card">
+                <p>7x24 小时技术支持</p>
+                <h4>support@joggle.cn</h4>
+                <span>工作日 9:00 - 18:00</span>
+            </div>
+        </div>
+        <div class="jh-footer-bottom">
+            © 2014-2026 JOGGLE. All Rights Reserved. 蜀ICP备14017469号-2
+        </div>
+    </footer>
 </div>

@@ -9,3 +9,5 @@ data
 target
 .run/*
 LOGGING_PATH_IS_UNDEFINED
+/output/
+/.playwright-cli/

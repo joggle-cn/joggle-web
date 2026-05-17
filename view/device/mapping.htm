@@ -1,253 +1,218 @@
-<div style="margin-top:30px; "></div>
-<div class="container mapping">
+<div id="device-mapping-page" class="console-page cs-subpage">
+    <div ng-include="'view/console/partials/topbar.htm'"></div>
 
-	<div class="row">
-		<div class="col-xs-12">
-			<ol class="breadcrumb">
-				<li><a href="#">首页</a></li>
-				<li><a href="#/user/device">我的设备</a></li>
-				<li class="active">设备详情</li>
-			</ol>
-		</div>
-	</div>
+    <div class="cs-layout">
+        <div ng-include="'view/console/partials/sidebar.htm'"></div>
 
-	<div class="row" style="margin-top: 10px;">
-		<div class="col-sm-12">
-			<div class="bs-example bs-example-tabs" >
-				<ul id="domainTabs" class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href=""  ng-click="selectTab(1)" role="tab" data-toggle="tab">基础信息</a></li>
-					<li role="presentation" class=""><a href="" ng-click="selectTab(2)" role="tab" data-toggle="tab">设备域名</a></li>
-					<li role="presentation" class=""><a href="" ng-click="selectTab(3)" role="tab" data-toggle="tab">设备端口</a></li>
-					<li role="presentation" class=""><a href="" ng-click="selectTab(4)" role="tab" data-toggle="tab">设备端到端 <span class="label label-success" style="background-color: orangered;">免流量费</span></a>
-					</li>
+        <main class="cs-main">
+            <section class="cs-page-head">
+                <div>
+                    <h1>设备详情</h1>
+                    <p>查看设备状态、映射资源与端到端连接配置。</p>
+                </div>
+                <div class="cs-head-actions">
+                    <a class="cs-ghost-btn" href="#/user/device"><i class="fa fa-angle-left"></i>&nbsp;返回我的设备</a>
+                </div>
+            </section>
 
-					<li class="navbar-right" ng-show="tab === 2"><a href="" ng-click="bindDomainDialog(deviceInfo, 2)" style="color: #d20c0c; font-weight: bold" >绑定域名</a></li>
-					<li class="navbar-right" ng-show="tab === 3"><a href="" ng-click="bindDomainDialog(deviceInfo, 1)" style="color: #d20c0c; font-weight: bold" >绑定端口</a></li>
-					<li class="navbar-right" ng-show="tab === 4"><a href="" ng-click="createP2pMapping()" style="color: #d20c0c; font-weight: bold" >创建端到端</a></li>
-				</ul>
+            <section class="cs-content-card dm-tab-card">
+                <div class="dm-tab-row">
+                    <a href ng-click="selectTab(1)" class="dm-tab-item" ng-class="{'is-active': isSelected(1)}">基础信息</a>
+                    <a href ng-click="selectTab(2)" class="dm-tab-item" ng-class="{'is-active': isSelected(2)}">设备域名</a>
+                    <a href ng-click="selectTab(3)" class="dm-tab-item" ng-class="{'is-active': isSelected(3)}">设备端口</a>
+                    <a href ng-click="selectTab(4)" class="dm-tab-item" ng-class="{'is-active': isSelected(4)}">设备端到端 <span class="dm-badge">免流量费</span></a>
+                    <div class="dm-tab-actions">
+                        <a href ng-if="tab === 2" ng-click="bindDomainDialog(deviceInfo, 2)" class="cs-main-btn"><i class="fa fa-link"></i>&nbsp;绑定域名</a>
+                        <a href ng-if="tab === 3" ng-click="bindDomainDialog(deviceInfo, 1)" class="cs-main-btn"><i class="fa fa-plug"></i>&nbsp;绑定端口</a>
+                        <a href ng-if="tab === 4" ng-click="createP2pMapping()" class="cs-main-btn"><i class="fa fa-plus"></i>&nbsp;创建端到端</a>
+                    </div>
+                </div>
+            </section>
 
-				<div class="tab-content" style="padding: 20px">
-					<!-- 自定义的域名 -->
-					<div role="tabpanel" class="tab-pane " ng-class="{active: isSelected(1)}">
-						<div class="row" style="margin-top: 10px;">
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="col-xs-3">
-										<div class="item-server">
-											<i class="fa fa-server item-icon"></i>
-											<span class="item-status label-success" ng-if="deviceInfo.status == 1"></span>
-											<span class="item-status label-default" ng-if="deviceInfo.status != 1"></span>
-										</div>
-									</div>
-									<div class="col-xs-9" >
-										<div class="row">
-											<div class="col-sm-6 ">别名：{{deviceInfo.name}}</div>
-											<div class="col-sm-6 ">编码：{{deviceInfo.deviceNo}}</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-6">地址：{{deviceInfo.intranetIp}}</div>
-											<div class="col-sm-6">MAC：{{deviceInfo.macAddr}}</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-6">版本：{{deviceInfo.clientVersion}}</div>
-											<div class="col-sm-6">系统：{{deviceInfo.os +'_'+deviceInfo.arch}}</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<a class="btn btn-default" ng-click="delDevice(deviceInfo)">解绑设备</a>
-								<a class="btn btn-default" ng-click="editDevice(deviceInfo)">编辑设备</a>
-								<!-- 			<a href="#/user/device/{{deviceInfo.id}}/mapping/1/log" class="btn btn-default">实时日志</a> -->
-								<a class="btn btn-default" ng-click="sendMigicWolDevice(deviceInfo)">网络唤醒</a>
-								<a class="btn btn-default" ng-click="openDeviceDoorDialog(deviceInfo)">任意门</a>
-								<a class="btn btn-default" ng-click="openDeviceProxyDialog(deviceInfo)">内网代理</a>
-								<a class="btn btn-default" ng-click="openWhiteIpsDialog(deviceInfo)">IP白名单</a>
-								<a class="btn btn-default" ng-click="checkUpdate(deviceInfo)">检查更新</a>
-								<a class="btn btn-default" ng-click="deviceScan(deviceInfo)">扫描服务清单</a>
-							</div>
-						</div>
+            <section class="cs-content-card" ng-show="isSelected(1)">
+                <div class="dm-device-panel">
+                    <div class="dm-device-meta">
+                        <div class="cs-device-icon dm-device-icon">
+                            <i class="fa fa-server"></i>
+                            <span class="cs-status-dot" ng-class="deviceInfo.status == 1 ? 'cs-status-online' : 'cs-status-offline'"></span>
+                        </div>
+                        <div>
+                            <h3>{{deviceInfo.name || '未命名设备'}}</h3>
+                            <p>设备编码：{{deviceInfo.deviceNo || '-'}}</p>
+                            <p>内网地址：{{deviceInfo.intranetIp || '-'}}</p>
+                            <p>MAC：{{deviceInfo.macAddr || '-'}} · 客户端：{{deviceInfo.clientVersion || '-'}} · 系统：{{deviceInfo.os || '-'}}_{{deviceInfo.arch || '-'}}</p>
+                        </div>
+                    </div>
 
-						<hr>
+                    <div class="dm-action-grid">
+                        <a href ng-click="delDevice(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-unlink"></i>&nbsp;解绑设备</a>
+                        <a href ng-click="editDevice(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-edit"></i>&nbsp;编辑设备</a>
+                        <a href ng-click="sendMigicWolDevice(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-heartbeat"></i>&nbsp;网络唤醒</a>
+                        <a href ng-click="openDeviceDoorDialog(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-external-link"></i>&nbsp;任意门</a>
+                        <a href ng-click="openDeviceProxyDialog(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-exchange"></i>&nbsp;内网代理</a>
+                        <a href ng-click="openWhiteIpsDialog(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-shield"></i>&nbsp;IP白名单</a>
+                        <a href ng-click="checkUpdate(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-cloud-download"></i>&nbsp;检查更新</a>
+                        <a href ng-click="deviceScan(deviceInfo)" class="cs-ghost-btn dm-action-btn"><i class="fa fa-search"></i>&nbsp;扫描服务</a>
+                    </div>
+                </div>
 
-						<div class="row device-feature">
-							<div class="col-md-3">
-								<div class="mapping-feature-item">
-									<h5>线路 <a href ng-click="switchLineDialog()">切换</a></h5>
-									<p>
-										<span class="label label-info">{{deviceInfo.broadband}}Mbps</span>
-									</p>
-								</div>
-							</div>
-							<!--		<div class="col-md-2 col-xs-6">-->
-							<!--			<div class="mapping-feature-item">-->
-							<!--				<h5>并发连接 <a href ng-click="upgradeConnect()">升级</a></h5>-->
-							<!--				<p><span class="label label-info">{{deviceInfo.concurrentNum}}个</span> </p>-->
-							<!--			</div>-->
-							<!--		</div>-->
-							<div class="col-md-3 col-xs-6">
-								<div class="mapping-feature-item">
-									<h5>公网IP</h5>
-									<p>{{deviceInfo.publicIp}}</p>
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-6">
-								<div class="mapping-feature-item">
-									<h5>域名</h5>
-									<p>{{features.domainCount}}个</p>
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-6">
-								<div class="mapping-feature-item">
-									<h5>端口</h5>
-									<p>{{features.portCount}}个</p>
-								</div>
-							</div>
-							<div class="col-md-3 col-xs-6">
-								<div class="mapping-feature-item">
-									<h5>端到端</h5>
-									<p>{{features.p2pCount}}个</p>
-								</div>
-							</div>
-						</div>
+                <div class="dm-feature-grid">
+                    <article>
+                        <h4>线路</h4>
+                        <p>
+                            <span class="label label-info">{{deviceInfo.broadband}} Mbps</span>
+                            <a href ng-click="switchLineDialog()">切换</a>
+                        </p>
+                    </article>
+                    <article>
+                        <h4>公网IP</h4>
+                        <p>{{deviceInfo.publicIp || '-'}}</p>
+                    </article>
+                    <article>
+                        <h4>域名</h4>
+                        <p>{{features.domainCount || 0}} 个</p>
+                    </article>
+                    <article>
+                        <h4>端口</h4>
+                        <p>{{features.portCount || 0}} 个</p>
+                    </article>
+                    <article>
+                        <h4>P2P</h4>
+                        <p>{{features.p2pCount || 0}} 个</p>
+                    </article>
+                </div>
+            </section>
 
+            <section class="cs-content-card" ng-show="isSelected(2)">
+                <div class="cs-table-wrap" ng-if="domainList && domainList.length > 0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="60">#</th>
+                            <th width="220">域名地址</th>
+                            <th width="220">内网地址</th>
+                            <th width="90">宽带峰值</th>
+                            <th width="90">最大并发</th>
+                            <th width="110">今日流量</th>
+                            <th width="90">状态</th>
+                            <th width="220">备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in domainList">
+                            <td>{{$index + 1}}</td>
+                            <td><a target="_blank" href="{{item.url}}">{{item.url}}</a></td>
+                            <td>
+                                <span ng-if="item.protocol == 1 || item.protocol == 3 || item.protocol == 4">{{item.host}}:{{item.port}}</span>
+                                <span ng-if="item.protocol != 1 && item.protocol != 3 && item.protocol != 4">-</span>
+                            </td>
+                            <td>{{item.bandwidth}} Mbps</td>
+                            <td>{{item.concurrentNum}}</td>
+                            <td>{{item.todayFlow}}</td>
+                            <td>
+                                <span class="label label-success" ng-if="item.status == 1">启用</span>
+                                <span class="label label-default" ng-if="item.status != 1">停用</span>
+                            </td>
+                            <td>{{item.description || '-'}}</td>
+                            <td>
+                                <a href ng-click="addMapping(item,2)">编辑</a>
+                                &nbsp;
+                                <a href ng-click="delMapping(item.id, $index)">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cs-empty" ng-if="!domainList || domainList.length === 0">暂无设备域名映射</div>
+            </section>
 
-						<hr>
+            <section class="cs-content-card" ng-show="isSelected(3)">
+                <div class="cs-table-wrap" ng-if="portList && portList.length > 0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="60">#</th>
+                            <th width="220">外网地址</th>
+                            <th width="220">内网地址</th>
+                            <th width="90">宽带峰值</th>
+                            <th width="90">最大并发</th>
+                            <th width="110">今日流量</th>
+                            <th width="90">状态</th>
+                            <th width="220">备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in portList">
+                            <td>{{$index + 1}}</td>
+                            <td><span ng-bind="item.url"></span></td>
+                            <td>
+                                <span ng-if="item.protocol == 2">tcp://{{item.host}}:{{item.port}}</span>
+                                <span ng-if="item.protocol == 5">udp://{{item.host}}:{{item.port}}</span>
+                            </td>
+                            <td>{{item.bandwidth}} Mbps</td>
+                            <td>{{item.concurrentNum}}</td>
+                            <td>{{item.todayFlow}}</td>
+                            <td>
+                                <span class="label label-success" ng-if="item.status == 1">启用</span>
+                                <span class="label label-default" ng-if="item.status != 1">停用</span>
+                            </td>
+                            <td>{{item.description || '-'}}</td>
+                            <td>
+                                <a href ng-click="addMapping(item, 1)">编辑</a>
+                                &nbsp;
+                                <a href ng-click="delMapping(item.id, $index)">解绑</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cs-empty" ng-if="!portList || portList.length === 0">暂无设备端口映射</div>
+            </section>
 
-					</div>
-					<div role="tabpanel" class="tab-pane " ng-class="{active: isSelected(2)}">
-
-						<table class="table table-hover">
-							<thead>
-							<tr>
-								<th width="36">序号</th>
-								<th width="140">域名地址</th>
-								<th width="140">内网地址</th>
-								<th width="60">宽带峰值</th>
-								<th width="60">最大并发</th>
-								<th width="60">今日流量</th>
-								<th width="35">状态</th>
-								<th width="120">备注</th>
-								<th width="100">操作</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr ng-repeat="item in domainList">
-								<td>{{$index+1}}</td>
-								<td>
-									<a target="_blank" href="{{item.url}}">{{item.url}}</a>
-								</td>
-								<td>
-									<span ng-if="item.protocol == 1 || item.protocol == 3 || item.protocol == 4 ">{{item.host}}:{{item.port}}</span>
-								</td>
-								<td>{{item.bandwidth}}Mbps</td>
-								<td>{{item.concurrentNum}}</td>
-								<td>{{item.todayFlow}}</td>
-								<td>
-									<span class="label label-success" ng-if="item.status == 1">启用</span>
-									<span class="" ng-if="item.status != 1"> - </span>
-								</td>
-								<td>{{item.description}}</td>
-								<td>
-									<a ng-click="addMapping(item,2)" class="btn btn-info">编辑</a>
-									<a ng-click="delMapping(item.id, $index)" class="btn btn-default">删除</a>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-					<div role="tabpanel" class="tab-pane " ng-class="{active: isSelected(3)}">
-						<table class="table table-hover">
-							<thead>
-							<tr>
-								<th width="36">序号</th>
-								<th width="140">外网地址</th>
-								<th width="140">内网地址</th>
-								<th width="60">宽带峰值</th>
-								<th width="60">最大并发</th>
-								<th width="60">今日流量</th>
-								<th width="35">状态</th>
-								<th width="120">备注</th>
-								<th width="100">操作</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr ng-repeat="item in portList">
-								<td>{{$index+1}}</td>
-								<td><span ng-bind="item.url"></span></td>
-								<td>
-									<span ng-if="item.protocol == 2">tcp://{{item.host}}:{{item.port}}</span>
-									<span ng-if="item.protocol == 5">udp://{{item.host}}:{{item.port}}</span>
-								</td>
-								<td>{{item.bandwidth}}Mbps</td>
-								<td>{{item.concurrentNum}}</td>
-								<td>{{item.todayFlow}}</td>
-								<td>
-									<span class="label label-success" ng-if="item.status == 1">启用</span>
-									<span class="" ng-if="item.status != 1"> - </span>
-								</td>
-								<td>{{item.description}}</td>
-								<td>
-									<a ng-click="addMapping(item, 1)" class="btn btn-info">编辑</a>
-									<a ng-click="delMapping(item.id, $index)" class="btn btn-default">解绑</a>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-
-					</div>
-					<div role="tabpanel" class="tab-pane " ng-class="{active: isSelected(4)}">
-						<table class="table table-hover">
-							<thead>
-							<tr>
-								<th width="60">#</th>
-								<th width="400">服务模型</th>
-								<th width="80">状态</th>
-								<th width="165">操作时间</th>
-								<th width="200">备注</th>
-								<th>操作</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr ng-repeat="item in p2pList">
-								<th scope="row">{{$index + 1}}</th>
-								<td>
-									s:<span class="label label-default">{{item.serverDeviceNo}}:{{item.serverLocalPort}}</span>
-									<br>
-									c:<span  class="label label-info">{{item.clientDeviceNo}}:{{item.clientProxyPort}}</span> <span class="label label-success" >内网隔离</span>
-								</td>
-								<td>
-									<span ng-if="item.status == 1" class="label label-success">{{item.statusName}}</span>
-									<span ng-if="item.status != 1" class="label label-default">{{item.statusName}}</span>
-								</td>
-								<td>{{item.updateTime}}</td>
-								<td>{{item.remark}} </td>
-								<td>
-									<a href ng-click="createP2pMapping(item.id)">编辑</a>
-									<a href ng-click="deleteP2pMapping(item.id)">删除</a>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-
-
+            <section class="cs-content-card" ng-show="isSelected(4)">
+                <div class="cs-table-wrap" ng-if="p2pList && p2pList.length > 0">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="60">#</th>
+                            <th width="420">服务模型</th>
+                            <th width="100">状态</th>
+                            <th width="180">操作时间</th>
+                            <th width="260">备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in p2pList">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>
+                                s:<span class="label label-default">{{item.serverDeviceNo}}:{{item.serverLocalPort}}</span>
+                                <br>
+                                c:<span class="label label-info">{{item.clientDeviceNo}}:{{item.clientProxyPort}}</span>
+                                <span class="label label-success">内网隔离</span>
+                            </td>
+                            <td>
+                                <span ng-if="item.status == 1" class="label label-success">{{item.statusName}}</span>
+                                <span ng-if="item.status != 1" class="label label-default">{{item.statusName}}</span>
+                            </td>
+                            <td>{{item.updateTime}}</td>
+                            <td>{{item.remark || '-'}}</td>
+                            <td>
+                                <a href ng-click="createP2pMapping(item.id)">编辑</a>
+                                &nbsp;
+                                <a href ng-click="deleteP2pMapping(item.id)">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cs-empty" ng-if="!p2pList || p2pList.length === 0">暂无端到端映射</div>
+            </section>
+        </main>
+    </div>
 </div>
-
-
-
-
 <!-- 编辑端口弹出框 -->
 <div id="addMapping" class="modal fade">
     <div class="modal-dialog">
